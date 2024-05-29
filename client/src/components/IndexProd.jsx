@@ -1,5 +1,5 @@
 import React from "react";
-import shoe from "../assets/carousel/nelson-ndongala-kKObh7tUPNc-unsplash.jpg";
+import shoe from "../assets/blueboi.jpg";
 
 const IndexProd = () => {
   return (

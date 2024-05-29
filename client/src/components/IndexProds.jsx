@@ -1,5 +1,6 @@
 import React from "react";
 import IndexProd from "./IndexProd";
+import { NavLink } from "react-router-dom";
 
 const IndexProds = () => {
   return (
@@ -7,9 +8,12 @@ const IndexProds = () => {
       <IndexProd />
       <IndexProd />
       <IndexProd />
-      <button className="px-4 py-2 border bg-white rounded w-1/2 hover:invert transition-all">
+      <NavLink
+        to={"catalogue"}
+        className="px-4 py-2 border text-center bg-white rounded w-1/2 hover:invert transition-all"
+      >
         View All
-      </button>
+      </NavLink>
     </div>
   );
 };
