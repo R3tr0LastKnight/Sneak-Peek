@@ -7,7 +7,7 @@ import Catalogue from "./pages/Catalogue";
 
 function App() {
   return (
-    <Router>
+   
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<IndexPage />} />
@@ -15,7 +15,7 @@ function App() {
           <Route path="catalogue" element={<Catalogue />} />
         </Route>
       </Routes>
-    </Router>
+ 
   );
 }
 
