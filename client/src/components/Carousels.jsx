@@ -11,7 +11,7 @@ import { Autoplay, Navigation, Pagination } from "swiper/modules";
 
 const Carousels = () => {
   return (
-    <div className=" ">
+    <div className="flex items-center  lg:h-[80vh] overflow-hidden ">
       <Swiper
         // spaceBetween={50}
         slidesPerView={1}

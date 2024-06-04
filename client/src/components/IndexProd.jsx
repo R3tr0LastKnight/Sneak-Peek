@@ -4,7 +4,6 @@ import shoe from "../assets/blueboi.jpg";
 const IndexProd = () => {
   return (
     <div>
-      {/* <h1>Sneak Peek</h1> */}
       <span className="flex border mx-8 my-4 rounded-lg">
         <div className="flex flex-col ">
           <img src={shoe} alt="" className="rounded-t-lg cursor-pointer" />
