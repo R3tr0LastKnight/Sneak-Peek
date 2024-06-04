@@ -8,6 +8,7 @@ module.exports = {
     extend: {
       animation: {
         meteor: "meteor 5s linear infinite",
+        grid: "grid 15s linear infinite",
       },
       keyframes: {
         meteor: {
@@ -17,6 +18,10 @@ module.exports = {
             transform: "rotate(215deg) translateX(-500px)",
             opacity: 0,
           },
+        },
+        grid: {
+          "0%": { transform: "translateY(-50%)" },
+          "100%": { transform: "translateY(0)" },
         },
       },
     },

@@ -4,16 +4,13 @@ import { NavLink } from "react-router-dom";
 
 const IndexProds = () => {
   return (
-    <div className="flex flex-col items-center">
+    <div className="grid grid-cols-1 md:grid-cols-3  md:mx-16">
       <IndexProd />
       <IndexProd />
       <IndexProd />
-      <NavLink
-        to={"catalogue"}
-        className="px-4 py-2 border text-center bg-white rounded w-1/2 hover:invert transition-all"
-      >
-        View All
-      </NavLink>
+      <IndexProd />
+      <IndexProd />
+      <IndexProd />
     </div>
   );
 };
