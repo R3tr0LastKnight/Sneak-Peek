@@ -16,17 +16,15 @@ import Wishlist from "./pages/Wishlist";
 function App() {
   return (
     <div className=" overflow-hidden">
-      <Router>
-        <Routes>
-          <Route path="/" element={<Layout />}>
-            <Route index element={<IndexPage />} />
-            <Route path="login" element={<LoginPage />} />
-            <Route path="catalogue" element={<Catalogue />} />
-            <Route path="kart" element={<Kart />} />
-            <Route path="wishlist" element={<Wishlist />} />
-          </Route>
-        </Routes>
-      </Router>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<IndexPage />} />
+          <Route path="login" element={<LoginPage />} />
+          <Route path="catalogue" element={<Catalogue />} />
+          <Route path="kart" element={<Kart />} />
+          <Route path="wishlist" element={<Wishlist />} />
+        </Route>
+      </Routes>
     </div>
   );
 }
