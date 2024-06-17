@@ -23,7 +23,7 @@ const Nav = () => {
 
   const [nav, setNav] = useState(false);
   const [drop, setDrop] = useState(false);
-  const [login, setLogin] = useState(true);
+  const [login, setLogin] = useState(false);
   const changeNav = () => {
     window.scrollY >= 0 ? setNav(true) : setNav(false);
     window.scrollY <= 200 ? setNav(false) : setNav(true);
@@ -48,7 +48,7 @@ const Nav = () => {
         <ul
           className={`flex gap-1 border  items-center px-2 py-1 rounded-xl relative ${
             nav ? "border-black" : "border-white"
-          } ${login ? "" : "w-1/2"}`}
+          } ${login ? "" : ""}`}
         >
           {login ? (
             <>
@@ -190,7 +190,10 @@ const Nav = () => {
           ) : (
             <NavLink
               to={"/login"}
-              className={`text- w-full text-center py-1 cursor-pointer `}
+              className={`text- w-full text-center py-1 cursor-pointer px-4`}
+              onClick={() => {
+                window.scrollTo({ top: 520, behavior: "smooth" });
+              }}
             >
               Login / Register
             </NavLink>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import toast, { Toaster } from "react-hot-toast";
-import { useNavigate } from "react-router";
+import { Navigate, useNavigate } from "react-router";
 import axios from "axios";
 import { useAuth } from "../context/AuthContext";
 import { googleLogout, useGoogleLogin } from "@react-oauth/google";
@@ -49,6 +49,7 @@ const LoginPage = () => {
   const handleGoogleRegister = useGoogleLogin({
     onSuccess: (codeResponse) => {
       setUser(codeResponse);
+      navigate("/");
       toast.success("User registered successfully", {
         autoClose: 1000,
       });
@@ -77,7 +78,7 @@ const LoginPage = () => {
               )
               .then((response) => {
                 console.log("User data stored successfully:", response.data);
-                navigate("/about");
+                navigate("/");
                 window.location.reload();
               });
           })
@@ -91,6 +92,7 @@ const LoginPage = () => {
       setUser(codeResponse);
       toast.success("User login successfully");
       logIn(codeResponse);
+      navigate("/");
     },
     onError: (error) => console.log("Login Failed:", error),
   });
@@ -108,7 +110,7 @@ const LoginPage = () => {
         { name, email, password }
       );
       if (res && res.data.success) {
-        navigate("/about");
+        navigate("/");
       } else {
         console.log(res.data.message);
       }
@@ -142,6 +144,8 @@ const LoginPage = () => {
             window.location.reload();
           },
         });
+        navigate("/");
+        window.location.reload();
       } else {
         toast.error(res.data.message);
       }

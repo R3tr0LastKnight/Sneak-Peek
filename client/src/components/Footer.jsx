@@ -19,7 +19,7 @@ const Footer = () => {
     <div className="flex gap-4 myu-8 pb-2 mx-4 md:mx-16 md:mb-12 relative bottom-0 w-screen justify-between">
       <div className="flex  flex-col md:justify-between md:w-1/4">
         <div className="">
-          <h1 className="font-semibold text-xl md:text-4xl ">Keep In Touch</h1>
+          <h1 className="font-semibold text-xl md:text-2xl ">Keep In Touch</h1>
           <ul className="flex my-2 ">
             <li>
               <img className="w-1/2 md:w-3/4" src={linked} alt="" />
@@ -36,8 +36,8 @@ const Footer = () => {
           </ul>
         </div>
         <div>
-          <h1 className="font-semibold text-xl md:text-4xl ">Info</h1>
-          <ul className="md:text-lg">
+          <h1 className="font-semibold text-xl md:text-2xl ">Info</h1>
+          <ul className="md:text-base">
             <li>Contact Us</li>
             <li>Brands</li>
             <li>Privacy Policy</li>
@@ -47,45 +47,10 @@ const Footer = () => {
         </div>
       </div>
       <div className="w-1/2 md:w-3/4 flex justify-start md:justify-end items-end md:mr-32">
-        <div className="hidden md:block w-1/2 rounded-xl overflow-hidden">
-          <Swiper
-            grabCursor={true}
-            effect={"creative"}
-            loop={true}
-            autoplay={true}
-            creativeEffect={{
-              prev: {
-                shadow: true,
-                translate: [0, 0, -400],
-              },
-              next: {
-                translate: ["100%", 0, 0],
-              },
-            }}
-            modules={[EffectCreative]}
-            className="mySwiper"
-          >
-            <SwiperSlide>
-              <img src={shoe3} alt="" />
-            </SwiperSlide>
-            <SwiperSlide>
-              <img src={shoe1} alt="" />
-            </SwiperSlide>
-            <SwiperSlide>
-              <img src={shoe4} alt="" />
-            </SwiperSlide>
-            <SwiperSlide>
-              <img src={shoe2} alt="" />
-            </SwiperSlide>
-            <SwiperSlide>
-              <img src={shoe5} alt="" />
-            </SwiperSlide>
-          </Swiper>
-        </div>
         <img
           src={shoex}
           alt=""
-          className="rounded-xl  shadow-[0_3px_10px_rgb(0,0,0,0.2)] w-[80%] md:hidden"
+          className="rounded-xl  shadow-[0_3px_10px_rgb(0,0,0,0.2)] w-[80%] lg:w-[20%] "
         />
       </div>
     </div>
