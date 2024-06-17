@@ -11,7 +11,7 @@ const Wishlist = () => {
         <Meteors />
       </div>
 
-      <div className="relative grid grid-cols-1  justify-center mx-8 py-4 gap-4 ">
+      <div className="relative grid grid-cols-1 md:grid-cols-2 justify-center mx-8 py-4 gap-4 ">
         <WishlistItem />
         <WishlistItem />
         <WishlistItem />
