@@ -4,6 +4,7 @@ module.exports = {
   theme: {
     fontFamily: {
       mentra: ["mentra", "sans-serif"],
+      poppins: ["Poppins", "sans-serif"],
     },
     extend: {
       animation: {
