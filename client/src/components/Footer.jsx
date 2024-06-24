@@ -1,9 +1,11 @@
+/* eslint-disable jsx-a11y/iframe-has-title */
 import React from "react";
 import linked from "../assets/nav/icons8-linkedin.svg";
 import git from "../assets/nav/icons8-github.svg";
 import insta from "../assets/nav/icons8-insta.svg";
 import twitter from "../assets/nav/icons8-twitter.svg";
 import shoex from "../assets/footer/asf.jpg";
+import globe from "../assets/footer/globe.gif";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/effect-creative";
@@ -14,12 +16,13 @@ import shoe3 from "../assets/carousel/taylor-smith-aDZ5YIuedQg-unsplash (1).jpg"
 import shoe4 from "../assets/carousel/joel-muniz-oCOykXMRteM-unsplash.jpg";
 import shoe5 from "../assets/carousel/paul-volkmer-updW-QUccFE-unsplash.jpg";
 import Globe from "./magicui/globe.tsx";
+import Meteors from "./magicui/meteors.tsx";
 
 const Footer = () => {
   return (
     <div className="flex flex-col lg:flex-row gap-4 my-8 pb-2 mx-4 md:mx-16 relative bottom-0 w-screen justify-between ">
       <div className="flex flex-row  md:justify-between lg:gap-6">
-        <div className="flex flex-col lg:w-1/2 ">
+        <div className="flex flex-col lg:w-1/3 ">
           <div className="flex flex-col">
             <h1 className="font-semibold text-xl md:text-2xl ">
               Keep In Touch
@@ -71,12 +74,13 @@ const Footer = () => {
             <input className="px-2 py-1 " type="email" />
             <button className="px-2 py-1 bg-black text-white">Submit</button>
           </div>
+          <div className="font-light text-base text-black">"Donquixote"</div>
         </div>
-        <div className="w-1/3 lg:w-auto flex justify-end md:justify-center items-end ">
+        <div className="w-1/3 lg:w- flex justify-end  items-end ">
           <img
             src={shoex}
             alt=""
-            className="rounded-xl  shadow-[0_3px_10px_rgb(0,0,0,0.2)] w-[80%] lg:w-[%] "
+            className="rounded-xl  shadow-[0_3px_10px_rgb(0,0,0,0.2)] w-[60%] lg:w-[80%] "
           />
         </div>
       </div>
@@ -88,16 +92,17 @@ const Footer = () => {
           <input className="px-2 py-1 " type="email" />
           <button className="px-2 py-1 bg-black text-white">Submit</button>
         </div>
+        <div className="font-light text-base text-black">"Quote"</div>
       </div>
-      <div className="w-1/2 lg:w-auto flex justify-start md:justify-end items-end md:mr-32 shadow-xl select-none">
+      <div className="w-[90%] lg:w-1/3 flex justify-start md:justify-end items-end md:mr-32 shadow-xl select-none bg-black text white rounded-xl overflow-hidden ">
         <div className="relative flex h-full w-full lg:max-w-[32rem] items-center justify-center overflow-hidden rounded-lg  bg-background px-48 lg:px-40 pb-40 md:pb-32 ">
-          <span className="pointer-events-none whitespace-pre-wrap bg-gradient-to-b from-black to-gray-300/80 bg-clip-text text-center text-8xl font-semibold leading-none text-transparent dark:from-white dark:to-slate-900/10">
-            <div className="whitespace-nowrap relative lg:bottom-8 text-black">
-              Visit us
-            </div>
-          </span>
-          <Globe className="top-4" />
-          <div className="pointer-events-none absolute inset-0 h-full bg-[radial-gradient(circle_at_50%_200%,rgba(0,0,0,0.2),rgba(255,255,255,0))] " />
+          <div className="whitespace-nowrap relative z-20 font-mentra text-5xl   -bottom-8 text-white">
+            Visit us
+          </div>
+          <div className="absolute left-0 z-20">
+            <Meteors />
+          </div>
+          <img className="w-full absolute z-0 top-[10%]" src={globe} alt="" />
         </div>
       </div>
       <div className="absolute -bottom-5   w-screen right-8 lg:right-16 font-light text-xs text-center">
