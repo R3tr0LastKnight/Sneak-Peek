@@ -2,11 +2,12 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "./App.css";
 import { lazy } from "react";
 import Layout from "./Layout";
-import IndexPage from "./pages/IndexPage";
-import LoginPage from "./pages/LoginPage";
-import Catalogue from "./pages/Catalogue";
-import Kart from "./pages/Kart";
-import Wishlist from "./pages/Wishlist";
+
+const IndexPage = lazy(() => import("./pages/IndexPage"));
+const LoginPage = lazy(() => import("./pages/LoginPage"));
+const Catalogue = lazy(() => import("./pages/Catalogue"));
+const Kart = lazy(() => import("./pages/Kart"));
+const Wishlist = lazy(() => import("./pages/Wishlist"));
 
 // const Layout = lazy(() => import("./Layout"));
 // const IndexPage = lazy(() => import("./pages/IndexPage"));
