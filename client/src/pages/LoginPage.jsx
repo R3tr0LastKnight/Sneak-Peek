@@ -57,10 +57,40 @@ const LoginPage = () => {
     onError: (error) => console.log("Login Failed:", error),
   });
 
+  // useEffect(() => {
+  //   if (!state) {
+  //     if (user) {
+  //       const res = axios
+  //         .get(
+  //           `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`,
+  //           {
+  //             headers: {
+  //               Authorization: `Bearer ${user.access_token}`,
+  //               Accept: "application/json",
+  //             },
+  //           }
+  //         )
+  //         .then((res) => {
+  //           axios
+  //             .post(
+  //               `${process.env.REACT_APP_BACKEND_URL}/api/v1/auth/storeUserData`,
+  //               { profile: res.data }
+  //             )
+  //             .then((response) => {
+  //               console.log("User data stored successfully:", response.data);
+  //               navigate("/");
+  //               window.location.reload();
+  //             });
+  //         })
+  //         .catch((err) => console.log(err));
+  //     }
+  //   }
+  // }, [user]);
+
   useEffect(() => {
     if (!state) {
       if (user) {
-        const res = axios
+        axios
           .get(
             `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`,
             {

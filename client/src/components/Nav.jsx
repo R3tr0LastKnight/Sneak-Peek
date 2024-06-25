@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Carousels from "./Carousels";
 import { NavLink } from "react-router-dom";
 import { motion } from "framer-motion";
+import { useAuth } from "../context/AuthContext";
 
 const Nav = () => {
   const subMenuAnimate = {
@@ -24,6 +25,8 @@ const Nav = () => {
   const [nav, setNav] = useState(false);
   const [drop, setDrop] = useState(false);
   const [login, setLogin] = useState(false);
+  const { logIn, logOut } = useAuth();
+
   const changeNav = () => {
     window.scrollY >= 0 ? setNav(true) : setNav(false);
     window.scrollY <= 200 ? setNav(false) : setNav(true);
@@ -50,7 +53,7 @@ const Nav = () => {
             nav ? "border-black" : "border-white"
           } ${login ? "" : ""}`}
         >
-          {login ? (
+          {logIn ? (
             <>
               <li
                 className={`border-r  px-2 ${
@@ -59,7 +62,7 @@ const Nav = () => {
               >
                 <NavLink
                   onClick={() =>
-                    window.scrollTo({ top: 0, behavior: "smooth" })
+                    window.scrollTo({ top: 520, behavior: "smooth" })
                   }
                   to={"/kart"}
                 >
@@ -86,7 +89,7 @@ const Nav = () => {
               >
                 <NavLink
                   onClick={() =>
-                    window.scrollTo({ top: 0, behavior: "smooth" })
+                    window.scrollTo({ top: 520, behavior: "smooth" })
                   }
                   to={"/wishlist"}
                 >
@@ -159,7 +162,12 @@ const Nav = () => {
 
                     <h1 className="flex items-center">Settings</h1>
                   </div>
-                  <div className="flex items-center gap-1 cursor-pointer">
+                  <div
+                    onClick={() => {
+                      logOut();
+                    }}
+                    className="flex items-center gap-1 cursor-pointer"
+                  >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
@@ -175,14 +183,7 @@ const Nav = () => {
                       />
                     </svg>
 
-                    <h1
-                      onClick={() => {
-                        setLogin(!login);
-                      }}
-                      className="flex items-center"
-                    >
-                      Logout
-                    </h1>
+                    <h1 className="flex items-center">Logout</h1>
                   </div>
                 </div>
               </motion.div>

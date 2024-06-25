@@ -1,7 +1,7 @@
 import React from "react";
 import wings from "../assets/wings.png";
 import "../index.css";
-import Drop from "../components/Drop";
+import Drop from "../components/Drop.jsx";
 import IndexProds from "../components/IndexProds";
 import { VelocityScroll } from "../components/magicui/scroll-based-velocity.tsx";
 import { NavLink } from "react-router-dom";
@@ -26,7 +26,7 @@ const IndexPage = () => {
       <IndexProds />
       <NavLink
         to={"catalogue"}
-        onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+        onClick={() => window.scrollTo({ top: 520, behavior: "smooth" })}
         className="px-4 py-2 border text-center bg-white rounded w-1/2 md:w-1/4 hover:invert transition-all"
       >
         View All

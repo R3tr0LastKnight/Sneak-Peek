@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
+import { Navigate, useNavigate } from "react-router";
 
 const AuthContext = createContext();
 
@@ -7,6 +8,7 @@ export const AuthProvider = ({ children }) => {
   const [profile, setProfile] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const storedUserData = localStorage.getItem("auth");
@@ -40,6 +42,7 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem("jwtToken");
     setIsAuthenticated(false);
     setIsAdmin(false);
+    navigate("/");
   };
 
   const updateProfile = (updatedProfile) => {

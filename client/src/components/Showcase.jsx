@@ -13,7 +13,7 @@ const Showcase = () => {
   };
 
   return (
-    <div className="mx-8 lg:mx-16 my-8 rounded-xl overflow-hidden flex">
+    <div className="mx-8 lg:mx-16 mb-8 lg:my-8 rounded-xl overflow-hidden flex">
       <div className="w-[67.5%] relative text-white transition-all">
         <>
           <div
