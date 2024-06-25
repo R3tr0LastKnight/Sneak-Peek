@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "./App.css";
 import { Suspense, lazy } from "react";
 import Layout from "./Layout";
+import ProductPage from "./pages/ProductPage";
 
 const IndexPage = lazy(() => import("./pages/IndexPage"));
 const LoginPage = lazy(() => import("./pages/LoginPage"));
@@ -25,6 +26,7 @@ function App() {
             <Route path="catalogue" element={<Catalogue />} />
             <Route path="kart" element={<Kart />} />
             <Route path="wishlist" element={<Wishlist />} />
+            <Route path="product" element={<ProductPage />} />
           </Route>
         </Routes>
       </Suspense>

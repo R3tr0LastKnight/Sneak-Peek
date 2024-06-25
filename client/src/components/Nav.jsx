@@ -35,7 +35,7 @@ const Nav = () => {
   return (
     <>
       <div
-        className={`flex justify-between py-2 pt-4 fixed top-0 z-50 px-8 w-full transition-all items-center  ${
+        className={`flex justify-between py-2 pt-4 fixed top-0 z-50 px-1 sm:px-8 w-full transition-all items-center  ${
           nav
             ? "text-black bg-white shadow-[0_3px_10px_rgb(0,0,0,0.2)]"
             : "text-white"
@@ -138,7 +138,7 @@ const Nav = () => {
                 animate={drop ? "enter" : "exit"}
                 variants={subMenuAnimate}
               >
-                <div className="flex flex-col gap-1">
+                <div className={`flex flex-col gap-1 ${drop ? "" : "hidden"}`}>
                   <div className="flex items-center gap-1 cursor-pointer">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
