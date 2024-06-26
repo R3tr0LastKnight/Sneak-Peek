@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import toast, { Toaster } from "react-hot-toast";
-import { Navigate, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 import axios from "axios";
 import { useAuth } from "../context/AuthContext";
-import { googleLogout, useGoogleLogin } from "@react-oauth/google";
+import { useGoogleLogin } from "@react-oauth/google";
 
 const LoginPage = () => {
   const [state, setState] = useState(true);
@@ -11,14 +11,14 @@ const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { logIn } = useAuth();
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (state) {
-      if (user) {
-        axios
-          .get(
+    if (user) {
+      const fetchUserData = async () => {
+        try {
+          const res = await axios.get(
             `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`,
             {
               headers: {
@@ -26,30 +26,36 @@ const LoginPage = () => {
                 Accept: "application/json",
               },
             }
-          )
-          .then((res) => {
-            axios
-              .post(
-                `${process.env.REACT_APP_BACKEND_URL}/api/v1/auth/googleLogin`,
-                { profile: res.data }
-              )
-              .then((response) => {
-                console.log("User register successfully", response.data);
-                const token = response.data.token;
-                logIn(response.data, token);
-                localStorage.setItem("auth", JSON.stringify(response.data));
-                window.location.reload();
-              });
-          })
-          .catch((err) => console.log(err));
-      }
+          );
+          
+          const endpoint = state 
+            ? `${process.env.REACT_APP_BACKEND_URL}/api/v1/auth/googleLogin`
+            : `${process.env.REACT_APP_BACKEND_URL}/api/v1/auth/storeUserData`;
+
+          const response = await axios.post(endpoint, { profile: res.data });
+
+          if (state) {
+            console.log("User registered successfully", response.data);
+            const token = response.data.token;
+            logIn(response.data, token);
+            localStorage.setItem("auth", JSON.stringify(response.data));
+          } else {
+            console.log("User data stored successfully:", response.data);
+          }
+
+          navigate("/");
+        } catch (err) {
+          console.log(err);
+        }
+      };
+
+      fetchUserData();
     }
-  }, [user]);
+  }, [user, state, logIn, navigate]);
 
   const handleGoogleRegister = useGoogleLogin({
     onSuccess: (codeResponse) => {
       setUser(codeResponse);
-      navigate("/");
       toast.success("User registered successfully", {
         autoClose: 1000,
       });
@@ -57,72 +63,10 @@ const LoginPage = () => {
     onError: (error) => console.log("Login Failed:", error),
   });
 
-  // useEffect(() => {
-  //   if (!state) {
-  //     if (user) {
-  //       const res = axios
-  //         .get(
-  //           `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`,
-  //           {
-  //             headers: {
-  //               Authorization: `Bearer ${user.access_token}`,
-  //               Accept: "application/json",
-  //             },
-  //           }
-  //         )
-  //         .then((res) => {
-  //           axios
-  //             .post(
-  //               `${process.env.REACT_APP_BACKEND_URL}/api/v1/auth/storeUserData`,
-  //               { profile: res.data }
-  //             )
-  //             .then((response) => {
-  //               console.log("User data stored successfully:", response.data);
-  //               navigate("/");
-  //               window.location.reload();
-  //             });
-  //         })
-  //         .catch((err) => console.log(err));
-  //     }
-  //   }
-  // }, [user]);
-
-  useEffect(() => {
-    if (!state) {
-      if (user) {
-        axios
-          .get(
-            `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`,
-            {
-              headers: {
-                Authorization: `Bearer ${user.access_token}`,
-                Accept: "application/json",
-              },
-            }
-          )
-          .then((res) => {
-            axios
-              .post(
-                `${process.env.REACT_APP_BACKEND_URL}/api/v1/auth/storeUserData`,
-                { profile: res.data }
-              )
-              .then((response) => {
-                console.log("User data stored successfully:", response.data);
-                navigate("/");
-                window.location.reload();
-              });
-          })
-          .catch((err) => console.log(err));
-      }
-    }
-  }, [user]);
-
   const handleGoogleLogin = useGoogleLogin({
     onSuccess: (codeResponse) => {
       setUser(codeResponse);
       toast.success("User login successfully");
-      logIn(codeResponse);
-      navigate("/");
     },
     onError: (error) => console.log("Login Failed:", error),
   });
@@ -168,14 +112,8 @@ const LoginPage = () => {
         const timeTaken = (endTime - startTime) / 1000; // Calculate time taken in seconds
 
         // Display success toast with time taken
-        toast.success(`Login successful. Redirecting in ${timeTaken} seconds`, {
-          onClose: () => {
-            // Reload the page after displaying the toast
-            window.location.reload();
-          },
-        });
         navigate("/");
-        window.location.reload();
+       
       } else {
         toast.error(res.data.message);
       }
@@ -246,6 +184,7 @@ const LoginPage = () => {
           </button>
         )}
 
+      </form>
         {!state ? (
           <p className="flex items-center justify-center flex-col">
             already a member?
@@ -302,7 +241,6 @@ const LoginPage = () => {
             </button>
           </div>
         )}
-      </form>
       <Toaster />
     </div>
   );

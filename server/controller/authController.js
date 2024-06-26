@@ -53,7 +53,6 @@ const loginController = async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    console.log("email", email);
     // Validation
     if (!email || !password) {
       return res
@@ -72,8 +71,7 @@ const loginController = async (req, res) => {
 
     // Compare passwords
     const isMatch = await comparePasword(password, user.password);
-    console.log("is Mathc", isMatch);
-    console.log("user password", user.password);
+
     if (!isMatch) {
       return res
         .status(401)
@@ -108,7 +106,7 @@ const loginController = async (req, res) => {
 
 const googleregisterController = async (req, res) => {
   const { profile } = req.body;
-  console.log("data", req.body);
+
   if (!profile) {
     return res.status(400).json({ error: "Profile data is required." });
   }
@@ -133,6 +131,7 @@ const googleregisterController = async (req, res) => {
 
 const googleLoginController = async (req, res) => {
   const { profile } = req.body;
+  console.log("Google Login successfully", profile);
   if (!profile) {
     return res.status(400).json({ error: "Profile data is required." });
   }
