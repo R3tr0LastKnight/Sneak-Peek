@@ -112,11 +112,8 @@ const LoginPage = () => {
         const timeTaken = (endTime - startTime) / 1000; // Calculate time taken in seconds
 
         // Display success toast with time taken
-        toast.success(`Login successful. Redirecting in ${timeTaken} seconds`, {
-          onClose: () => {
-            navigate("/");
-          },
-        });
+        navigate("/");
+       
       } else {
         toast.error(res.data.message);
       }
