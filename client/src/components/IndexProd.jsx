@@ -1,15 +1,25 @@
 import React from "react";
 import shoe from "../assets/blueboi.jpg";
 
-const IndexProd = () => {
+const IndexProd = ({ showModal, setShowModal }) => {
   return (
     <div>
       <span className="flex border mx-8 my-4 rounded-lg">
         <div className="flex flex-col ">
-          <img src={shoe} alt="" className="rounded-t-lg cursor-pointer" />
+          <img
+            onClick={() => setShowModal(true)}
+            src={shoe}
+            alt=""
+            className="rounded-t-lg cursor-pointer"
+          />
           <div className="flex justify-between gap-8 mx-4 my-2">
             <div>
-              <h1 className="hover:underline cursor-pointer">Shoe Name</h1>
+              <h1
+                onClick={() => setShowModal(true)}
+                className="hover:underline cursor-pointer"
+              >
+                Shoe Name
+              </h1>
               <p className="cursor-pointeror">$ 420</p>
             </div>
             <div className="flex gap-4 mr-4 my-2">

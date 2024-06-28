@@ -30,6 +30,7 @@ function App() {
             <Route path="kart" element={<Kart />} />
             <Route path="wishlist" element={<Wishlist />} />
             <Route path="/admindash"   element={isAdmin ? <AdminDashboard /> : <IndexPage />} />
+            <Route path="product" element={<ProductPage />} />
           </Route>
         </Routes>
       </Suspense>
