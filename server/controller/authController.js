@@ -131,7 +131,7 @@ const googleregisterController = async (req, res) => {
 
 const googleLoginController = async (req, res) => {
   const { profile } = req.body;
-  console.log("Google Login successfully", profile);
+
   if (!profile) {
     return res.status(400).json({ error: "Profile data is required." });
   }
@@ -140,7 +140,6 @@ const googleLoginController = async (req, res) => {
     .findOne({ email: profile.email })
     .then((user) => {
       if (user) {
-        console.log("User login successfully");
         const token = JWT.sign({ _id: user._id }, process.env.JWT_SECRET_KEY, {
           expiresIn: "7d",
         });

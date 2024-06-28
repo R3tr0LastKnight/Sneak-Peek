@@ -2,6 +2,8 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "./App.css";
 import { Suspense, lazy } from "react";
 import Layout from "./Layout";
+import AdminDashboard from "./components/Admin/AdminDashboard";
+import { useAuth } from "./context/AuthContext";
 import ProductPage from "./pages/ProductPage";
 
 const IndexPage = lazy(() => import("./pages/IndexPage"));
@@ -16,6 +18,8 @@ const Wishlist = lazy(() => import("./pages/Wishlist"));
 // const Catalogue = lazy(() => import("./pages/Catalogue"));
 
 function App() {
+
+  const {isAdmin}=useAuth();
   return (
     <div className=" overflow-hidden">
       <Suspense fallback={<>loading</>}>
@@ -26,6 +30,7 @@ function App() {
             <Route path="catalogue" element={<Catalogue />} />
             <Route path="kart" element={<Kart />} />
             <Route path="wishlist" element={<Wishlist />} />
+            <Route path="/admindash"   element={isAdmin ? <AdminDashboard /> : <IndexPage />} />
             <Route path="product" element={<ProductPage />} />
           </Route>
         </Routes>
