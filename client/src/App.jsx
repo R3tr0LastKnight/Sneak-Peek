@@ -4,6 +4,7 @@ import { Suspense, lazy } from "react";
 import Layout from "./Layout";
 import AdminDashboard from "./components/Admin/AdminDashboard";
 import { useAuth } from "./context/AuthContext";
+import ProductPage from "./pages/ProductPage";
 
 const IndexPage = lazy(() => import("./pages/IndexPage"));
 const LoginPage = lazy(() => import("./pages/LoginPage"));
