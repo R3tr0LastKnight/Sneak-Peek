@@ -25,7 +25,7 @@ const Nav = () => {
   const [nav, setNav] = useState(false);
   const [drop, setDrop] = useState(false);
   const [login, setLogin] = useState(false);
-  const { isLoggedIn,logIn, logOut,profile } = useAuth();
+  const { isLoggedIn,logIn, logOut,profile,isAdmin } = useAuth();
 
   const changeNav = () => {
     window.scrollY >= 0 ? setNav(true) : setNav(false);
@@ -162,6 +162,7 @@ const Nav = () => {
 
                     <h1 className="flex items-center">{profile && (profile.name)}</h1>
                   </div>
+                  {isAdmin && (                <NavLink className="flex items-center"  to={"/admindash"}>AdminDashboard</NavLink>)}
                   <div className="flex items-center gap-1 cursor-pointer">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
