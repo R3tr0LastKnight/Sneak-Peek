@@ -65,13 +65,12 @@ const ProductModal = ({ showModal, setShowModal, productId }) => {
             visible="visible"
             className="overflow-hidden flex flex-col lg:flex-row"
           >
-            <div className="px-4 lg:px-16 pt-8 lg:py-4">
-              <div className="rounded-xl overflow-hidden flex flex-col lg:flex-row shadow-[0_3px_10px_rgb(0,0,0,0.2)] bg-white relative">
+            <div className="px-4 lg:px-16 pt-8 lg:py-4 w-full">
+              <div className="rounded-xl overflow-hidden flex flex-col lg:flex-row shadow-[0_3px_10px_rgb(0,0,0,0.2)] bg-white relative w-full">
                 <div
                   className="absolute top-4 right-4 z-30 cursor-pointer"
                   onClick={() => setShowModal(false)}
                 >
-                  {" "}
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -88,19 +87,25 @@ const ProductModal = ({ showModal, setShowModal, productId }) => {
                   </svg>
                 </div>
 
-                <div className="lg:w-[60%] relative text-white transition-all">
-                  <img src={product.photos} className="h-full" alt="" />
+                <div className="lg:w-[60%]  text-white transition-all">
+                  <div className="h-[35rem] overflow-hidden relative items-center justify-center">
+                    <img
+                      src={product.photos}
+                      className="w-full h-full absolute "
+                      alt=""
+                    />
+                  </div>
                 </div>
-                <div className=" lg:w-[40%] flex flex-col justify-center ">
+                <div className="lg:w-[40%]  flex flex-col justify-center ">
                   <div className="w-full flex flex-col lg:justify-between px-16 py-8 ">
                     <h1
-                      title="Liberator Penitrator"
+                      title={product.brand}
                       className="font-mentra text-lg opacity-50  "
                     >
                       {product.brand}
                     </h1>
                     <h1
-                      title="Liberator Penitrator"
+                      title={product.companymodel}
                       className="font-mentra text-xl  "
                     >
                       {product.companymodel}
@@ -108,20 +113,8 @@ const ProductModal = ({ showModal, setShowModal, productId }) => {
                     <p>{product.about}</p>
                     <div className="my-2 flex flex-col  w-full  ">
                       <div className="font-semibold text-lg w-full">
-                        &#8377; {product.price} | {product.brand} | hash-brownie
-                      </div>
-                      <div className="flex gap-4 mt-8">
-                        {sizes.map((item, index) => (
-                          <div
-                            onClick={() => setSize(item)}
-                            className={`border border-black text-black bg-white hover:bg-black hover:text-white active:bg-black active:text-white px-2 py-1 rounded cursor-pointer ${
-                              size === item ? "!bg-black text-white" : ""
-                            }`}
-                            key={index}
-                          >
-                            {item}
-                          </div>
-                        ))}
+                        &#8377; {product.price} | {product.brand} |{" "}
+                        {product.colorway}
                       </div>
                       <div className="flex gap-4 mt-8">
                         {sizes.map((item, index) => (

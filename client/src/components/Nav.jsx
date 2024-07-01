@@ -138,7 +138,12 @@ const Nav = () => {
                 animate={drop ? "enter" : "exit"}
                 variants={subMenuAnimate}
               >
-                <div className={`flex flex-col gap-1 ${drop ? "" : "hidden"}`}>
+                <div
+                  onClick={() => {
+                    setDrop(!drop);
+                  }}
+                  className={`flex flex-col gap-1 ${drop ? "" : "hidden"}`}
+                >
                   {isAdmin && (
                     <NavLink
                       onClick={() =>
@@ -164,7 +169,12 @@ const Nav = () => {
                       <h1 className="flex items-center">Admin</h1>
                     </NavLink>
                   )}
-                  <div className="flex items-center gap-1 cursor-pointer">
+                  <div
+                    onClick={() => {
+                      setDrop(!drop);
+                    }}
+                    className="flex items-center gap-1 cursor-pointer"
+                  >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
@@ -189,6 +199,7 @@ const Nav = () => {
                   </div>
                   <div
                     onClick={() => {
+                      setDrop(!drop);
                       logOut();
                     }}
                     className="flex items-center gap-1 cursor-pointer"
