@@ -1,6 +1,7 @@
 const {
   createProductController,
   displayProductController,
+  getSpecificProductController,
 } = require("../controller/productController");
 
 const router = require("express").Router();
@@ -12,5 +13,6 @@ const storage = memoryStorage();
 const upload = multer({ storage: storage });
 router.post("/createProduct", createProductController);
 router.get("/getProducts", displayProductController);
+router.get("/getSpecificProduct/:productId", getSpecificProductController);
 
 module.exports = router;

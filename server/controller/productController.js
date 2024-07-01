@@ -29,7 +29,21 @@ const displayProductController = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
+const getSpecificProductController = async (req, res) => {
+  try {
+    const { productId } = req.params;
+    console.log("product", productId);
+    const productsDetail = await productModel.findOne({ _id: productId });
+    console.log("Product detail", productsDetail);
+    res.status(200).json(productsDetail);
+  } catch (error) {
+    console.error("Error fetching products:", error);
+    res.status(500).json({ error: error.message });
+  }
+};
 module.exports = {
   createProductController,
   displayProductController,
+  getSpecificProductController,
 };

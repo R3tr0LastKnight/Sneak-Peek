@@ -1,13 +1,13 @@
-import React from "react";
+import React,{useEffect} from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 import s1 from "../assets/carousel/s1.jpg";
 import s2 from "../assets/carousel/s2.jpg";
 import s3 from "../assets/carousel/s3.jpg";
-
-const ProductModal = ({ showModal, setShowModal }) => {
+import axios from "axios";
+const ProductModal = ({ showModal, setShowModal , productId}) => {
   const [imgg, setImgg] = useState([s1, s2, s3]);
-
+  const [product, setProduct] = useState(null);
   const backdrop = {
     visible: { opacity: 1 },
     hidden: { opacity: 0 },
@@ -27,9 +27,24 @@ const ProductModal = ({ showModal, setShowModal }) => {
     },
   };
 
+
+  useEffect(() => {
+    const fetchProduct = async () => {
+      try {
+        const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/v1/product/getSpecificProduct/${productId}`);
+        setProduct(response.data);
+   
+      } catch (error) {
+        console.error('Error fetching product:', error);
+      }
+    };
+
+    fetchProduct();
+   
+  }, [productId]);
   return (
     <AnimatePresence>
-      {showModal && (
+      {showModal && product &&  (
         <motion.div
           variants={backdrop}
           inherit="hidden"
@@ -71,7 +86,7 @@ const ProductModal = ({ showModal, setShowModal }) => {
                 </div>
 
                 <div className="lg:w-[60%] relative text-white transition-all">
-                  <img src={imgg[0]} className="h-full" alt="" />
+                  <img src={product.photos} className="h-full" alt="" />
                 </div>
                 <div className=" lg:w-[40%] flex flex-col justify-center ">
                   <div className="w-full flex flex-col lg:justify-between px-16 py-8 ">
@@ -79,24 +94,20 @@ const ProductModal = ({ showModal, setShowModal }) => {
                       title="Liberator Penitrator"
                       className="font-mentra text-lg opacity-50  "
                     >
-                      NIKE
+                      {product.brand}
                     </h1>
                     <h1
                       title="Liberator Penitrator"
                       className="font-mentra text-xl  "
                     >
-                      Liberator Penitrator
+                     {product.companymodel}
                     </h1>
                     <p>
-                      Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                      Pariatur molestias, in a beatae aspernatur incidunt
-                      doloremque consectetur asperiores rerum accusantium harum
-                      vitae delectus reprehenderit, molestiae esse? Ratione
-                      consequatur eaque tempore?
+                    {product.about}
                     </p>
                     <div className="my-2 flex flex-col  w-full  ">
                       <div className="font-semibold text-lg w-full">
-                        &#8377; 5000 | Nike | hash-brownie
+                        &#8377; {product.price} | {product.brand} | hash-brownie
                       </div>
                       <div className="flex my-4">
                         <button className="flex justify-center py-1 px-2 rounded transition-all w-full lg:w- text-center border border-black bg-white  text-black hover:bg-black hover:text-white ">
