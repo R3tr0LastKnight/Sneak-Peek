@@ -7,6 +7,7 @@ import s3 from "../assets/carousel/s3.jpg";
 
 const ProductModal = ({ showModal, setShowModal }) => {
   const [imgg, setImgg] = useState([s1, s2, s3]);
+  const [size, setSize] = useState(10);
 
   const backdrop = {
     visible: { opacity: 1 },
@@ -26,6 +27,8 @@ const ProductModal = ({ showModal, setShowModal }) => {
       },
     },
   };
+
+  let sizes = [1, 3, 4, 5, 6, 7, 8, 10, 11];
 
   return (
     <AnimatePresence>
@@ -97,6 +100,19 @@ const ProductModal = ({ showModal, setShowModal }) => {
                     <div className="my-2 flex flex-col  w-full  ">
                       <div className="font-semibold text-lg w-full">
                         &#8377; 5000 | Nike | hash-brownie
+                      </div>
+                      <div className="flex gap-4 mt-8">
+                        {sizes.map((item, index) => (
+                          <div
+                            onClick={() => setSize(item)}
+                            className={`border border-black text-black bg-white hover:bg-black hover:text-white active:bg-black active:text-white px-2 py-1 rounded cursor-pointer ${
+                              size === item ? "!bg-black text-white" : ""
+                            }`}
+                            key={index}
+                          >
+                            {item}
+                          </div>
+                        ))}
                       </div>
                       <div className="flex my-4">
                         <button className="flex justify-center py-1 px-2 rounded transition-all w-full lg:w- text-center border border-black bg-white  text-black hover:bg-black hover:text-white ">
