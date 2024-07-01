@@ -1,14 +1,31 @@
-import React from "react";
+import React,{useState,useEffect} from "react";
 import shoe from "../assets/blueboi.jpg";
+import axios from "axios";
 
 const IndexProd = ({ showModal, setShowModal }) => {
-  return (
-    <div>
+
+  const [products, setProducts] = useState([]);
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/v1/product/getProducts`);
+        setProducts(response.data);
+      } catch (error) {
+        console.error('Error fetching products:', error);
+      }
+    };
+
+    fetchProducts();
+  }, []);
+
+  return (<div className="grid grid-cols-1 md:grid-cols-3  md:mx-8">
+     {products.map((product) => (
+    <div  key={product._id} >
       <span className="flex border mx-8 my-4 rounded-lg">
-        <div className="flex flex-col ">
+        <div className="flex flex-col">
           <img
             onClick={() => setShowModal(true)}
-            src={shoe}
+            src={product.photos}
             alt=""
             className="rounded-t-lg cursor-pointer"
           />
@@ -18,9 +35,9 @@ const IndexProd = ({ showModal, setShowModal }) => {
                 onClick={() => setShowModal(true)}
                 className="hover:underline cursor-pointer"
               >
-                Shoe Name
+     {product.companymodel}
               </h1>
-              <p className="cursor-pointeror">$ 420</p>
+              <p className="cursor-pointeror">$ {product.price}</p>
             </div>
             <div className="flex gap-4 mr-4 my-2">
               <div className="cursor-pointer">
@@ -59,6 +76,8 @@ const IndexProd = ({ showModal, setShowModal }) => {
           </div>
         </div>
       </span>
+    </div>
+      ))}
     </div>
   );
 };

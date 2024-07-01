@@ -13,14 +13,8 @@ const IndexProds = () => {
       )}
 
       <h1 className="md:mx-16 font-mentra text-6xl">Trending</h1>
-      <div className="grid grid-cols-1 md:grid-cols-3  md:mx-8">
+      
         <IndexProd showModal={showModal} setShowModal={setShowModal} />
-        <IndexProd showModal={showModal} setShowModal={setShowModal} />
-        <IndexProd showModal={showModal} setShowModal={setShowModal} />
-        <IndexProd showModal={showModal} setShowModal={setShowModal} />
-        <IndexProd showModal={showModal} setShowModal={setShowModal} />
-        <IndexProd showModal={showModal} setShowModal={setShowModal} />
-      </div>
     </>
   );
 };
