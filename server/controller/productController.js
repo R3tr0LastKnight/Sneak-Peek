@@ -20,6 +20,16 @@ const createProductController = async (req, res) => {
   }
 };
 
+const displayProductController = async (req, res) => {
+  try {
+    const products = await productModel.find();
+    res.status(200).json(products);
+  } catch (error) {
+    console.error("Error fetching products:", error);
+    res.status(500).json({ error: error.message });
+  }
+};
 module.exports = {
   createProductController,
+  displayProductController,
 };
