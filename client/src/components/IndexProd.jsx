@@ -7,10 +7,12 @@ const IndexProd = ({ setShowModal, setSelectedProductId }) => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/v1/product/getProducts`);
+        const response = await axios.get(
+          `${process.env.REACT_APP_BACKEND_URL}/api/v1/product/getProducts`
+        );
         setProducts(response.data);
       } catch (error) {
-        console.error('Error fetching products:', error);
+        console.error("Error fetching products:", error);
       }
     };
 
@@ -23,22 +25,25 @@ const IndexProd = ({ setShowModal, setSelectedProductId }) => {
   };
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 md:mx-8">
+    <div className="grid grid-cols-1 md:grid-cols-3 md:mx-2">
       {products.map((product) => (
         <div key={product._id}>
-          <span className="flex border mx-8 my-4 rounded-lg">
+          <span className="flex border shadow-[0_3px_10px_rgb(0,0,0,0.2)] mx-4 my-4 rounded-lg">
             <div className="flex flex-col">
-              <img
-                onClick={() => handleProductClick(product._id)}
-                src={product.photos}
-                alt=""
-                className="rounded-t-lg cursor-pointer"
-              />
+              <div className="rounded-t-lg cursor-pointer w-[27rem] h-[20rem] max-h-[15rem] overflow-hidden relative items-center justify-center object-cover">
+                <img
+                  onClick={() => handleProductClick(product._id)}
+                  src={product.photos}
+                  alt=""
+                  className="absolute "
+                />
+              </div>
+
               <div className="flex justify-between gap-8 mx-4 my-2">
                 <div>
                   <h1
                     onClick={() => handleProductClick(product._id)}
-                    className="hover:underline cursor-pointer"
+                    className="hover:underline cursor-pointer font-semibold text-xl"
                   >
                     {product.companymodel}
                   </h1>

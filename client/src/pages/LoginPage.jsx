@@ -27,8 +27,8 @@ const LoginPage = () => {
               },
             }
           );
-          
-          const endpoint = state 
+
+          const endpoint = state
             ? `${process.env.REACT_APP_BACKEND_URL}/api/v1/auth/googleLogin`
             : `${process.env.REACT_APP_BACKEND_URL}/api/v1/auth/storeUserData`;
 
@@ -113,7 +113,6 @@ const LoginPage = () => {
 
         // Display success toast with time taken
         navigate("/");
-       
       } else {
         toast.error(res.data.message);
       }
@@ -131,12 +130,12 @@ const LoginPage = () => {
         <h1 className="text-3xl font-mentra ">Register</h1>
       )}
 
-      <form className="flex flex-col gap-4 py-4 my-2 bg-[#EEE1CF] rounded-lg p-6 shadow-[0_3px_10px_rgb(0,0,0,0.2)]">
+      <form className="flex flex-col gap-4 py-4 my-2 bg-[#fff] rounded-lg p-6 shadow-[0_3px_10px_rgb(0,0,0,0.2)]">
         {!state && (
           <div className="flex justify-between items-center gap-2 font-semibold ">
             <label htmlFor="">Name</label>
             <input
-              className="rounded py-1 px-2"
+              className="rounded py-1 px-2 border"
               type="text"
               name=""
               id="name"
@@ -148,7 +147,7 @@ const LoginPage = () => {
         <div className="flex justify-between items-center gap-2 font-semibold ">
           <label htmlFor="">Email</label>
           <input
-            className="rounded py-1 px-2"
+            className="rounded py-1 px-2 border"
             type="email"
             name=""
             id="email"
@@ -160,7 +159,7 @@ const LoginPage = () => {
         <div className="flex justify-between items-center gap-2 font-semibold ">
           <label htmlFor="">Password</label>
           <input
-            className="rounded py-1 px-2"
+            className="rounded py-1 px-2 border"
             type="password"
             name=""
             id=""
@@ -178,69 +177,68 @@ const LoginPage = () => {
         ) : (
           <button
             onClick={handleLogin}
-            className="font-bold px-16 mt-2 py-2 bg-white flex items-center justify-center mx-auto rounded-lg shadow-[0_3px_10px_rgb(0,0,0,0.2)]"
+            className="font-bold px-16 mt-2 py-2 hover:bg-black hover:text-white transition-all flex items-center justify-center mx-auto rounded-lg shadow-[0_3px_10px_rgb(0,0,0,0.2)]"
           >
             Login
           </button>
         )}
-
       </form>
-        {!state ? (
-          <p className="flex items-center justify-center flex-col">
-            already a member?
-            <div
-              className="underline hover:dotted cursor-pointer font-semibold"
-              onClick={() => setState(!state)}
-            >
-              login here
-            </div>
-          </p>
-        ) : (
-          <p className="flex items-center justify-center flex-col">
-            new here?
-            <div
-              className="underline hover:dotted cursor-pointer font-semibold"
-              onClick={() => setState(!state)}
-            >
-              create a account
-            </div>
-          </p>
-        )}
+      {!state ? (
+        <p className="flex items-center justify-center flex-col">
+          already a member?
+          <div
+            className="underline hover:dotted cursor-pointer font-semibold"
+            onClick={() => setState(!state)}
+          >
+            login here
+          </div>
+        </p>
+      ) : (
+        <p className="flex items-center justify-center flex-col">
+          new here?
+          <div
+            className="underline hover:dotted cursor-pointer font-semibold"
+            onClick={() => setState(!state)}
+          >
+            create a account
+          </div>
+        </p>
+      )}
 
-        <div className="flex w-full items-center justify-center text-black font-bold gap-2 ">
-          <hr className="w-1/3" /> <h1>or</h1> <hr className="w-1/3" />
+      <div className="flex w-full items-center justify-center text-black font-bold gap-2 ">
+        <hr className="w-1/3" /> <h1>or</h1> <hr className="w-1/3" />
+      </div>
+
+      {state ? (
+        <div className="mt-4 flex items-center justify-center">
+          <button
+            onClick={handleGoogleLogin}
+            class="px-4 py-2 border flex gap-2 border-slate-200 dark:border-slate-700 rounded-lg text-grey-900 hover:border-slate-400 dark:hover:border-slate-500 hover:text-grey-950 font-bold hover:shadow transition duration-150"
+          >
+            <img
+              class="w-6 h-6"
+              src="https://www.svgrepo.com/show/475656/google-color.svg"
+              alt="google logo"
+            />
+            <span>SignIn with Google</span>
+          </button>
         </div>
-
-        {state ? (
-          <div className="mt-4 flex items-center justify-center">
-            <button
-              onClick={handleGoogleLogin}
-              class="px-4 py-2 border flex gap-2 border-slate-200 dark:border-slate-700 rounded-lg text-grey-900 hover:border-slate-400 dark:hover:border-slate-500 hover:text-grey-950 font-bold hover:shadow transition duration-150"
-            >
-              <img
-                class="w-6 h-6"
-                src="https://www.svgrepo.com/show/475656/google-color.svg"
-                alt="google logo"
-              />
-              <span>SignIn with Google</span>
-            </button>
-          </div>
-        ) : (
-          <div className="mt-2 flex items-center justify-center">
-            <button
-              onClick={handleGoogleRegister}
-              class="px-4 py-2 border flex gap-2 border-slate-200 dark:border-slate-700 rounded-lg text-slate-700 dark:text-slate-200 hover:border-slate-400 dark:hover:border-slate-500 hover:text-slate-900 dark:hover:text-slate-300 hover:shadow transition duration-150"
-            >
-              <img
-                class="w-6 h-6"
-                src="https://www.svgrepo.com/show/475656/google-color.svg"
-                loading="lazy"
-                alt="google logo"
-              />
-              <span>SignUp with Google</span>
-            </button>
-          </div>
-        )}
+      ) : (
+        <div className="mt-2 flex items-center justify-center">
+          <button
+            onClick={handleGoogleRegister}
+            class="px-4 py-2 border flex gap-2 border-slate-200 dark:border-slate-700 rounded-lg text-slate-700 dark:text-slate-200 hover:border-slate-400 dark:hover:border-slate-500 hover:text-slate-900 dark:hover:text-slate-300 hover:shadow transition duration-150"
+          >
+            <img
+              class="w-6 h-6"
+              src="https://www.svgrepo.com/show/475656/google-color.svg"
+              loading="lazy"
+              alt="google logo"
+            />
+            <span>SignUp with Google</span>
+          </button>
+        </div>
+      )}
       <Toaster />
     </div>
   );
