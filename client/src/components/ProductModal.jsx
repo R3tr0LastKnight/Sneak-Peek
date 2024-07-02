@@ -5,6 +5,8 @@ import s1 from "../assets/carousel/s1.jpg";
 import s2 from "../assets/carousel/s2.jpg";
 import s3 from "../assets/carousel/s3.jpg";
 import axios from "axios";
+import { useLockBodyScroll } from "@uidotdev/usehooks";
+
 const ProductModal = ({ showModal, setShowModal, productId }) => {
   const [imgg, setImgg] = useState([s1, s2, s3]);
   const [product, setProduct] = useState(null);
@@ -29,7 +31,7 @@ const ProductModal = ({ showModal, setShowModal, productId }) => {
     },
   };
 
-  let sizes = [1, 3, 4, 5, 6, 7, 8, 10, 11];
+  let sizes = [1, 3, 4, 5, 6, 7, 8, 10, 11, 12];
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -45,6 +47,9 @@ const ProductModal = ({ showModal, setShowModal, productId }) => {
 
     fetchProduct();
   }, [productId]);
+
+  useLockBodyScroll();
+
   return (
     <AnimatePresence>
       {showModal && product && (
@@ -88,7 +93,7 @@ const ProductModal = ({ showModal, setShowModal, productId }) => {
                 </div>
 
                 <div className="lg:w-[60%]  text-white transition-all">
-                  <div className="h-[35rem] overflow-hidden relative items-center justify-center">
+                  <div className="h-[15rem] lg:h-[35rem] overflow-hidden relative items-center justify-center">
                     <img
                       src={product.photos}
                       className="w-full h-full absolute "
@@ -116,7 +121,7 @@ const ProductModal = ({ showModal, setShowModal, productId }) => {
                         &#8377; {product.price} | {product.brand} |{" "}
                         {product.colorway}
                       </div>
-                      <div className="flex gap-4 mt-8">
+                      <div className="grid grid-cols-5 text-center lg:flex gap-4 mt-8">
                         {sizes.map((item, index) => (
                           <div
                             onClick={() => setSize(item)}

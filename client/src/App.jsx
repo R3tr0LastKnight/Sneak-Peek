@@ -11,15 +11,13 @@ const LoginPage = lazy(() => import("./pages/LoginPage"));
 const Catalogue = lazy(() => import("./pages/Catalogue"));
 const Kart = lazy(() => import("./pages/Kart"));
 const Wishlist = lazy(() => import("./pages/Wishlist"));
-
-// const Layout = lazy(() => import("./Layout"));
-// const IndexPage = lazy(() => import("./pages/IndexPage"));
-// const LoginPage = lazy(() => import("./pages/LoginPage"));
+const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
+const Tnc = lazy(() => import("./pages/Tnc"));
+const Tos = lazy(() => import("./pages/Tos"));
 // const Catalogue = lazy(() => import("./pages/Catalogue"));
 
 function App() {
-
-  const {isAdmin}=useAuth();
+  const { isAdmin } = useAuth();
   return (
     <div className=" overflow-hidden">
       <Suspense fallback={<>loading</>}>
@@ -30,8 +28,14 @@ function App() {
             <Route path="catalogue" element={<Catalogue />} />
             <Route path="kart" element={<Kart />} />
             <Route path="wishlist" element={<Wishlist />} />
-            <Route path="/admindash"   element={isAdmin ? <AdminDashboard /> : <IndexPage />} />
+            <Route
+              path="/admindash"
+              element={isAdmin ? <AdminDashboard /> : <IndexPage />}
+            />
             <Route path="product" element={<ProductPage />} />
+            <Route path="privacy-policy" element={<PrivacyPolicy />} />
+            <Route path="terms-and-conditions" element={<Tnc />} />
+            <Route path="returns-exchange" element={<Tos />} />
           </Route>
         </Routes>
       </Suspense>
