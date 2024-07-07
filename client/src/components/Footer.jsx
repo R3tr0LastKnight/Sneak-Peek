@@ -17,6 +17,7 @@ import shoe4 from "../assets/carousel/joel-muniz-oCOykXMRteM-unsplash.jpg";
 import shoe5 from "../assets/carousel/paul-volkmer-updW-QUccFE-unsplash.jpg";
 import Globe from "./magicui/globe.tsx";
 import Meteors from "./magicui/meteors.tsx";
+import { NavLink } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -59,9 +60,33 @@ const Footer = () => {
                 Policies
               </h1>
               <ul className="md:text-base flex flex-col lg:gap-1">
-                <li className="cursor-pointer">Privacy Policy</li>
-                <li className="cursor-pointer">Terms & Conditions</li>
-                <li className="cursor-pointer">Terms of Service</li>
+                <NavLink
+                  onClick={() =>
+                    window.scrollTo({ top: 500, behavior: "smooth" })
+                  }
+                  to={"/privacy-policy"}
+                  className="cursor-pointer"
+                >
+                  Privacy Policy
+                </NavLink>
+                <NavLink
+                  onClick={() =>
+                    window.scrollTo({ top: 500, behavior: "smooth" })
+                  }
+                  to={"/terms-and-conditions"}
+                  className="cursor-pointer"
+                >
+                  Terms & Conditions
+                </NavLink>
+                <NavLink
+                  onClick={() =>
+                    window.scrollTo({ top: 500, behavior: "smooth" })
+                  }
+                  to={"/returns-exchange"}
+                  className="cursor-pointer"
+                >
+                  Returns & Exchange
+                </NavLink>
               </ul>
             </div>
           </div>

@@ -1,13 +1,17 @@
-import React,{useEffect} from "react";
+import React, { useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 import s1 from "../assets/carousel/s1.jpg";
 import s2 from "../assets/carousel/s2.jpg";
 import s3 from "../assets/carousel/s3.jpg";
 import axios from "axios";
-const ProductModal = ({ showModal, setShowModal , productId}) => {
+import { useLockBodyScroll } from "@uidotdev/usehooks";
+
+const ProductModal = ({ showModal, setShowModal, productId }) => {
   const [imgg, setImgg] = useState([s1, s2, s3]);
   const [product, setProduct] = useState(null);
+  const [size, setSize] = useState(10);
+
   const backdrop = {
     visible: { opacity: 1 },
     hidden: { opacity: 0 },
@@ -27,24 +31,28 @@ const ProductModal = ({ showModal, setShowModal , productId}) => {
     },
   };
 
+  let sizes = [1, 3, 4, 5, 6, 7, 8, 10, 11, 12];
 
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/v1/product/getSpecificProduct/${productId}`);
+        const response = await axios.get(
+          `${process.env.REACT_APP_BACKEND_URL}/api/v1/product/getSpecificProduct/${productId}`
+        );
         setProduct(response.data);
-   
       } catch (error) {
-        console.error('Error fetching product:', error);
+        console.error("Error fetching product:", error);
       }
     };
 
     fetchProduct();
-   
   }, [productId]);
+
+  useLockBodyScroll();
+
   return (
     <AnimatePresence>
-      {showModal && product &&  (
+      {showModal && product && (
         <motion.div
           variants={backdrop}
           inherit="hidden"
@@ -62,13 +70,12 @@ const ProductModal = ({ showModal, setShowModal , productId}) => {
             visible="visible"
             className="overflow-hidden flex flex-col lg:flex-row"
           >
-            <div className="px-4 lg:px-16 pt-8 lg:py-4">
-              <div className="rounded-xl overflow-hidden flex flex-col lg:flex-row shadow-[0_3px_10px_rgb(0,0,0,0.2)] bg-white relative">
+            <div className="px-4 lg:px-16 pt-8 lg:py-4 w-full">
+              <div className="rounded-xl overflow-hidden flex flex-col lg:flex-row shadow-[0_3px_10px_rgb(0,0,0,0.2)] bg-white relative w-full">
                 <div
                   className="absolute top-4 right-4 z-30 cursor-pointer"
                   onClick={() => setShowModal(false)}
                 >
-                  {" "}
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -85,29 +92,47 @@ const ProductModal = ({ showModal, setShowModal , productId}) => {
                   </svg>
                 </div>
 
-                <div className="lg:w-[60%] relative text-white transition-all">
-                  <img src={product.photos} className="h-full" alt="" />
+                <div className="lg:w-[60%]  text-white transition-all">
+                  <div className="h-[15rem] lg:h-[35rem] overflow-hidden relative items-center justify-center">
+                    <img
+                      src={product.photos}
+                      className="w-full h-full absolute "
+                      alt=""
+                    />
+                  </div>
                 </div>
-                <div className=" lg:w-[40%] flex flex-col justify-center ">
+                <div className="lg:w-[40%]  flex flex-col justify-center ">
                   <div className="w-full flex flex-col lg:justify-between px-16 py-8 ">
                     <h1
-                      title="Liberator Penitrator"
+                      title={product.brand}
                       className="font-mentra text-lg opacity-50  "
                     >
                       {product.brand}
                     </h1>
                     <h1
-                      title="Liberator Penitrator"
+                      title={product.companymodel}
                       className="font-mentra text-xl  "
                     >
-                     {product.companymodel}
+                      {product.companymodel}
                     </h1>
-                    <p>
-                    {product.about}
-                    </p>
+                    <p>{product.about}</p>
                     <div className="my-2 flex flex-col  w-full  ">
                       <div className="font-semibold text-lg w-full">
-                        &#8377; {product.price} | {product.brand} | hash-brownie
+                        &#8377; {product.price} | {product.brand} |{" "}
+                        {product.colorway}
+                      </div>
+                      <div className="grid grid-cols-5 text-center lg:flex gap-4 mt-8">
+                        {sizes.map((item, index) => (
+                          <div
+                            onClick={() => setSize(item)}
+                            className={`border border-black text-black bg-white hover:bg-black hover:text-white active:bg-black active:text-white px-2 py-1 rounded cursor-pointer ${
+                              size === item ? "!bg-black text-white" : ""
+                            }`}
+                            key={index}
+                          >
+                            {item}
+                          </div>
+                        ))}
                       </div>
                       <div className="flex my-4">
                         <button className="flex justify-center py-1 px-2 rounded transition-all w-full lg:w- text-center border border-black bg-white  text-black hover:bg-black hover:text-white ">

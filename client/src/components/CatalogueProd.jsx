@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-const IndexProd = ({ setShowModal, setSelectedProductId }) => {
+const CatalogueProd = ({ setShowModal, setSelectedProductId }) => {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
@@ -25,7 +25,7 @@ const IndexProd = ({ setShowModal, setSelectedProductId }) => {
   };
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-3 ">
+    <div className="grid grid-cols-1 lg:grid-cols-3 lg:mx-16">
       {products.map((product) => (
         <div key={product._id}>
           <span className="flex border shadow-[0_3px_10px_rgb(0,0,0,0.2)] mx-4 my-4 rounded-lg">
@@ -92,4 +92,4 @@ const IndexProd = ({ setShowModal, setSelectedProductId }) => {
   );
 };
 
-export default IndexProd;
+export default CatalogueProd;

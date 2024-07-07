@@ -18,8 +18,8 @@ const Showcase = () => {
     <>
       {showModal && (
         <ProductModal showModal={showModal} setShowModal={setShowModal} />
-      )}{" "}
-      <div className="mx-8 lg:mx-16 mb-8 lg:my-8 rounded-xl overflow-hidden flex">
+      )}
+      <div className="mx-8 lg:mx-16 mb-8 lg:my-8 rounded-xl overflow-hidden flex shadow-[0_3px_10px_rgb(0,0,0,0.2)]">
         <div className="w-[67.5%] relative text-white transition-all">
           <>
             <div

@@ -1,8 +1,8 @@
 import React from "react";
 import Meteors from "../components/magicui/meteors.tsx";
-import IndexProd from "../components/IndexProd.jsx";
 import { useState } from "react";
 import ProductModal from "../components/ProductModal.jsx";
+import CatalogueProd from "../components/CatalogueProd.jsx";
 
 const Catalogue = () => {
   const [showModal, setShowModal] = useState(false);
@@ -41,16 +41,8 @@ const Catalogue = () => {
           </select>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3  md:mx-8">
-          <IndexProd showModal={showModal} setShowModal={setShowModal} />
-          <IndexProd showModal={showModal} setShowModal={setShowModal} />
-          <IndexProd showModal={showModal} setShowModal={setShowModal} />
-          <IndexProd showModal={showModal} setShowModal={setShowModal} />
-          <IndexProd showModal={showModal} setShowModal={setShowModal} />
-          <IndexProd showModal={showModal} setShowModal={setShowModal} />
-          <IndexProd showModal={showModal} setShowModal={setShowModal} />
-          <IndexProd showModal={showModal} setShowModal={setShowModal} />
-          <IndexProd showModal={showModal} setShowModal={setShowModal} />
+        <div className="w-full lg:mx-16">
+          <CatalogueProd showModal={showModal} setShowModal={setShowModal} />
         </div>
       </div>
     </>

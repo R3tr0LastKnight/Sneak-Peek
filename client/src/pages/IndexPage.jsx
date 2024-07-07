@@ -27,7 +27,7 @@ const IndexPage = () => {
       <NavLink
         to={"catalogue"}
         onClick={() => window.scrollTo({ top: 520, behavior: "smooth" })}
-        className="px-4 py-2 border text-center bg-white rounded w-1/2 md:w-1/4 hover:invert transition-all"
+        className="px-4 py-2 border border-black text-center bg-white rounded w-1/2 md:w-[22%] hover:invert transition-all"
       >
         View All
       </NavLink>
