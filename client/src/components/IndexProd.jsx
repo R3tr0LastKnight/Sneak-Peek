@@ -44,7 +44,7 @@ const IndexProd = ({ setShowModal, setSelectedProductId }) => {
     };
 
     fetchCartItems();
-  }, [userId]);
+  }, [userId, kart]);
 
   const handleAdd = async (productId) => {
     try {
@@ -204,7 +204,7 @@ const IndexProd = ({ setShowModal, setSelectedProductId }) => {
                           )
                         );
                         toast.info(
-                          `${product.companymodel} removed from your wishlist`,
+                          `${product.companymodel} removed from wishlist`,
                           {
                             position: "top-right",
                             autoClose: 1000,
