@@ -11,7 +11,8 @@ const ProductModal = ({ showModal, setShowModal, productId }) => {
   const [imgg, setImgg] = useState([s1, s2, s3]);
   const [product, setProduct] = useState(null);
   const [size, setSize] = useState(10);
-
+  const auth = JSON.parse(localStorage.getItem("auth"));
+  const userId=auth.user._id;
   const backdrop = {
     visible: { opacity: 1 },
     hidden: { opacity: 0 },
@@ -33,6 +34,7 @@ const ProductModal = ({ showModal, setShowModal, productId }) => {
 
   let sizes = [1, 3, 4, 5, 6, 7, 8, 10, 11, 12];
 
+
   useEffect(() => {
     const fetchProduct = async () => {
       try {
@@ -48,6 +50,22 @@ const ProductModal = ({ showModal, setShowModal, productId }) => {
     fetchProduct();
   }, [productId]);
 
+  const addToCart = async () => {
+    // Replace with actual user ID logic
+     const productToAdd = {
+         productId: productId,
+         size: size,
+     };
+     try {
+         const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/v1/product/addtoCart`, {
+             products: [productToAdd],
+             userId:userId,
+         });
+         console.log('Product added to cart:', response.data);
+     } catch (error) {
+         console.error('Error adding product to cart:', error);
+     }
+ };
   useLockBodyScroll();
 
   return (
@@ -134,7 +152,7 @@ const ProductModal = ({ showModal, setShowModal, productId }) => {
                           </div>
                         ))}
                       </div>
-                      <div className="flex my-4">
+                      <div className="flex my-4" onClick={addToCart}>
                         <button className="flex justify-center py-1 px-2 rounded transition-all w-full lg:w- text-center border border-black bg-white  text-black hover:bg-black hover:text-white ">
                           Add to kart
                         </button>
