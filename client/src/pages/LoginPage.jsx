@@ -135,7 +135,7 @@ const LoginPage = () => {
           <div className="flex justify-between items-center gap-2 font-semibold ">
             <label htmlFor="">Name</label>
             <input
-              className="rounded py-1 px-2 border"
+              className="rounded py-1 px-2 border border-gray-400"
               type="text"
               name=""
               id="name"
@@ -147,7 +147,7 @@ const LoginPage = () => {
         <div className="flex justify-between items-center gap-2 font-semibold ">
           <label htmlFor="">Email</label>
           <input
-            className="rounded py-1 px-2 border"
+            className="rounded py-1 px-2 border border-gray-400"
             type="email"
             name=""
             id="email"
@@ -159,7 +159,7 @@ const LoginPage = () => {
         <div className="flex justify-between items-center gap-2 font-semibold ">
           <label htmlFor="">Password</label>
           <input
-            className="rounded py-1 px-2 border"
+            className="rounded py-1 px-2 border border-gray-400"
             type="password"
             name=""
             id=""
@@ -170,14 +170,14 @@ const LoginPage = () => {
         {!state ? (
           <button
             onClick={handleRegister}
-            className="font-bold px-16 mt-2 py-2 bg-white flex items-center justify-center mx-auto rounded-lg shadow-[0_3px_10px_rgb(0,0,0,0.2)]"
+            className="font-bold px-16 mt-2 py-2 bg-white flex items-center justify-center mx-auto rounded-lg shadow-[0_3px_10px_rgb(0,0,0,0.2)] border"
           >
             Register
           </button>
         ) : (
           <button
             onClick={handleLogin}
-            className="font-bold px-16 mt-2 py-2 hover:bg-black hover:text-white transition-all flex items-center justify-center mx-auto rounded-lg shadow-[0_3px_10px_rgb(0,0,0,0.2)]"
+            className="font-bold px-16 mt-2 py-2 hover:bg-black hover:text-white transition-all flex items-center justify-center mx-auto rounded-lg shadow-[0_3px_10px_rgb(0,0,0,0.2)] border"
           >
             Login
           </button>
