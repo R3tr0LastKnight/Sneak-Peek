@@ -5,6 +5,8 @@ import Layout from "./Layout";
 import AdminDashboard from "./components/Admin/AdminDashboard";
 import { useAuth } from "./context/AuthContext";
 import ProductPage from "./pages/ProductPage";
+import BillingPage from "./pages/BillingPage";
+import OrderSuccess from "./pages/OrderSuccess";
 
 const IndexPage = lazy(() => import("./pages/IndexPage"));
 const LoginPage = lazy(() => import("./pages/LoginPage"));
@@ -36,6 +38,8 @@ function App() {
             <Route path="privacy-policy" element={<PrivacyPolicy />} />
             <Route path="terms-and-conditions" element={<Tnc />} />
             <Route path="returns-exchange" element={<Tos />} />
+            <Route path="billingPage" element={<BillingPage />} />
+            <Route path="ordersuccess/:orderId" element={<OrderSuccess />} />
           </Route>
         </Routes>
       </Suspense>
