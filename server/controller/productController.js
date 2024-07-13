@@ -5,6 +5,7 @@ const crypto = require("crypto");
 const dotenv = require("dotenv");
 const Payment = require("../model/paymentSchema");
 const { compare } = require("bcryptjs");
+const wishListModel = require("../model/wishListModel");
 dotenv.config();
 const razorpay = new Razorpay({
   key_id: process.env.RAZORPAY_KEY_ID,
@@ -44,9 +45,9 @@ const displayProductController = async (req, res) => {
 const getSpecificProductController = async (req, res) => {
   try {
     const { productId } = req.params;
-    console.log("product", productId);
+
     const productsDetail = await productModel.findOne({ _id: productId });
-    console.log("Product detail", productsDetail);
+
     res.status(200).json(productsDetail);
   } catch (error) {
     console.error("Error fetching products:", error);
@@ -56,7 +57,7 @@ const getSpecificProductController = async (req, res) => {
 
 const addProductCartController = async (req, res) => {
   const { products, userId } = req.body;
-  console.log("req body cart", req.body);
+
   try {
     let cart = await cartModel.findOne({ userId });
     if (!cart) {
@@ -124,9 +125,75 @@ const deleteProductCartController = async (req, res) => {
   }
 };
 
+const addProductWishListController = async (req, res) => {
+  const { products, userId } = req.body;
+
+  try {
+    let WishList = await wishListModel.findOne({ userId });
+    if (!WishList) {
+      WishList = new wishListModel({ products, userId });
+    } else {
+      WishList.products = [...WishList.products, ...products];
+    }
+    await WishList.save();
+    res.status(200).send(WishList);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
+
+const getProductWishListController = async (req, res) => {
+  const { userId } = req.query;
+
+  try {
+    const WishList = await wishListModel.findOne({ userId });
+    if (!WishList) {
+      return res.status(404).json({ message: "Product not found" });
+    }
+
+    const productsWithDetails = await Promise.all(
+      WishList.products.map(async (item) => {
+        const product = await productModel.findById(item.productId);
+
+        return {
+          productId: item.productId,
+          productDetails: product,
+        };
+      })
+    );
+
+    res.status(200).json({ products: productsWithDetails });
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
+const deleteProductWishListController = async (req, res) => {
+  try {
+    const { productId, userId } = req.body;
+
+    // Find the cart for the user
+    const WishList = await wishListModel.findOne({ userId });
+
+    if (!WishList) {
+      return res.status(404).json({ message: "Cart not found" });
+    }
+
+    // Remove the product from the cart
+    WishList.products = WishList.products.filter(
+      (product) => product.productId !== productId
+    );
+
+    // Save the updated cart
+    await WishList.save();
+    res.status(200).send({ message: "Product removed from wishList" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error" });
+  }
+};
 const createRZOrder = async (req, res) => {
   const { amount, currency, userId } = req.body;
-  console.log("Rqe", req.body);
+
   try {
     const order = await razorpay.orders.create({
       amount: amount * 100,
@@ -184,13 +251,33 @@ const verifyRZOrder = async (req, res) => {
 const getPaymentDetailController = async (req, res) => {
   try {
     const { orderId } = req.params;
-    console.log("product", orderId);
+
     const paymentDetail = await Payment.findOne({ razorpayOrderId: orderId });
-    console.log("Product detail", paymentDetail);
+
     res.status(200).json(paymentDetail);
   } catch (error) {
     console.error("Error fetching products:", error);
     res.status(500).json({ error: error.message });
+  }
+};
+
+const productExistCartController = async (req, res) => {
+  const { userId, productId } = req.params;
+
+  try {
+    const cart = await cartModel.findOne({ userId });
+
+    if (!cart) {
+      return res.status(404).json({ message: "Cart not found" });
+    }
+
+    const productExists = cart.products.some(
+      (product) => product.productId === productId
+    );
+
+    res.status(200).json({ exists: productExists });
+  } catch (error) {
+    res.status(500).json({ message: "Server error" });
   }
 };
 module.exports = {
@@ -203,4 +290,8 @@ module.exports = {
   createRZOrder,
   verifyRZOrder,
   getPaymentDetailController,
+  productExistCartController,
+  addProductWishListController,
+  getProductWishListController,
+  deleteProductWishListController,
 };

@@ -35,7 +35,7 @@ const LoginPage = () => {
           const response = await axios.post(endpoint, { profile: res.data });
 
           if (state) {
-            console.log("User registered successfully", response.data);
+     
             const token = response.data.token;
             logIn(response.data, token);
             localStorage.setItem("auth", JSON.stringify(response.data));
