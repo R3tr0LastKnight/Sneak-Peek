@@ -1,15 +1,19 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Bounce, toast } from "react-toastify";
+import { useAuth } from "../context/AuthContext";
 
 const IndexProd = ({ setShowModal, setSelectedProductId }) => {
   const [products, setProducts] = useState([]);
   const [kart, setKart] = useState([]);
   const [wish, setWish] = useState([]);
   const [subTotal, setSubTotal] = useState(0);
+  const [productExist,setProductsExist]=useState(false);
   const auth = JSON.parse(localStorage.getItem("auth"));
-  const userId = auth.user._id;
+  //
+  const [cartItems, setCartItems] = useState([]);
 
+  const {profile}=useAuth();
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -25,64 +29,107 @@ const IndexProd = ({ setShowModal, setSelectedProductId }) => {
     fetchProducts();
   }, []);
 
-  useEffect(() => {
-    const fetchCartItems = async () => {
-      try {
-        const response = await axios.get(
-          `${process.env.REACT_APP_BACKEND_URL}/api/v1/product/displayCartProduct`,
-          {
-            params: { userId },
-          }
-        );
-        setKart(response.data.products);
+ 
 
-        // Calculate subtotal when cart items are fetched
-        calculateSubTotal(response.data.products);
-      } catch (error) {
-        console.error("Error fetching cart items:", error);
+  useEffect(()=>{
+
+    if(profile){
+      const userId = auth.user._id;
+      const fetchCartItems = async () => {
+        try {
+          const response = await axios.get(
+            `${process.env.REACT_APP_BACKEND_URL}/api/v1/product/displayCartProduct`,
+            {
+              params: { userId },
+            }
+          );
+          setCartItems(response.data.products);
+    
+       
+        } catch (error) {
+          console.error("Error fetching cart items:", error);
+        }
+      };
+      fetchCartItems();
+    }
+  },[profile])
+
+
+  const checkProductInCart = async (productId) => {
+    
+    try {
+      if(profile){
+
+        const userId = auth.user._id;
+      const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/v1/product/check-product/${userId}/${productId}`);
+      
+     
+      if(response.data.exists){
+        setProductsExist(true);
       }
-    };
-
-    fetchCartItems();
-  }, [userId, kart]);
+    }
+    } catch (error) {
+      console.error("Error checking product in cart", error);
+      return false;
+    }
+  };
+ 
 
   const handleAdd = async (productId) => {
+    if(profile){
+   
     try {
+      const productToAdd = {
+        productId: productId,
+        size: "12",
+    };
+    const userId = auth.user._id;
       await axios.post(
         `${process.env.REACT_APP_BACKEND_URL}/api/v1/product/addtoCart`,
         {
-          data: { userId, productId },
+          products: [productToAdd],
+          userId:userId,
         }
       );
       setKart((prevKart) => [...prevKart, productId]);
+      toast.info(`Product added to cart`, {
+        position: "top-right",
+        autoClose: 1000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+      });
     } catch (error) {
       console.error("Error adding cart item:", error);
     }
+  }
+  else{
+    toast.success("Please login to continue")
+  }
   };
 
-  const handleDelete = async (productId) => {
-    try {
-      await axios.delete(
-        `${process.env.REACT_APP_BACKEND_URL}/api/v1/product/deleteCartProduct`,
-        {
-          data: { userId, productId },
-        }
-      );
-      setKart(setKart.filter((item) => item.productId !== productId));
-    } catch (error) {
-      console.error("Error deleting cart item:", error);
-    }
-  };
+  
+  
 
-  const calculateSubTotal = (items) => {
-    let total = 0;
-    items.forEach((item) => {
-      if (item.productDetails) {
-        total += item.productDetails.price;
-      }
-    });
-    setSubTotal(total);
-  };
+  // const handleDelete = async (productId) => {
+  //   try {
+  //     await axios.delete(
+  //       `${process.env.REACT_APP_BACKEND_URL}/api/v1/product/deleteCartProduct`,
+  //       {
+  //         data: { userId, productId },
+  //       }
+  //     );
+  //     setKart(setKart.filter((item) => item.productId !== productId));
+  //   } catch (error) {
+  //     console.error("Error deleting cart item:", error);
+  //   }
+  // };
+
+
 
   const handleProductClick = (productId) => {
     setSelectedProductId(productId);
@@ -117,46 +164,14 @@ const IndexProd = ({ setShowModal, setSelectedProductId }) => {
                 <div className="flex gap-4 mr-4 my-2">
                   <div
                     onClick={() => {
-                      if (!kart.includes(product?._id)) {
+                      
                         handleAdd(product?._id);
-                        // setKart((prevKart) => [...prevKart, product._id]);
-                        toast.info(`${product?.companymodel} added to cart`, {
-                          position: "top-right",
-                          autoClose: 1000,
-                          hideProgressBar: false,
-                          closeOnClick: true,
-                          pauseOnHover: true,
-                          draggable: true,
-                          progress: undefined,
-                          theme: "light",
-                          transition: Bounce,
-                        });
-                      } else {
-                        handleDelete(product?._id);
-                        // setKart((prevKart) =>
-                        //   prevKart.filter(
-                        //     (productId) => productId !== product._id
-                        //   )
-                        // );
-                        toast.info(
-                          `${product?.companymodel} removed from cart`,
-                          {
-                            position: "top-right",
-                            autoClose: 1000,
-                            hideProgressBar: false,
-                            closeOnClick: true,
-                            pauseOnHover: true,
-                            draggable: true,
-                            progress: undefined,
-                            theme: "light",
-                            transition: Bounce,
-                          }
-                        );
-                      }
+                       
+                  
                     }}
                     className="cursor-pointer "
                   >
-                    {!kart.includes(product._id) ? (
+                    {!cartItems.some((item) => item.productId === product._id) ? (
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
@@ -183,42 +198,42 @@ const IndexProd = ({ setShowModal, setSelectedProductId }) => {
                     )}
                   </div>
                   <div
-                    onClick={() => {
-                      if (!wish.includes(product._id)) {
-                        setWish((prevWish) => [...prevWish, product._id]);
-                        toast.info(`${product.companymodel} wishlisted`, {
-                          position: "top-right",
-                          autoClose: 1000,
-                          hideProgressBar: false,
-                          closeOnClick: true,
-                          pauseOnHover: true,
-                          draggable: true,
-                          progress: undefined,
-                          theme: "light",
-                          transition: Bounce,
-                        });
-                      } else {
-                        setWish((prevWish) =>
-                          prevWish.filter(
-                            (productId) => productId !== product._id
-                          )
-                        );
-                        toast.info(
-                          `${product.companymodel} removed from wishlist`,
-                          {
-                            position: "top-right",
-                            autoClose: 1000,
-                            hideProgressBar: false,
-                            closeOnClick: true,
-                            pauseOnHover: true,
-                            draggable: true,
-                            progress: undefined,
-                            theme: "light",
-                            transition: Bounce,
-                          }
-                        );
-                      }
-                    }}
+                    // onClick={() => {
+                    //   if (!wish.includes(product._id)) {
+                    //     setWish((prevWish) => [...prevWish, product._id]);
+                    //     toast.info(`${product.companymodel} wishlisted`, {
+                    //       position: "top-right",
+                    //       autoClose: 1000,
+                    //       hideProgressBar: false,
+                    //       closeOnClick: true,
+                    //       pauseOnHover: true,
+                    //       draggable: true,
+                    //       progress: undefined,
+                    //       theme: "light",
+                    //       transition: Bounce,
+                    //     });
+                    //   } else {
+                    //     setWish((prevWish) =>
+                    //       prevWish.filter(
+                    //         (productId) => productId !== product._id
+                    //       )
+                    //     );
+                    //     toast.info(
+                    //       `${product.companymodel} removed from wishlist`,
+                    //       {
+                    //         position: "top-right",
+                    //         autoClose: 1000,
+                    //         hideProgressBar: false,
+                    //         closeOnClick: true,
+                    //         pauseOnHover: true,
+                    //         draggable: true,
+                    //         progress: undefined,
+                    //         theme: "light",
+                    //         transition: Bounce,
+                    //       }
+                    //     );
+                    //   }
+                    // }}
                     className="cursor-pointer"
                   >
                     {!wish.includes(product._id) ? (

@@ -6,6 +6,7 @@ import s2 from "../assets/carousel/s2.jpg";
 import s3 from "../assets/carousel/s3.jpg";
 import axios from "axios";
 import { useLockBodyScroll } from "@uidotdev/usehooks";
+import toast, { Toaster } from "react-hot-toast";
 
 const ProductModal = ({ showModal, setShowModal, productId }) => {
   const [imgg, setImgg] = useState([s1, s2, s3]);
@@ -61,7 +62,8 @@ const ProductModal = ({ showModal, setShowModal, productId }) => {
              products: [productToAdd],
              userId:userId,
          });
-         console.log('Product added to cart:', response.data);
+    
+         toast.success("Product added to Cart");
      } catch (error) {
          console.error('Error adding product to cart:', error);
      }
@@ -165,6 +167,7 @@ const ProductModal = ({ showModal, setShowModal, productId }) => {
           </motion.div>
         </motion.div>
       )}
+      <Toaster/>
     </AnimatePresence>
   );
 };

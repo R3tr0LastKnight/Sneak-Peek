@@ -5,6 +5,7 @@ import img from "../assets/carousel/nelson-ndongala-kKObh7tUPNc-unsplash.jpg";
 import del from "../assets/icons/del.png";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import toast, { Toaster } from "react-hot-toast";
 const Catalogue = () => {
   const [cartItems, setCartItems] = useState([]);
   const [subTotal, setSubTotal] = useState(0);
@@ -53,6 +54,7 @@ const Catalogue = () => {
         }
       );
       setCartItems(cartItems.filter((item) => item.productId !== productId));
+      toast.success("Product delete from cart")
     } catch (error) {
       console.error("Error deleting cart item:", error);
     }
@@ -146,6 +148,7 @@ const Catalogue = () => {
           Proceed to payment
         </button>
       </div>
+      <Toaster/>
     </div>
   );
 };

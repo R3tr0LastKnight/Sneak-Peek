@@ -36,7 +36,7 @@ const AdminDashboard = () => {
                 success(result) {
                     convertToBase64(result).then((base64) => {
                         const sizeInKB = getBase64SizeInKB(base64);
-                        console.log(`Image size: ${sizeInKB} KB`);
+                    
                         resolve(base64);
                     }).catch(reject);
                 },

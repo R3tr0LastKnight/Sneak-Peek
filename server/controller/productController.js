@@ -44,9 +44,9 @@ const displayProductController = async (req, res) => {
 const getSpecificProductController = async (req, res) => {
   try {
     const { productId } = req.params;
-    console.log("product", productId);
+
     const productsDetail = await productModel.findOne({ _id: productId });
-    console.log("Product detail", productsDetail);
+
     res.status(200).json(productsDetail);
   } catch (error) {
     console.error("Error fetching products:", error);
@@ -56,7 +56,7 @@ const getSpecificProductController = async (req, res) => {
 
 const addProductCartController = async (req, res) => {
   const { products, userId } = req.body;
-  console.log("req body cart", req.body);
+
   try {
     let cart = await cartModel.findOne({ userId });
     if (!cart) {
@@ -126,7 +126,7 @@ const deleteProductCartController = async (req, res) => {
 
 const createRZOrder = async (req, res) => {
   const { amount, currency, userId } = req.body;
-  console.log("Rqe", req.body);
+
   try {
     const order = await razorpay.orders.create({
       amount: amount * 100,
@@ -184,13 +184,33 @@ const verifyRZOrder = async (req, res) => {
 const getPaymentDetailController = async (req, res) => {
   try {
     const { orderId } = req.params;
-    console.log("product", orderId);
+
     const paymentDetail = await Payment.findOne({ razorpayOrderId: orderId });
-    console.log("Product detail", paymentDetail);
+
     res.status(200).json(paymentDetail);
   } catch (error) {
     console.error("Error fetching products:", error);
     res.status(500).json({ error: error.message });
+  }
+};
+
+const productExistCartController = async (req, res) => {
+  const { userId, productId } = req.params;
+
+  try {
+    const cart = await cartModel.findOne({ userId });
+
+    if (!cart) {
+      return res.status(404).json({ message: "Cart not found" });
+    }
+
+    const productExists = cart.products.some(
+      (product) => product.productId === productId
+    );
+
+    res.status(200).json({ exists: productExists });
+  } catch (error) {
+    res.status(500).json({ message: "Server error" });
   }
 };
 module.exports = {
@@ -203,4 +223,5 @@ module.exports = {
   createRZOrder,
   verifyRZOrder,
   getPaymentDetailController,
+  productExistCartController,
 };
