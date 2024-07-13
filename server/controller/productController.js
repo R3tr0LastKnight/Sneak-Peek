@@ -5,6 +5,7 @@ const crypto = require("crypto");
 const dotenv = require("dotenv");
 const Payment = require("../model/paymentSchema");
 const { compare } = require("bcryptjs");
+const wishListModel = require("../model/wishListModel");
 dotenv.config();
 const razorpay = new Razorpay({
   key_id: process.env.RAZORPAY_KEY_ID,
@@ -124,6 +125,72 @@ const deleteProductCartController = async (req, res) => {
   }
 };
 
+const addProductWishListController = async (req, res) => {
+  const { products, userId } = req.body;
+
+  try {
+    let WishList = await wishListModel.findOne({ userId });
+    if (!WishList) {
+      WishList = new wishListModel({ products, userId });
+    } else {
+      WishList.products = [...WishList.products, ...products];
+    }
+    await WishList.save();
+    res.status(200).send(WishList);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
+
+const getProductWishListController = async (req, res) => {
+  const { userId } = req.query;
+
+  try {
+    const WishList = await wishListModel.findOne({ userId });
+    if (!WishList) {
+      return res.status(404).json({ message: "Product not found" });
+    }
+
+    const productsWithDetails = await Promise.all(
+      WishList.products.map(async (item) => {
+        const product = await productModel.findById(item.productId);
+
+        return {
+          productId: item.productId,
+          productDetails: product,
+        };
+      })
+    );
+
+    res.status(200).json({ products: productsWithDetails });
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
+const deleteProductWishListController = async (req, res) => {
+  try {
+    const { productId, userId } = req.body;
+
+    // Find the cart for the user
+    const WishList = await wishListModel.findOne({ userId });
+
+    if (!WishList) {
+      return res.status(404).json({ message: "Cart not found" });
+    }
+
+    // Remove the product from the cart
+    WishList.products = WishList.products.filter(
+      (product) => product.productId !== productId
+    );
+
+    // Save the updated cart
+    await WishList.save();
+    res.status(200).send({ message: "Product removed from wishList" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error" });
+  }
+};
 const createRZOrder = async (req, res) => {
   const { amount, currency, userId } = req.body;
 
@@ -224,4 +291,7 @@ module.exports = {
   verifyRZOrder,
   getPaymentDetailController,
   productExistCartController,
+  addProductWishListController,
+  getProductWishListController,
+  deleteProductWishListController,
 };

@@ -9,6 +9,9 @@ const {
   verifyRZOrder,
   getPaymentDetailController,
   productExistCartController,
+  addProductWishListController,
+  getProductWishListController,
+  deleteProductWishListController,
 } = require("../controller/productController");
 
 const router = require("express").Router();
@@ -24,6 +27,9 @@ router.get("/getSpecificProduct/:productId", getSpecificProductController);
 router.post("/addtoCart", addProductCartController);
 router.get("/displayCartProduct", getProductCartController);
 router.delete("/deleteCartProduct", deleteProductCartController);
+router.post("/addtoWishList", addProductWishListController);
+router.get("/displayWishListProduct", getProductWishListController);
+router.delete("/deleteWishListProduct", deleteProductWishListController);
 router.post("/createRzOrder", createRZOrder);
 router.post("/verifyPayment", verifyRZOrder);
 router.get("/getPaymentDetail/:orderId", getPaymentDetailController);
