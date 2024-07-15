@@ -85,7 +85,7 @@ const AdminDashboard = () => {
       </div>
       <form
         onSubmit={handleSubmit}
-        className="gap-8 my-8 p-4 bg-white shadow-md rounded-md grid grid-cols-2 w-[60%] mx-auto"
+        className="gap-8 my-8 p-4 bg-white shadow-md rounded-md grid grid-cols-1 lg:grid-cols-2 lg:w-[60%] mx-auto"
       >
         <div className="mb-4">
           <label

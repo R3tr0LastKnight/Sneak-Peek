@@ -293,17 +293,17 @@ const IndexProd = ({ setShowModal, setSelectedProductId }) => {
   };
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-3 select-none ">
+    <div className="grid mx-12 grid-cols-1 lg:grid-cols-3 select-none ">
       {products.map((product) => (
         <div key={product._id}>
           <span className="flex border shadow-[0_3px_10px_rgb(0,0,0,0.2)] mx-4 my-4 rounded-lg">
             <div className="flex flex-col w-full">
-              <div className="rounded-t-lg cursor-pointer h-[12rem] w-full lg:w-[27rem] lg:h-[20rem] lg:max-h-[15rem] overflow-hidden relative items-center justify-center object-cover">
+              <div className="rounded-t-lg cursor-pointer w-full  lg:h-[20rem] lg:max-h-[16rem] overflow-hidden relative items-center justify-center object-cover">
                 <img
                   onClick={() => handleProductClick(product._id)}
                   src={product.photos}
                   alt=""
-                  className="absolute "
+                  className="w-full object-fill "
                 />
               </div>
 
