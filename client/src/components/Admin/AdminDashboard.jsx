@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import Compressor from "compressorjs";
 import toast, { Toaster } from "react-hot-toast";
+
 const AdminDashboard = () => {
   const [formData, setFormData] = useState({
     brand: "",
@@ -33,11 +34,10 @@ const AdminDashboard = () => {
     return new Promise((resolve, reject) => {
       new Compressor(file, {
         quality: 0.6, // Adjust the quality as needed (0 to 1)
+        mimeType: "image/webp", // Convert to WebP format
         success(result) {
           convertToBase64(result)
             .then((base64) => {
-              const sizeInKB = getBase64SizeInKB(base64);
-
               resolve(base64);
             })
             .catch(reject);
@@ -58,12 +58,6 @@ const AdminDashboard = () => {
     });
   };
 
-  const getBase64SizeInKB = (base64) => {
-    const stringLength = base64.length - "data:image/png;base64,".length;
-    const sizeInBytes = 4 * Math.ceil(stringLength / 3) * 0.5624896334383812;
-    return (sizeInBytes / 1024).toFixed(2);
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -79,7 +73,8 @@ const AdminDashboard = () => {
       toast.success("Product added successfully");
       window.location.reload();
     } catch (error) {
-      console.log("Error in adding ");
+      console.log("Error in adding product:", error);
+      toast.error("Error in adding product");
     }
   };
 
@@ -90,7 +85,7 @@ const AdminDashboard = () => {
       </div>
       <form
         onSubmit={handleSubmit}
-        className=" gap-8 my-8 p-4 bg-white shadow-md rounded-md grid grid-cols-2 w-[60%] mx-auto"
+        className="gap-8 my-8 p-4 bg-white shadow-md rounded-md grid grid-cols-2 w-[60%] mx-auto"
       >
         <div className="mb-4">
           <label
