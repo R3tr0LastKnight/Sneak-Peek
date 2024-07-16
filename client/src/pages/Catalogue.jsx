@@ -18,7 +18,7 @@ const Catalogue = () => {
           <Meteors />
         </div>
 
-        <div className="flex my-2 bg-white w-full justify-end px-16 relative ">
+        <div className="flex my-2 bg-white w-full lg:justify-end justify-center lg:px-16 relative  lg:bottom-12 bg-transparent">
           <input
             className="border border-black bg-whtie px-4 py-2 rounded-l-xl"
             type="text"

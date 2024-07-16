@@ -7,6 +7,8 @@ import { useAuth } from "./context/AuthContext";
 import ProductPage from "./pages/ProductPage";
 import BillingPage from "./pages/BillingPage";
 import OrderSuccess from "./pages/OrderSuccess";
+import load from "./assets/wings.png";
+import Loading from "./components/Loading/Loading";
 
 const IndexPage = lazy(() => import("./pages/IndexPage"));
 const LoginPage = lazy(() => import("./pages/LoginPage"));
@@ -22,7 +24,15 @@ function App() {
   const { isAdmin } = useAuth();
   return (
     <div className=" overflow-hidden">
-      <Suspense fallback={<>loading</>}>
+      <Suspense
+        fallback={
+          <>
+            <div className="w-screen flex justify-center items-center h-screen">
+              <img src={load} alt="" />
+            </div>
+          </>
+        }
+      >
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route index element={<IndexPage />} />

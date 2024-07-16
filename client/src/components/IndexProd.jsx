@@ -61,7 +61,6 @@ const IndexProd = ({ setShowModal, setSelectedProductId }) => {
       fetchWishListItems();
     }
   }, [profile]);
-  console.log("def", cartItems);
 
   const handleAdd = async (productId) => {
     if (profile) {
@@ -131,7 +130,6 @@ const IndexProd = ({ setShowModal, setSelectedProductId }) => {
     } catch (error) {
       console.error("Error deleting cart item:", error);
     }
-    console.log("del", cartItems);
   };
   const handleAddWishList = async (productId) => {
     if (profile) {
