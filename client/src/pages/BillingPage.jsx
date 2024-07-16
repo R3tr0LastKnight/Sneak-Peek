@@ -320,7 +320,7 @@ const BillingPage = () => {
                   {item.productDetails.companymodel}
                 </div>
                 <div>{item.productDetails.brand}</div>
-                <div>Rs. {item.productDetails.price}</div>
+                <div>&#8377; {item.productDetails.price}</div>
               </div>
             ))}
           </div>
@@ -328,7 +328,7 @@ const BillingPage = () => {
           <div className="flex justify-between mt-2 items-center mx-20 lg:mx-32 pb-8">
             <div>Total</div>
             <div className="text-[#000] font-bold text-xl">
-              Rs. {subTotal}.00
+              &#8377; {subTotal}.00
             </div>
           </div>
 
@@ -342,7 +342,10 @@ const BillingPage = () => {
         </div>
       </div>
       <div className=" md:mx-24 lg:mx-20 py-4 px-16 rounded-xl text-center shadow-[0_3px_10px_rgb(0,0,0,0.2)]">
-        <h1>"Donquixote"</h1>
+        <h1>
+          "In accordance with the ancient decrees, any purchase made upon this
+          hallowed website shall bestow no goods unto thee."
+        </h1>
       </div>
     </div>
   );
