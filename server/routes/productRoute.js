@@ -13,6 +13,7 @@ const {
   getProductWishListController,
   deleteProductWishListController,
   productofTheDayController,
+  showCaseProductController,
 } = require("../controller/productController");
 
 const router = require("express").Router();
@@ -36,4 +37,5 @@ router.post("/verifyPayment", verifyRZOrder);
 router.get("/getPaymentDetail/:orderId", getPaymentDetailController);
 router.get("/check-product/:userId/:productId", productExistCartController);
 router.get("/productofTheDay", productofTheDayController);
+router.get("/showCaseProduct", showCaseProductController);
 module.exports = router;

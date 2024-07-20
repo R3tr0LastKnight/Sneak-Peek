@@ -304,6 +304,16 @@ const productofTheDayController = async (req, res) => {
     res.status(500).send(error.message);
   }
 };
+const showCaseProductController = async (req, res) => {
+  try {
+    const randomProducts = await productModel.aggregate([
+      { $sample: { size: 3 } },
+    ]);
+    res.json(randomProducts);
+  } catch (err) {
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
 module.exports = {
   createProductController,
   displayProductController,
@@ -319,4 +329,5 @@ module.exports = {
   getProductWishListController,
   deleteProductWishListController,
   productofTheDayController,
+  showCaseProductController,
 };
