@@ -19,7 +19,7 @@ const ContactUs = ({ showModal, setShowModal, productId }) => {
   const [product, setProduct] = useState(null);
   const [size, setSize] = useState(10);
   const auth = JSON.parse(localStorage.getItem("auth"));
-  const userId = auth.user._id;
+  // const userId = auth.user._id;
   const backdrop = {
     visible: { opacity: 1 },
     hidden: { opacity: 0 },

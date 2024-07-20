@@ -6,6 +6,7 @@ const dotenv = require("dotenv");
 const Payment = require("../model/paymentSchema");
 const { compare } = require("bcryptjs");
 const wishListModel = require("../model/wishListModel");
+const { AsyncLocalStorage } = require("async_hooks");
 dotenv.config();
 const razorpay = new Razorpay({
   key_id: process.env.RAZORPAY_KEY_ID,
@@ -280,6 +281,29 @@ const productExistCartController = async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 };
+let cachedProduct = null;
+let cacheTime = 0;
+
+// Function to fetch and cache a random product
+const getRandomProduct = async () => {
+  if (!cachedProduct || Date.now() - cacheTime > 24 * 60 * 60 * 1000) {
+    // 24 hours in milliseconds
+    const count = await productModel.countDocuments();
+    const randomIndex = Math.floor(Math.random() * count);
+    cachedProduct = await productModel.findOne().skip(randomIndex);
+    cacheTime = Date.now();
+  }
+  return cachedProduct;
+};
+
+const productofTheDayController = async (req, res) => {
+  try {
+    const product = await getRandomProduct();
+    res.json(product);
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+};
 module.exports = {
   createProductController,
   displayProductController,
@@ -294,4 +318,5 @@ module.exports = {
   addProductWishListController,
   getProductWishListController,
   deleteProductWishListController,
+  productofTheDayController,
 };
