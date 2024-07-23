@@ -14,7 +14,9 @@ const Catalogue = () => {
       )}
       <div className="py-8 relative flex flex-col items-center">
         <div>
-          <div className="text-3xl font-mentra">Catalogue</div>
+          <div className="text-3xl font-mentra text-black relative z-30">
+            Catalogue
+          </div>
           <Meteors />
         </div>
 

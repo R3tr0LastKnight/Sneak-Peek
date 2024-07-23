@@ -14,18 +14,19 @@ const IndexProd = ({ setShowModal, setSelectedProductId }) => {
 
   const { profile } = useAuth();
   useEffect(() => {
-    const fetchProducts = async () => {
+    const fetchRandomProducts = async () => {
       try {
-        const response = await axios.get(
-          `${process.env.REACT_APP_BACKEND_URL}/api/v1/product/getProducts`
+        const response = await fetch(
+          `${process.env.REACT_APP_BACKEND_URL}/api/v1/product/showCaseProduct`
         );
-        setProducts(response.data);
-      } catch (error) {
-        console.error("Error fetching products:", error);
+        const data = await response.json();
+        setProducts(data);
+      } catch (err) {
+        console.error("Error fetching random products:", err);
       }
     };
 
-    fetchProducts();
+    fetchRandomProducts();
   }, []);
 
   useEffect(() => {
