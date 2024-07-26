@@ -14,6 +14,7 @@ const {
   deleteProductWishListController,
   productofTheDayController,
   showCaseProductController,
+  quotesController,
 } = require("../controller/productController");
 
 const router = require("express").Router();
@@ -38,4 +39,5 @@ router.get("/getPaymentDetail/:orderId", getPaymentDetailController);
 router.get("/check-product/:userId/:productId", productExistCartController);
 router.get("/productofTheDay", productofTheDayController);
 router.get("/showCaseProduct", showCaseProductController);
+router.get("/getQuotes", quotesController);
 module.exports = router;

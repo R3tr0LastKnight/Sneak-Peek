@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/iframe-has-title */
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
+import axios from "axios";
 import linked from "../assets/nav/icons8-linkedin.svg";
 import git from "../assets/nav/icons8-github.svg";
 import insta from "../assets/nav/icons8-insta.svg";
@@ -23,7 +24,19 @@ import { Dock, DockIcon } from "./magicui/dock.tsx";
 
 const Footer = () => {
   const [showModal, setShowModal] = useState(false);
+  const [quotes, setQuotes] = useState(null);
+  useEffect(() => {
+    const fetchQuotes = async () => {
+      try {
+        const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/v1/product/getQuotes`);
+        setQuotes(response.data);
+      } catch (error) {
+        console.error("Error fetching the random product:", error);
+      }
+    };
 
+    fetchQuotes();
+  }, []);
   return (
     <>
       <ContactUs showModal={showModal} setShowModal={setShowModal} />
@@ -128,7 +141,17 @@ const Footer = () => {
               <input className="px-2 py-1 " type="email" />
               <button className="px-2 py-1 bg-black text-white">Submit</button>
             </div>
-            <div className="font-light text-base text-black">"Donquixote"</div>
+            {
+    quotes ? (
+      <div className="font-light text-base text-black">
+      {quotes.quote}
+      </div>
+    ) : (
+      <div className="font-light text-base text-black">
+        Loading quotes...
+      </div>
+    )
+}
           </div>
           <div className="w-1/3 lg:w- flex justify-end  items-end ">
             <img
@@ -146,7 +169,17 @@ const Footer = () => {
             <input className="px-2 py-1 " type="email" />
             <button className="px-2 py-1 bg-black text-white">Submit</button>
           </div>
-          <div className="font-light text-base text-black">"Quote"</div>
+          {
+    quotes ? (
+      <div className="font-light text-base text-black">
+      {quotes.quote}
+      </div>
+    ) : (
+      <div className="font-light text-base text-black">
+        Loading quotes...
+      </div>
+    )
+}
         </div>
         <div className="w-[90%] lg:w-1/3 flex justify-start md:justify-end items-end md:mr-32 shadow-xl select-none bg-black text white rounded-xl overflow-hidden ">
           <div className="relative flex h-full w-full lg:max-w-[32rem] items-center justify-center overflow-hidden rounded-lg  bg-background px-48 lg:px-40 pb-40 md:pb-32 ">

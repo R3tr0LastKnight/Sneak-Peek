@@ -7,6 +7,7 @@ const Payment = require("../model/paymentSchema");
 const { compare } = require("bcryptjs");
 const wishListModel = require("../model/wishListModel");
 const { AsyncLocalStorage } = require("async_hooks");
+const quotesModel = require("../model/quotesModel");
 dotenv.config();
 const razorpay = new Razorpay({
   key_id: process.env.RAZORPAY_KEY_ID,
@@ -314,6 +315,31 @@ const showCaseProductController = async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
+const getRandomQoutes = async () => {
+  if (!cachedProduct || Date.now() - cacheTime > 24 * 60 * 60 * 1000) {
+    // 24 hours in milliseconds
+    const count = await quotesModel.countDocuments();
+
+    if (count === 0) {
+      return { quote: "No quotes available" };
+    }
+    const randomIndex = Math.floor(Math.random() * count);
+    cachedProduct = await quotesModel.findOne().skip(randomIndex);
+    cacheTime = Date.now();
+  }
+  return cachedProduct || { quote: "No quotes available" };
+};
+
+const quotesController = async (req, res) => {
+  try {
+    const quotes = await getRandomQoutes();
+
+    res.json(quotes);
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+};
+
 module.exports = {
   createProductController,
   displayProductController,
@@ -330,4 +356,5 @@ module.exports = {
   deleteProductWishListController,
   productofTheDayController,
   showCaseProductController,
+  quotesController,
 };
