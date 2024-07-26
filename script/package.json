@@ -1,7 +1,0 @@
-{
-  "dependencies": {
-    "mongodb": "^6.7.0",
-    "mongoose": "^8.4.3",
-    "sneaks-api": "^1.2.3"
-  }
-}

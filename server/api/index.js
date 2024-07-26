@@ -18,6 +18,9 @@ app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 app.use("/api/v1/auth", authRoute);
 app.use("/api/v1/product", productRoute);
+app.get("/", (req, res) => {
+  res.send("Welcome to my Sneak Peak backend");
+});
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
