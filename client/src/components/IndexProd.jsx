@@ -314,7 +314,7 @@ const IndexProd = ({ setShowModal, setSelectedProductId }) => {
                   >
                     {product.companymodel}
                   </h1>
-                  <p className="cursor-pointer">$ {product.price}</p>
+                  <p className="cursor-pointer">&#8377; {product.price}</p>
                 </div>
                 <>
                   <Buttons product={product} />

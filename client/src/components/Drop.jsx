@@ -20,10 +20,12 @@ const Drop = () => {
           `${process.env.REACT_APP_BACKEND_URL}/api/v1/product/productofTheDay`
         );
         setProduct(response.data);
+        console.log("dhoe" + response.data);
       } catch (error) {
         console.error("Error fetching the random product:", error);
       }
     };
+    console.log("supp nigga");
 
     fetchProduct();
   }, []); // Empty dependency array to run only once on component mount

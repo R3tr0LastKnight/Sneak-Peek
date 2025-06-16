@@ -62,7 +62,10 @@ const Nav = () => {
               >
                 <NavLink
                   onClick={() =>
-                    window.scrollTo({ top: 520, behavior: "smooth" })
+                    window.scrollTo({
+                      top: 640,
+                      behavior: "smooth",
+                    })
                   }
                   to={"/kart"}
                 >
@@ -89,7 +92,10 @@ const Nav = () => {
               >
                 <NavLink
                   onClick={() =>
-                    window.scrollTo({ top: 520, behavior: "smooth" })
+                    window.scrollTo({
+                      top: 640,
+                      behavior: "smooth",
+                    })
                   }
                   to={"/wishlist"}
                 >
@@ -147,7 +153,10 @@ const Nav = () => {
                   {isAdmin && (
                     <NavLink
                       onClick={() =>
-                        window.scrollTo({ top: 520, behavior: "smooth" })
+                        window.scrollTo({
+                          top: window.innerHeight,
+                          behavior: "smooth",
+                        })
                       }
                       className="flex items-center gap-1 cursor-pointer"
                       to={"/admindash"}
@@ -229,7 +238,10 @@ const Nav = () => {
               to={"/login"}
               className={`text- w-full text-center py-1 cursor-pointer px-4`}
               onClick={() => {
-                window.scrollTo({ top: 520, behavior: "smooth" });
+                window.scrollTo({
+                  top: window.innerHeight,
+                  behavior: "smooth",
+                });
               }}
             >
               Login / Register

@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/iframe-has-title */
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import linked from "../assets/nav/icons8-linkedin.svg";
 import git from "../assets/nav/icons8-github.svg";
@@ -28,7 +28,9 @@ const Footer = () => {
   useEffect(() => {
     const fetchQuotes = async () => {
       try {
-        const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/v1/product/getQuotes`);
+        const response = await axios.get(
+          `${process.env.REACT_APP_BACKEND_URL}/api/v1/product/getQuotes`
+        );
         setQuotes(response.data);
       } catch (error) {
         console.error("Error fetching the random product:", error);
@@ -51,10 +53,24 @@ const Footer = () => {
                 <div className="absolute top-4">
                   <Dock magnification={80} distance={100}>
                     <DockIcon className="bg-black/10 dark:bg-white/10 p-3">
-                      <img className="w-1/2 md:w-full" src={linked} alt="" />
+                      <a
+                        href={
+                          "https://in.linkedin.com/in/shubh-shahu?trk=people-guest_people_search-card"
+                        }
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        <img className="w-1/2 md:w-full" src={linked} alt="" />
+                      </a>
                     </DockIcon>
                     <DockIcon className="bg-black/10 dark:bg-white/10 p-3">
-                      <img className="w-1/2 md:w-full" src={git} alt="" />
+                      <a
+                        href={"https://github.com/R3tr0LastKnight"}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        <img className="w-1/2 md:w-full" src={git} alt="" />
+                      </a>
                     </DockIcon>
                     <DockIcon className="bg-black/10 dark:bg-white/10 p-3">
                       <a
@@ -141,17 +157,15 @@ const Footer = () => {
               <input className="px-2 py-1 " type="email" />
               <button className="px-2 py-1 bg-black text-white">Submit</button>
             </div>
-            {
-    quotes ? (
-      <div className="font-light text-base text-black">
-      {quotes.quote}
-      </div>
-    ) : (
-      <div className="font-light text-base text-black">
-        Loading quotes...
-      </div>
-    )
-}
+            {quotes ? (
+              <div className="font-light text-base text-black">
+                {quotes.quote}
+              </div>
+            ) : (
+              <div className="font-light text-base text-black">
+                Loading quotes...
+              </div>
+            )}
           </div>
           <div className="w-1/3 lg:w- flex justify-end  items-end ">
             <img
@@ -169,17 +183,15 @@ const Footer = () => {
             <input className="px-2 py-1 " type="email" />
             <button className="px-2 py-1 bg-black text-white">Submit</button>
           </div>
-          {
-    quotes ? (
-      <div className="font-light text-base text-black">
-      {quotes.quote}
-      </div>
-    ) : (
-      <div className="font-light text-base text-black">
-        Loading quotes...
-      </div>
-    )
-}
+          {quotes ? (
+            <div className="font-light text-base text-black">
+              {quotes.quote}
+            </div>
+          ) : (
+            <div className="font-light text-base text-black">
+              Loading quotes...
+            </div>
+          )}
         </div>
         <div className="w-[90%] lg:w-1/3 flex justify-start md:justify-end items-end md:mr-32 shadow-xl select-none bg-black text white rounded-xl overflow-hidden ">
           <div className="relative flex h-full w-full lg:max-w-[32rem] items-center justify-center overflow-hidden rounded-lg  bg-background px-48 lg:px-40 pb-40 md:pb-32 ">

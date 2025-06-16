@@ -35,7 +35,6 @@ const LoginPage = () => {
           const response = await axios.post(endpoint, { profile: res.data });
 
           if (state) {
-     
             const token = response.data.token;
             logIn(response.data, token);
             localStorage.setItem("auth", JSON.stringify(response.data));
@@ -123,7 +122,7 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center py-8 select-none">
+    <div className="flex flex-col items-center justify-center py-8 select-none h-[100vh]">
       {state ? (
         <h1 className="text-3xl font-mentra ">Login</h1>
       ) : (

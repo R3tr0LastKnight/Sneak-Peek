@@ -9,10 +9,10 @@ const wishListModel = require("../model/wishListModel");
 const { AsyncLocalStorage } = require("async_hooks");
 const quotesModel = require("../model/quotesModel");
 dotenv.config();
-const razorpay = new Razorpay({
-  key_id: process.env.RAZORPAY_KEY_ID,
-  key_secret: process.env.RAZORPAY_KEY_SECRET,
-});
+// const razorpay = new Razorpay({
+//   key_id: process.env.RAZORPAY_KEY_ID,
+//   key_secret: process.env.RAZORPAY_KEY_SECRET,
+// });
 
 const createProductController = async (req, res) => {
   try {

@@ -84,14 +84,33 @@ const Catalogue = () => {
   const total = subTotal; // For now, total is same as subtotal
 
   return (
-    <div className="py-8 relative flex flex-col items-center min-h-[50vh]">
-      <div className="select-none">
-        <div className="text-3xl font-mentra">Kart</div>
+    <div className="py-8 relative flex flex-col items-center min-h-[100vh]">
+      <div className="select-none mb-8">
+        <div className="text-3xl font-mentra text-center">Kart</div>
+        <div className="text-center">
+          <div className="text-center ">&#8377; {total}.00</div>
+          <div>{cartItems.length} Items in kart </div>
+          <div className="flex justify-center">
+            <button
+              className="px-8 py-1 border border-black text-center bg-white rounded-sm  hover:invert transition-all"
+              onClick={() => {
+                window.scrollTo({
+                  top: 640,
+                  behavior: "smooth",
+                });
+                navigate("/billingPage");
+              }}
+            >
+              Checkout
+            </button>
+          </div>
+        </div>
         <Meteors />
       </div>
+
       {cartItems.length > 0 ? (
         <>
-          <div className="relative grid grid-cols-1 md:grid-cols-2  justify-center mx-8 py-4 gap-4 ">
+          <div className="relative grid grid-cols-1   justify-center mx-8 py-4 gap-4 ">
             {cartItems.map((item) => (
               <div
                 onClick={() => console.log(item)}
@@ -147,17 +166,19 @@ const Catalogue = () => {
           </div>
         </>
       )}
-      <div className="text-center mt-16 py-1">&#8377; {total}.00</div>
-      <div className="flex justify-center">
-        <button
-          className="px-4 py-2 border border-black text-center bg-white rounded  hover:invert transition-all"
-          onClick={() => {
-            window.scrollTo({ top: 520, behavior: "smooth" });
-            navigate("/billingPage");
-          }}
-        >
-          Proceed to payment
-        </button>
+      <div>
+        <div className="text-center mt-4 py-1">&#8377; {total}.00</div>
+        <div className="flex justify-center">
+          <button
+            className="px-4 py-2 border border-black text-center bg-white rounded  hover:invert transition-all"
+            onClick={() => {
+              window.scrollTo({ top: 640, behavior: "smooth" });
+              navigate("/billingPage");
+            }}
+          >
+            Proceed to payment
+          </button>
+        </div>
       </div>
       <Toaster />
     </div>

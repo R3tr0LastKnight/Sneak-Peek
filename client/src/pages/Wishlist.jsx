@@ -11,6 +11,17 @@ const Wishlist = () => {
   const [hover, setHover] = useState([]);
   const auth = JSON.parse(localStorage.getItem("auth"));
   const { profile } = useAuth();
+  const [subTotal, setSubTotal] = useState(0);
+
+  const calculateSubTotal = (items) => {
+    let total = 0;
+    items.forEach((item) => {
+      if (item.productDetails) {
+        total += item.productDetails.price;
+      }
+    });
+    setSubTotal(total);
+  };
 
   useEffect(() => {
     if (profile) {
@@ -24,6 +35,7 @@ const Wishlist = () => {
             }
           );
           setWishListItems(response.data.products);
+          calculateSubTotal(response.data.products);
         } catch (error) {
           console.error("Error fetching cart items:", error);
         }
@@ -117,15 +129,20 @@ const Wishlist = () => {
       console.error("Error deleting cart item:", error);
     }
   };
+  const total = subTotal;
 
   return (
-    <div className="py-8 relative flex flex-col items-center min-h-[50vh]">
+    <div className="py-8 relative flex flex-col items-center min-h-[100vh]">
       <div className="select-none">
-        <div className="text-3xl font-mentra">Wishlist</div>
+        <div className="text-center">
+          <div className="text-3xl font-mentra">Wishlist</div>
+          <div className="text-center ">&#8377; {total}.00</div>
+          <div>{wishListItems.length} Items wishlisted </div>
+        </div>
         <Meteors />
       </div>
       {wishListItems?.length > 0 ? (
-        <div className="relative grid grid-cols-1 md:grid-cols-2 justify-center mx-8 py-4 gap-4 ">
+        <div className="relative grid grid-cols-1  justify-center mx-8 py-4 gap-4 ">
           <>
             {wishListItems.map((item) => (
               <div

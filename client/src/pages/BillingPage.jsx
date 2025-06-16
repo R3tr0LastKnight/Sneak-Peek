@@ -119,61 +119,58 @@ const BillingPage = () => {
   };
 
   const handlePayment = async () => {
-    try {
-      const orderResponse = await axios.post(
-        `${process.env.REACT_APP_BACKEND_URL}/api/v1/product/createRzOrder`,
-        {
-          amount: subTotal,
-          currency: "INR",
-          userId: userId,
-        }
-      );
-
-      const options = {
-        key: process.env.REACT_APP_RAZORPAY_KEY_ID,
-        amount: orderResponse.data.amount,
-        currency: orderResponse.data.currency,
-        name: "Sneaker House",
-        description: "Test Transaction",
-        order_id: orderResponse.data.id,
-        handler: async (response) => {
-          try {
-            const paymentVerificationResponse = await axios.post(
-              `${process.env.REACT_APP_BACKEND_URL}/api/v1/product/verifyPayment`,
-              {
-                razorpay_order_id: response.razorpay_order_id,
-                razorpay_payment_id: response.razorpay_payment_id,
-                razorpay_signature: response.razorpay_signature,
-              }
-            );
-
-            if (paymentVerificationResponse.data.success) {
-              alert("Payment successfully");
-              navigate(`/ordersuccess/${response.razorpay_order_id}`);
-            } else {
-              alert("Payment verification failed");
-            }
-          } catch (error) {
-            console.error("Error verifying payment:", error);
-            alert("Payment verification failed");
-          }
-        },
-        prefill: {
-          name: auth.user.name,
-          email: auth.user.email,
-          contact: formData.phnumber,
-        },
-        theme: {
-          color: "#3399cc",
-        },
-      };
-
-      const rzp = new window.Razorpay(options);
-      rzp.open();
-    } catch (error) {
-      console.error("Error creating order:", error);
-      alert("Error in creating order");
-    }
+    // try {
+    //   const orderResponse = await axios.post(
+    //     `${process.env.REACT_APP_BACKEND_URL}/api/v1/product/createRzOrder`,
+    //     {
+    //       amount: subTotal,
+    //       currency: "INR",
+    //       userId: userId,
+    //     }
+    //   );
+    //   const options = {
+    //     key: process.env.REACT_APP_RAZORPAY_KEY_ID,
+    //     amount: orderResponse.data.amount,
+    //     currency: orderResponse.data.currency,
+    //     name: "Sneaker House",
+    //     description: "Test Transaction",
+    //     order_id: orderResponse.data.id,
+    //     handler: async (response) => {
+    //       try {
+    //         const paymentVerificationResponse = await axios.post(
+    //           `${process.env.REACT_APP_BACKEND_URL}/api/v1/product/verifyPayment`,
+    //           {
+    //             razorpay_order_id: response.razorpay_order_id,
+    //             razorpay_payment_id: response.razorpay_payment_id,
+    //             razorpay_signature: response.razorpay_signature,
+    //           }
+    //         );
+    //         if (paymentVerificationResponse.data.success) {
+    //           alert("Payment successfully");
+    //           navigate(`/ordersuccess/${response.razorpay_order_id}`);
+    //         } else {
+    //           alert("Payment verification failed");
+    //         }
+    //       } catch (error) {
+    //         console.error("Error verifying payment:", error);
+    //         alert("Payment verification failed");
+    //       }
+    //     },
+    //     prefill: {
+    //       name: auth.user.name,
+    //       email: auth.user.email,
+    //       contact: formData.phnumber,
+    //     },
+    //     theme: {
+    //       color: "#3399cc",
+    //     },
+    //   };
+    //   const rzp = new window.Razorpay(options);
+    //   rzp.open();
+    // } catch (error) {
+    //   console.error("Error creating order:", error);
+    //   alert("Error in creating order");
+    // }
   };
 
   return (
@@ -342,6 +339,7 @@ const BillingPage = () => {
         </div>
       </div>
       <div className=" md:mx-24 lg:mx-20 py-4 px-16 rounded-xl text-center shadow-[0_3px_10px_rgb(0,0,0,0.2)]">
+        <h1 className="text-xl font-mentra">ATTENTION MAIDENLESS</h1>
         <h1>
           "In accordance with the ancient decrees, any purchase made upon this
           hallowed website shall bestow no goods unto thee."

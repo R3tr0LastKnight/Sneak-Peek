@@ -7,13 +7,18 @@ import s3 from "../assets/carousel/s3.jpg";
 import axios from "axios";
 import { useLockBodyScroll } from "@uidotdev/usehooks";
 import toast, { Toaster } from "react-hot-toast";
+import { Navigate } from "react-router";
+import { NavLink } from "react-router-dom";
 
 const ProductModal = ({ showModal, setShowModal, productId }) => {
   const [imgg, setImgg] = useState([s1, s2, s3]);
   const [product, setProduct] = useState(null);
   const [size, setSize] = useState(10);
   const auth = JSON.parse(localStorage.getItem("auth"));
-  const userId = auth.user._id;
+  let userId = null;
+  if (auth) {
+    userId = auth.user._id;
+  }
   const backdrop = {
     visible: { opacity: 1 },
     hidden: { opacity: 0 },
@@ -25,7 +30,7 @@ const ProductModal = ({ showModal, setShowModal, productId }) => {
       opacity: 0,
     },
     visible: {
-      y: "100px",
+      y: "70px",
       opacity: 1,
       transition: {
         duration: 0.5,
@@ -143,24 +148,53 @@ const ProductModal = ({ showModal, setShowModal, productId }) => {
                         &#8377; {product.price} | {product.brand} |{" "}
                         {product.colorway}
                       </div>
-                      <div className="grid grid-cols-5 text-center lg:flex gap-4 mt-8">
-                        {sizes.map((item, index) => (
-                          <div
-                            onClick={() => setSize(item)}
-                            className={`border border-black text-black bg-white hover:bg-black hover:text-white active:bg-black active:text-white px-2 py-1 rounded cursor-pointer ${
-                              size === item ? "!bg-black text-white" : ""
-                            }`}
-                            key={index}
-                          >
-                            {item}
+                      {auth ? (
+                        <div className="grid grid-cols-5 text-center lg:flex gap-4 mt-8">
+                          {sizes.map((item, index) => (
+                            <div
+                              onClick={() => setSize(item)}
+                              className={`border border-black text-black bg-white hover:bg-black hover:text-white active:bg-black active:text-white px-2 py-1 rounded cursor-pointer ${
+                                size === item ? "!bg-black text-white" : ""
+                              }`}
+                              key={index}
+                            >
+                              {item}
+                            </div>
+                          ))}
+                        </div>
+                      ) : (
+                        <></>
+                      )}
+
+                      {auth ? (
+                        <>
+                          <div className="flex my-4" onClick={addToCart}>
+                            <button className="flex justify-center py-1 px-2 rounded transition-all w-full lg:w- text-center border border-black bg-white  text-black hover:bg-black hover:text-white ">
+                              Add to cart
+                            </button>
                           </div>
-                        ))}
-                      </div>
-                      <div className="flex my-4" onClick={addToCart}>
-                        <button className="flex justify-center py-1 px-2 rounded transition-all w-full lg:w- text-center border border-black bg-white  text-black hover:bg-black hover:text-white ">
-                          Add to cart
-                        </button>
-                      </div>
+                        </>
+                      ) : (
+                        <>
+                          <NavLink
+                            to={"/login"}
+                            className={`text- w-full text-center py-1 cursor-pointer px-4`}
+                            onClick={() => {
+                              setShowModal(false);
+                              window.scrollTo({
+                                top: window.innerHeight,
+                                behavior: "smooth",
+                              });
+                            }}
+                          >
+                            <div className="flex my-4">
+                              <button className="flex justify-center py-4 px-2 rounded transition-all w-full lg:w- text-center border border-black bg-white  text-black hover:bg-black hover:text-white ">
+                                Register / Login
+                              </button>
+                            </div>
+                          </NavLink>
+                        </>
+                      )}
                     </div>
                   </div>
                 </div>
