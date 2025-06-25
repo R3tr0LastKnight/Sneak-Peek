@@ -8,11 +8,23 @@ const { compare } = require("bcryptjs");
 const wishListModel = require("../model/wishListModel");
 const { AsyncLocalStorage } = require("async_hooks");
 const quotesModel = require("../model/quotesModel");
+const ContactUsModel = require("../model/ContactUsModel");
 dotenv.config();
 // const razorpay = new Razorpay({
 //   key_id: process.env.RAZORPAY_KEY_ID,
 //   key_secret: process.env.RAZORPAY_KEY_SECRET,
 // });
+
+const contactUsController = async (req, res) => {
+  try {
+    const newDoc = new ContactUsModel(req.body); // creates new doc from incoming form data
+    await newDoc.save(); // saves to MongoDB
+    res.status(201).json(newDoc); // responds with the saved document
+  } catch (error) {
+    console.error("Error saving document:", error);
+    res.status(500).json({ error: "Failed to save data" });
+  }
+};
 
 const createProductController = async (req, res) => {
   try {
@@ -357,4 +369,5 @@ module.exports = {
   productofTheDayController,
   showCaseProductController,
   quotesController,
+  contactUsController,
 };

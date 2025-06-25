@@ -15,6 +15,7 @@ const {
   productofTheDayController,
   showCaseProductController,
   quotesController,
+  contactUsController,
 } = require("../controller/productController");
 
 const router = require("express").Router();
@@ -40,4 +41,5 @@ router.get("/check-product/:userId/:productId", productExistCartController);
 router.get("/productofTheDay", productofTheDayController);
 router.get("/showCaseProduct", showCaseProductController);
 router.get("/getQuotes", quotesController);
+router.post("/contact", contactUsController);
 module.exports = router;

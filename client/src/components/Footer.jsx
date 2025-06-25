@@ -1,10 +1,7 @@
 /* eslint-disable jsx-a11y/iframe-has-title */
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import linked from "../assets/nav/icons8-linkedin.svg";
-import git from "../assets/nav/icons8-github.svg";
-import insta from "../assets/nav/icons8-insta.svg";
-import twitter from "../assets/nav/icons8-twitter.svg";
+import Dockx from "./Dockx.jsx";
 import shoex from "../assets/footer/asf.jpg";
 import globe from "../assets/footer/globe.gif";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -20,7 +17,6 @@ import Globe from "./magicui/globe.tsx";
 import Meteors from "./magicui/meteors.tsx";
 import { NavLink } from "react-router-dom";
 import ContactUs from "./ContactUsModal.jsx";
-import { Dock, DockIcon } from "./magicui/dock.tsx";
 
 const Footer = () => {
   const [showModal, setShowModal] = useState(false);
@@ -51,48 +47,7 @@ const Footer = () => {
               </h1>
               <ul className="flex h-[5rem] ">
                 <div className="absolute top-4">
-                  <Dock magnification={80} distance={100}>
-                    <DockIcon className="bg-black/10 dark:bg-white/10 p-3">
-                      <a
-                        href={
-                          "https://in.linkedin.com/in/shubh-shahu?trk=people-guest_people_search-card"
-                        }
-                        target="_blank"
-                        rel="noreferrer"
-                      >
-                        <img className="w-1/2 md:w-full" src={linked} alt="" />
-                      </a>
-                    </DockIcon>
-                    <DockIcon className="bg-black/10 dark:bg-white/10 p-3">
-                      <a
-                        href={"https://github.com/R3tr0LastKnight"}
-                        target="_blank"
-                        rel="noreferrer"
-                      >
-                        <img className="w-1/2 md:w-full" src={git} alt="" />
-                      </a>
-                    </DockIcon>
-                    <DockIcon className="bg-black/10 dark:bg-white/10 p-3">
-                      <a
-                        href={
-                          "https://www.instagram.com/sneak_peeeeek?igsh=eG5mamJiZHl0Nnh5"
-                        }
-                        target="_blank"
-                        rel="noreferrer"
-                      >
-                        <img className="w-1/2 md:w-full" src={insta} alt="" />
-                      </a>
-                    </DockIcon>
-                    <DockIcon className="bg-black/10 dark:bg-white/10 p-3">
-                      <a
-                        href={"https://x.com/SneakPeeeeeek"}
-                        target="_blank"
-                        rel="noreferrer"
-                      >
-                        <img className="w-1/2 md:w-full" src={twitter} alt="" />
-                      </a>
-                    </DockIcon>
-                  </Dock>
+                  <Dockx />
                 </div>
               </ul>
             </div>
@@ -205,7 +160,7 @@ const Footer = () => {
           </div>
         </div>
         <div className="absolute -bottom-5   w-screen right-8 lg:right-16 font-light text-xs text-center">
-          copyright &copy; 2024
+          copyright &copy; {new Date().getFullYear()}
         </div>
       </div>
     </>

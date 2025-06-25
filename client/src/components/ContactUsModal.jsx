@@ -2,24 +2,67 @@ import React, { useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 import s1 from "../assets/carousel/s1.jpg";
-import s2 from "../assets/carousel/s2.jpg";
-import s3 from "../assets/carousel/s3.jpg";
-import axios from "axios";
-import { useLockBodyScroll } from "@uidotdev/usehooks";
-import toast, { Toaster } from "react-hot-toast";
+// import toast, { Toaster } from "react-hot-toast";
 import { useForm } from "react-hook-form";
-import { Dock, DockIcon } from "./magicui/dock.tsx";
-import linked from "../assets/nav/icons8-linkedin.svg";
-import git from "../assets/nav/icons8-github.svg";
-import insta from "../assets/nav/icons8-insta.svg";
-import twitter from "../assets/nav/icons8-twitter.svg";
+
+import Dockx from "./Dockx.jsx";
+import { Bounce, toast } from "react-toastify";
 
 const ContactUs = ({ showModal, setShowModal, productId }) => {
-  const [imgg, setImgg] = useState([s1, s2, s3]);
-  const [product, setProduct] = useState(null);
-  const [size, setSize] = useState(10);
-  const auth = JSON.parse(localStorage.getItem("auth"));
-  // const userId = auth.user._id;
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
+
+  const handleChange = (e) => {
+    setFormData((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm();
+
+  const onSubmit = async (data) => {
+    console.log(data);
+
+    try {
+      const res = await fetch(
+        `${process.env.REACT_APP_BACKEND_URL}/api/v1/product/contact`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }
+      );
+      reset();
+      toast.info(
+        "Message delivered unto the void. Thy words now echo in distant halls...",
+        {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          transition: Bounce,
+        }
+      );
+    } catch (error) {
+      console.error("Error sending message:", error);
+    }
+  };
+
   const backdrop = {
     visible: { opacity: 1 },
     hidden: { opacity: 0 },
@@ -38,14 +81,6 @@ const ContactUs = ({ showModal, setShowModal, productId }) => {
       },
     },
   };
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
-  const onSubmit = (data) => console.log(data);
-  console.log(errors);
 
   return (
     <AnimatePresence>
@@ -105,22 +140,26 @@ const ContactUs = ({ showModal, setShowModal, productId }) => {
                         className="border border-black px-2 py-1 rounded"
                         type="text"
                         placeholder="Name"
-                        {...register("Name", { required: true })}
+                        {...register("name", { required: "Name is required" })}
                       />
                       <input
                         className="border border-black px-2 py-1 rounded"
-                        type="text"
+                        type="email"
                         placeholder="Email"
-                        {...register("Email", {
-                          required: true,
-                          pattern: /^\S+@\S+$/i,
+                        {...register("email", {
+                          required: "Email is required",
+                          pattern: {
+                            value: /^\S+@\S+$/i,
+                            message: "Invalid email address",
+                          },
                         })}
                       />
                       <textarea
                         className="border border-black px-2 py-1 rounded"
-                        type="text"
-                        placeholder="Message`"
-                        {...register("Message`", {})}
+                        placeholder="Message"
+                        {...register("message", {
+                          required: "Message is required",
+                        })}
                       />
                       <button
                         type="submit"
@@ -132,20 +171,7 @@ const ContactUs = ({ showModal, setShowModal, productId }) => {
                   </div>
                   <hr className="shadow-[0_3px_10px_rgb(0,0,0,0.2)] border-black border-dashed mx-8" />
                   <div className="relative">
-                    <Dock magnification={100} distance={100}>
-                      <DockIcon className="bg-black/10 dark:bg-white/10 p-3">
-                        <img src={linked} alt="" />
-                      </DockIcon>
-                      <DockIcon className="bg-black/10 dark:bg-white/10 p-3">
-                        <img src={git} alt="" />
-                      </DockIcon>
-                      <DockIcon className="bg-black/10 dark:bg-white/10 p-3">
-                        <img src={insta} alt="" />
-                      </DockIcon>
-                      <DockIcon className="bg-black/10 dark:bg-white/10 p-3">
-                        <img src={twitter} alt="" />
-                      </DockIcon>
-                    </Dock>
+                    <Dockx />
                   </div>
                 </div>
               </div>
@@ -153,7 +179,7 @@ const ContactUs = ({ showModal, setShowModal, productId }) => {
           </motion.div>
         </motion.div>
       )}
-      <Toaster />
+      {/* <Toaster /> */}
     </AnimatePresence>
   );
 };

@@ -2,7 +2,7 @@ import React from "react";
 
 const Tnc = () => {
   return (
-    <div className="flex flex-col w-[40vw] py-4 mx-auto">
+    <div className="flex flex-col w-[40vw] py-4 mx-auto rounded shadow-lg px-4 mt-2">
       <h1 className="font-mentra text-3xl">
         Terms and Conditions of SneakPeek
       </h1>

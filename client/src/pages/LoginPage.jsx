@@ -4,6 +4,8 @@ import { useNavigate } from "react-router";
 import axios from "axios";
 import { useAuth } from "../context/AuthContext";
 import { useGoogleLogin } from "@react-oauth/google";
+import bg from "../assets/back.jpg";
+import { BorderBeam } from "../components/magicui/BorderBeam.tsx";
 
 const LoginPage = () => {
   const [state, setState] = useState(true);
@@ -123,121 +125,130 @@ const LoginPage = () => {
 
   return (
     <div className="flex flex-col items-center justify-center py-8 select-none h-[100vh]">
-      {state ? (
-        <h1 className="text-3xl font-mentra ">Login</h1>
-      ) : (
-        <h1 className="text-3xl font-mentra ">Register</h1>
-      )}
-
-      <form className="flex flex-col gap-4 py-4 my-2 bg-[#fff] rounded-lg p-6 shadow-[0_3px_10px_rgb(0,0,0,0.2)]">
-        {!state && (
+      <div className="flex absolute z-0 max-h-[100vh] shadow-inner">
+        <img
+          className=" object-cover"
+          style={{ filter: "grayscale(50%)" }}
+          src={bg}
+          alt=""
+        />
+      </div>
+      <div className="flex flex-col text-center bg-white z-10 p-10 rounded-lg relative">
+        {state ? (
+          <h1 className="relative z-10 text-3xl font-mentra ">Login</h1>
+        ) : (
+          <h1 className="relative z-10 text-3xl font-mentra ">Register</h1>
+        )}
+        <form className=" flex flex-col gap-4 py-4 my-2 bg-[#fff] rounded-lg p-6 shadow-[0_3px_10px_rgb(0,0,0,0.2)] relative z-10 ">
+          {!state && (
+            <div className="flex justify-between items-center gap-2 font-semibold ">
+              <label htmlFor="">Name</label>
+              <input
+                className="rounded py-1 px-2 border border-gray-400"
+                type="text"
+                name=""
+                id="name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
+            </div>
+          )}
           <div className="flex justify-between items-center gap-2 font-semibold ">
-            <label htmlFor="">Name</label>
+            <label htmlFor="">Email</label>
             <input
               className="rounded py-1 px-2 border border-gray-400"
-              type="text"
+              type="email"
               name=""
-              id="name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
+              id="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
           </div>
-        )}
-        <div className="flex justify-between items-center gap-2 font-semibold ">
-          <label htmlFor="">Email</label>
-          <input
-            className="rounded py-1 px-2 border border-gray-400"
-            type="email"
-            name=""
-            id="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </div>
 
-        <div className="flex justify-between items-center gap-2 font-semibold ">
-          <label htmlFor="">Password</label>
-          <input
-            className="rounded py-1 px-2 border border-gray-400"
-            type="password"
-            name=""
-            id=""
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </div>
+          <div className="flex justify-between items-center gap-2 font-semibold ">
+            <label htmlFor="">Password</label>
+            <input
+              className="rounded py-1 px-2 border border-gray-400"
+              type="password"
+              name=""
+              id=""
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
+          {!state ? (
+            <button
+              onClick={handleRegister}
+              className="font-bold px-16 mt-2 py-2 bg-white flex items-center justify-center mx-auto rounded-lg shadow-[0_3px_10px_rgb(0,0,0,0.2)] border"
+            >
+              Register
+            </button>
+          ) : (
+            <button
+              onClick={handleLogin}
+              className="font-bold px-16 mt-2 py-2 hover:bg-black hover:text-white transition-all flex items-center justify-center mx-auto rounded-lg shadow-[0_3px_10px_rgb(0,0,0,0.2)] border"
+            >
+              Login
+            </button>
+          )}
+        </form>
         {!state ? (
-          <button
-            onClick={handleRegister}
-            className="font-bold px-16 mt-2 py-2 bg-white flex items-center justify-center mx-auto rounded-lg shadow-[0_3px_10px_rgb(0,0,0,0.2)] border"
-          >
-            Register
-          </button>
+          <p className="flex items-center justify-center flex-col">
+            already a member?
+            <div
+              className="underline hover:dotted cursor-pointer font-semibold"
+              onClick={() => setState(!state)}
+            >
+              login here
+            </div>
+          </p>
         ) : (
-          <button
-            onClick={handleLogin}
-            className="font-bold px-16 mt-2 py-2 hover:bg-black hover:text-white transition-all flex items-center justify-center mx-auto rounded-lg shadow-[0_3px_10px_rgb(0,0,0,0.2)] border"
-          >
-            Login
-          </button>
+          <p className="flex items-center justify-center flex-col">
+            new here?
+            <div
+              className="underline hover:dotted cursor-pointer font-semibold"
+              onClick={() => setState(!state)}
+            >
+              create a account
+            </div>
+          </p>
         )}
-      </form>
-      {!state ? (
-        <p className="flex items-center justify-center flex-col">
-          already a member?
-          <div
-            className="underline hover:dotted cursor-pointer font-semibold"
-            onClick={() => setState(!state)}
-          >
-            login here
+        <div className="flex w-full items-center justify-center text-black font-bold gap-2 ">
+          <hr className="w-1/3" /> <h1>or</h1> <hr className="w-1/3" />
+        </div>
+        {state ? (
+          <div className="mt-4 flex items-center justify-center">
+            <button
+              onClick={handleGoogleLogin}
+              class="px-4 py-2 border flex gap-2 border-slate-200 dark:border-slate-700 rounded-lg text-grey-900 hover:border-slate-400 dark:hover:border-slate-500 hover:text-grey-950 font-bold hover:shadow transition duration-150"
+            >
+              <img
+                class="w-6 h-6"
+                src="https://www.svgrepo.com/show/475656/google-color.svg"
+                alt="google logo"
+              />
+              <span>SignIn with Google</span>
+            </button>
           </div>
-        </p>
-      ) : (
-        <p className="flex items-center justify-center flex-col">
-          new here?
-          <div
-            className="underline hover:dotted cursor-pointer font-semibold"
-            onClick={() => setState(!state)}
-          >
-            create a account
+        ) : (
+          <div className="mt-2 flex items-center justify-center">
+            <button
+              onClick={handleGoogleRegister}
+              class="px-4 py-2 border flex gap-2 border-slate-200 dark:border-slate-700 rounded-lg text-slate-700 dark:text-slate-200 hover:border-slate-400 dark:hover:border-slate-500 hover:text-slate-900 dark:hover:text-slate-300 hover:shadow transition duration-150"
+            >
+              <img
+                class="w-6 h-6"
+                src="https://www.svgrepo.com/show/475656/google-color.svg"
+                loading="lazy"
+                alt="google logo"
+              />
+              <span>SignUp with Google</span>
+            </button>
           </div>
-        </p>
-      )}
-
-      <div className="flex w-full items-center justify-center text-black font-bold gap-2 ">
-        <hr className="w-1/3" /> <h1>or</h1> <hr className="w-1/3" />
+        )}
+        <BorderBeam size={100} />
+        <BorderBeam reverse size={100} />
       </div>
-
-      {state ? (
-        <div className="mt-4 flex items-center justify-center">
-          <button
-            onClick={handleGoogleLogin}
-            class="px-4 py-2 border flex gap-2 border-slate-200 dark:border-slate-700 rounded-lg text-grey-900 hover:border-slate-400 dark:hover:border-slate-500 hover:text-grey-950 font-bold hover:shadow transition duration-150"
-          >
-            <img
-              class="w-6 h-6"
-              src="https://www.svgrepo.com/show/475656/google-color.svg"
-              alt="google logo"
-            />
-            <span>SignIn with Google</span>
-          </button>
-        </div>
-      ) : (
-        <div className="mt-2 flex items-center justify-center">
-          <button
-            onClick={handleGoogleRegister}
-            class="px-4 py-2 border flex gap-2 border-slate-200 dark:border-slate-700 rounded-lg text-slate-700 dark:text-slate-200 hover:border-slate-400 dark:hover:border-slate-500 hover:text-slate-900 dark:hover:text-slate-300 hover:shadow transition duration-150"
-          >
-            <img
-              class="w-6 h-6"
-              src="https://www.svgrepo.com/show/475656/google-color.svg"
-              loading="lazy"
-              alt="google logo"
-            />
-            <span>SignUp with Google</span>
-          </button>
-        </div>
-      )}
       <Toaster />
     </div>
   );

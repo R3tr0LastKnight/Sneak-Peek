@@ -66,7 +66,7 @@ const Carousels = () => {
                 <img
                   src={img.photos[0]}
                   alt={`${img.brand} ${img.companymodel}`}
-                  className="rounded shadow object-cover w-full h-full cursor-pointer"
+                  className="rounded shadow object-cover object-center w-full h-full cursor-pointer"
                   onClick={() => {
                     setSelectedProductId(img._id);
                     setShowModal(true);
