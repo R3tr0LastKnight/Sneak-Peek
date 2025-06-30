@@ -89,7 +89,7 @@ const Catalogue = () => {
         <div className="text-3xl font-mentra text-center">Kart</div>
         <div className="text-center">
           <div className="text-center ">&#8377; {total}.00</div>
-          <div>{cartItems.length} Items in kart </div>
+          <div>{cartItems.length} Relics rest within thy satchel </div>
           <div className="flex justify-center">
             <button
               className="px-8 py-1 border border-black text-center bg-white rounded-sm  hover:invert transition-all"
@@ -101,7 +101,7 @@ const Catalogue = () => {
                 navigate("/billingPage");
               }}
             >
-              Checkout
+              Proceed to Offering
             </button>
           </div>
         </div>
@@ -110,7 +110,7 @@ const Catalogue = () => {
 
       {cartItems.length > 0 ? (
         <>
-          <div className="relative grid grid-cols-1   justify-center mx-8 py-4 gap-4 ">
+          <div className="relative grid grid-cols-1   justify-center mx-2 lg:mx-8 py-4 gap-4 ">
             {cartItems.map((item) => (
               <div
                 onClick={() => console.log(item)}
@@ -132,7 +132,7 @@ const Catalogue = () => {
                     &#8377; {item?.productDetails?.price}
                   </h2>
                   <h3 className="font-thin mt-4 text-xs">
-                    Added On :{" "}
+                    Enscribed Upon :{" "}
                     {makeReadableTime(item?.productDetails?.createdAt, true)}
                   </h3>
                   <div
@@ -162,7 +162,7 @@ const Catalogue = () => {
       ) : (
         <>
           <div className="flex justify-between py-3 px-2 md:px-8">
-            <div className="w-full text-center">Your cart is empty</div>
+            <div className="w-full text-center">Thy satchel holdeth naught</div>
           </div>
         </>
       )}
@@ -176,7 +176,7 @@ const Catalogue = () => {
               navigate("/billingPage");
             }}
           >
-            Proceed to payment
+            Tread the Path of Offering
           </button>
         </div>
       </div>

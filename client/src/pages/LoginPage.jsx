@@ -124,10 +124,10 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center py-8 select-none h-[100vh]">
+    <div className="flex flex-col items-center justify-center lg:py-8 select-none h-[100vh]">
       <div className="flex absolute z-0 max-h-[100vh] shadow-inner">
         <img
-          className=" object-cover"
+          className="hidden lg:flex object-cover"
           style={{ filter: "grayscale(50%)" }}
           src={bg}
           alt=""
@@ -181,20 +181,20 @@ const LoginPage = () => {
               onClick={handleRegister}
               className="font-bold px-16 mt-2 py-2 bg-white flex items-center justify-center mx-auto rounded-lg shadow-[0_3px_10px_rgb(0,0,0,0.2)] border"
             >
-              Register
+              Forge Thy Pact
             </button>
           ) : (
             <button
               onClick={handleLogin}
               className="font-bold px-16 mt-2 py-2 hover:bg-black hover:text-white transition-all flex items-center justify-center mx-auto rounded-lg shadow-[0_3px_10px_rgb(0,0,0,0.2)] border"
             >
-              Login
+              Enter the Gate
             </button>
           )}
         </form>
         {!state ? (
           <p className="flex items-center justify-center flex-col">
-            already a member?
+            Hast thou already sworn the Oath?
             <div
               className="underline hover:dotted cursor-pointer font-semibold"
               onClick={() => setState(!state)}
@@ -204,7 +204,7 @@ const LoginPage = () => {
           </p>
         ) : (
           <p className="flex items-center justify-center flex-col">
-            new here?
+            A stranger to these lands, art thou?
             <div
               className="underline hover:dotted cursor-pointer font-semibold"
               onClick={() => setState(!state)}
@@ -234,7 +234,7 @@ const LoginPage = () => {
           <div className="mt-2 flex items-center justify-center">
             <button
               onClick={handleGoogleRegister}
-              class="px-4 py-2 border flex gap-2 border-slate-200 dark:border-slate-700 rounded-lg text-slate-700 dark:text-slate-200 hover:border-slate-400 dark:hover:border-slate-500 hover:text-slate-900 dark:hover:text-slate-300 hover:shadow transition duration-150"
+              class="px-4 py-2 border flex gap-2 border-slate-200 dark:border-slate-700 rounded-lg text-grey-900 hover:border-slate-400 dark:hover:border-slate-500 hover:text-grey-950 font-bold hover:shadow transition duration-150"
             >
               <img
                 class="w-6 h-6"

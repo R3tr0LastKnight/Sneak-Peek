@@ -90,7 +90,7 @@ const Showcase = () => {
           productId={selectedProductId}
         />
       )}
-      <div className="mx-8 lg:mx-16 mb-8 max-h-[80vh] h-[80vh] rounded-xl overflow-hidden flex shadow-[0_3px_10px_rgb(0,0,0,0.2)]">
+      <div className="hidden mx-8 lg:mx-16 mb-8 max-h-[80vh] h-[80vh] rounded-xl overflow-hidden lg:flex shadow-[0_3px_10px_rgb(0,0,0,0.2)]">
         {/* Left Image Section */}
         <div className="w-[70%] relative text-white h-full">
           {products.length > 0 && (

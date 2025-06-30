@@ -16,7 +16,7 @@ const Dockx = () => {
           target="_blank"
           rel="noreferrer"
         >
-          <img className="w-1/2 md:w-full" src={linked} alt="" />
+          <img className=" w-full" src={linked} alt="" />
         </a>
       </DockIcon>
       <DockIcon className="bg-black/10 dark:bg-white/10 p-3">
@@ -25,7 +25,7 @@ const Dockx = () => {
           target="_blank"
           rel="noreferrer"
         >
-          <img className="w-1/2 md:w-full" src={git} alt="" />
+          <img className="w-full" src={git} alt="" />
         </a>
       </DockIcon>
       <DockIcon className="bg-black/10 dark:bg-white/10 p-3">
@@ -34,7 +34,7 @@ const Dockx = () => {
           target="_blank"
           rel="noreferrer"
         >
-          <img className="w-1/2 md:w-full" src={insta} alt="" />
+          <img className="w-full" src={insta} alt="" />
         </a>
       </DockIcon>
       <DockIcon className="bg-black/10 dark:bg-white/10 p-3">
@@ -43,7 +43,7 @@ const Dockx = () => {
           target="_blank"
           rel="noreferrer"
         >
-          <img className="w-1/2 md:w-full" src={twitter} alt="" />
+          <img className="w-full" src={twitter} alt="" />
         </a>
       </DockIcon>
     </Dock>

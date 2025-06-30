@@ -4,16 +4,8 @@ import axios from "axios";
 import Dockx from "./Dockx.jsx";
 import shoex from "../assets/footer/asf.jpg";
 import globe from "../assets/footer/globe.gif";
-import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/effect-creative";
-import { EffectCreative } from "swiper/modules";
-import shoe1 from "../assets/carousel/crystal-jo-F45w1xY42BY-unsplash.jpg";
-import shoe2 from "../assets/carousel/nelson-ndongala-kKObh7tUPNc-unsplash.jpg";
-import shoe3 from "../assets/carousel/taylor-smith-aDZ5YIuedQg-unsplash (1).jpg";
-import shoe4 from "../assets/carousel/joel-muniz-oCOykXMRteM-unsplash.jpg";
-import shoe5 from "../assets/carousel/paul-volkmer-updW-QUccFE-unsplash.jpg";
-import Globe from "./magicui/globe.tsx";
 import Meteors from "./magicui/meteors.tsx";
 import { NavLink } from "react-router-dom";
 import ContactUs from "./ContactUsModal.jsx";
@@ -21,6 +13,7 @@ import ContactUs from "./ContactUsModal.jsx";
 const Footer = () => {
   const [showModal, setShowModal] = useState(false);
   const [quotes, setQuotes] = useState(null);
+  const [subbed, setSubbed] = useState(!false);
   useEffect(() => {
     const fetchQuotes = async () => {
       try {
@@ -40,10 +33,10 @@ const Footer = () => {
       <ContactUs showModal={showModal} setShowModal={setShowModal} />
       <div className="flex flex-col lg:flex-row gap-4 my-8 pb-2 mx-4 md:mx-16 relative bottom-0 w-screen justify-between ">
         <div className="flex flex-row  md:justify-between lg:gap-6">
-          <div className="flex flex-col lg:w-1/3 ">
+          <div className="flex flex-col w-2/3 lg:w-1/3 ">
             <div className="flex flex-col">
               <h1 className="font-semibold text-xl md:text-2xl ">
-                Keep In Touch
+                Remain Entwined
               </h1>
               <ul className="flex h-[5rem] ">
                 <div className="absolute top-4">
@@ -51,26 +44,30 @@ const Footer = () => {
                 </div>
               </ul>
             </div>
-            <div className="flex w-full gap-8 ">
-              <div>
+            <div className="flex w-full gap-2 lg:gap-4 transition-all  ">
+              <div className="w-1/2">
                 <h1 className="font-semibold text-xl md:text-2xl lg:mb-2 ">
-                  Info
+                  Lore
                 </h1>
                 <ul className="md:text-base flex flex-col lg:gap-1 ">
                   <li
                     onClick={() => setShowModal(true)}
-                    className="cursor-pointer"
+                    className="cursor-pointer hover:underline"
                   >
-                    Contact Us
+                    Speak Thy Will
                   </li>
-                  <li className="cursor-pointer">Brands</li>
-                  <li className="cursor-pointer">Releases</li>
+                  <li className="cursor-pointer hover:underline">
+                    Hallowed Makers
+                  </li>
+                  <li className="cursor-pointer hover:underline">
+                    Fated Revelations
+                  </li>
                   {/* <li>Blogs</li> */}
                 </ul>
               </div>
-              <div>
+              <div className="w-1/2">
                 <h1 className="font-semibold text-xl md:text-2xl lg:mb-2 ">
-                  Policies
+                  Edicts
                 </h1>
                 <ul className="md:text-base flex flex-col lg:gap-1">
                   <NavLink
@@ -78,40 +75,75 @@ const Footer = () => {
                       window.scrollTo({ top: 500, behavior: "smooth" })
                     }
                     to={"/privacy-policy"}
-                    className="cursor-pointer"
+                    className="cursor-pointer hover:underline"
                   >
-                    Privacy Policy
+                    Veil of Secrets
                   </NavLink>
                   <NavLink
                     onClick={() =>
                       window.scrollTo({ top: 500, behavior: "smooth" })
                     }
                     to={"/terms-and-conditions"}
-                    className="cursor-pointer"
+                    className="cursor-pointer hover:underline"
                   >
-                    Terms & Conditions
+                    Bindings of Accord
                   </NavLink>
                   <NavLink
                     onClick={() =>
                       window.scrollTo({ top: 500, behavior: "smooth" })
                     }
                     to={"/returns-exchange"}
-                    className="cursor-pointer"
+                    className="cursor-pointer hover:underline"
                   >
-                    Returns & Exchange
+                    Pact of Reclaiming
                   </NavLink>
                 </ul>
               </div>
             </div>
           </div>
-          <div className="hidden lg:flex flex-col gap-6 my items-center relative right-4 ">
-            <h1 className="font-semibold text-2xl ">
-              Subscribe to our newsletter
-            </h1>
-            <div className="flex border border-black overflow-hidden rounded-lg  ">
-              <input className="px-2 py-1 " type="email" />
-              <button className="px-2 py-1 bg-black text-white">Submit</button>
-            </div>
+          <div className="hidden lg:flex  relative right-4 ">
+            {subbed ? (
+              <>
+                <div className="flex flex-col gap-6 my items-center">
+                  <h1 className="font-semibold text-2xl w-full ">
+                    Bind thyself to the Herald’s Scroll
+                  </h1>
+                  <div className="flex border border-black overflow-hidden rounded-lg  ">
+                    <input
+                      className="px-2 py-1 "
+                      type="email"
+                      placeholder="tarnised@grace.xxx"
+                    />
+                    <button className="px-2 py-1 bg-black text-white">
+                      Offer
+                    </button>
+                  </div>
+                </div>
+              </>
+            ) : (
+              <>
+                <div className="flex flex-col gap-6 my items-center">
+                  <h1 className="font-semibold text-2xl ">
+                    Thou hast joined the fold. Remain vigilant...
+                  </h1>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="size-16"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M9 12.75 11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 0 1-1.043 3.296 3.745 3.745 0 0 1-3.296 1.043A3.745 3.745 0 0 1 12 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 0 1-3.296-1.043 3.745 3.745 0 0 1-1.043-3.296A3.745 3.745 0 0 1 3 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 0 1 1.043-3.296 3.746 3.746 0 0 1 3.296-1.043A3.746 3.746 0 0 1 12 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 0 1 3.296 1.043 3.746 3.746 0 0 1 1.043 3.296A3.745 3.745 0 0 1 21 12Z"
+                    />
+                  </svg>
+                </div>
+              </>
+            )}
+
             {quotes ? (
               <div className="font-light text-base text-black">
                 {quotes.quote}
@@ -122,21 +154,21 @@ const Footer = () => {
               </div>
             )}
           </div>
-          <div className="w-1/3 lg:w- flex justify-end  items-end ">
+          <div className="w-1/2  lg:w-1/3  flex justify-end  items-end ">
             <img
               src={shoex}
               alt=""
-              className="rounded-xl  shadow-[0_3px_10px_rgb(0,0,0,0.2)] w-[60%] lg:w-[80%] "
+              className="rounded-xl  shadow-[0_3px_10px_rgb(0,0,0,0.2)]  w-[80%] "
             />
           </div>
         </div>
         <div className="w- mx- flex flex-col gap-2 my-2 items-center relative right-4 lg:hidden">
           <h1 className="font-semibold text-xl md:text-2xl ">
-            Subscribe to our newsletter
+            Bind thyself to the Herald’s Scroll
           </h1>
           <div className="flex border border-black overflow-hidden rounded-lg  ">
             <input className="px-2 py-1 " type="email" />
-            <button className="px-2 py-1 bg-black text-white">Submit</button>
+            <button className="px-2 py-1 bg-black text-white">Offer</button>
           </div>
           {quotes ? (
             <div className="font-light text-base text-black">

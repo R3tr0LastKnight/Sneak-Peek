@@ -137,7 +137,7 @@ const Wishlist = () => {
         <div className="text-center">
           <div className="text-3xl font-mentra">Wishlist</div>
           <div className="text-center ">&#8377; {total}.00</div>
-          <div>{wishListItems.length} Items wishlisted </div>
+          <div>{wishListItems.length} Relics Yearned For</div>
         </div>
         <Meteors />
       </div>
@@ -212,7 +212,7 @@ const Wishlist = () => {
         </div>
       ) : (
         <div className="flex justify-center items-center py-3 mt-16 px-2 md:px-8 text-center w-full ">
-          <div className="w-full text-center">WishList is empty</div>
+          <div className="w-full text-center">Thy desires lie dormant</div>
         </div>
       )}
     </div>
