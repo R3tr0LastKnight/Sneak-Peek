@@ -16,7 +16,7 @@ const IndexProds = () => {
         />
       )}
 
-      <h1 className="md:mx- font-mentra text-6xl">Trending</h1>
+      <h1 className="mx-4 font-mentra text-5xl lg:text-6xl">Trending</h1>
 
       <IndexProd
         setShowModal={setShowModal}

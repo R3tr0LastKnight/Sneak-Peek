@@ -327,8 +327,12 @@ const showCaseProductController = async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
-const getRandomQoutes = async () => {
-  if (!cachedProduct || Date.now() - cacheTime > 24 * 60 * 60 * 1000) {
+
+let chachedQuote = null;
+let chachedTime2 = 0;
+
+const getRandomQuotes = async () => {
+  if (!chachedQuote || Date.now() - chachedTime2 > 24 * 60 * 60 * 1000) {
     // 24 hours in milliseconds
     const count = await quotesModel.countDocuments();
 
@@ -336,15 +340,15 @@ const getRandomQoutes = async () => {
       return { quote: "No quotes available" };
     }
     const randomIndex = Math.floor(Math.random() * count);
-    cachedProduct = await quotesModel.findOne().skip(randomIndex);
-    cacheTime = Date.now();
+    chachedQuote = await quotesModel.findOne().skip(randomIndex);
+    chachedTime2 = Date.now();
   }
-  return cachedProduct || { quote: "No quotes available" };
+  return chachedQuote || { quote: "No quotes available" };
 };
 
 const quotesController = async (req, res) => {
   try {
-    const quotes = await getRandomQoutes();
+    const quotes = await getRandomQuotes();
 
     res.json(quotes);
   } catch (error) {

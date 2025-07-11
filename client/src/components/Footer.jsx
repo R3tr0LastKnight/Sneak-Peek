@@ -14,6 +14,7 @@ const Footer = () => {
   const [showModal, setShowModal] = useState(false);
   const [quotes, setQuotes] = useState(null);
   const [subbed, setSubbed] = useState(!false);
+
   useEffect(() => {
     const fetchQuotes = async () => {
       try {
@@ -21,6 +22,7 @@ const Footer = () => {
           `${process.env.REACT_APP_BACKEND_URL}/api/v1/product/getQuotes`
         );
         setQuotes(response.data);
+        console.log("quotenigga:", response.data);
       } catch (error) {
         console.error("Error fetching the random product:", error);
       }
@@ -28,12 +30,13 @@ const Footer = () => {
 
     fetchQuotes();
   }, []);
+
   return (
     <>
       <ContactUs showModal={showModal} setShowModal={setShowModal} />
       <div className="flex flex-col lg:flex-row gap-4 my-8 pb-2 mx-4 md:mx-16 relative bottom-0 w-screen justify-between ">
-        <div className="flex flex-row  md:justify-between lg:gap-6">
-          <div className="flex flex-col w-2/3 lg:w-1/3 ">
+        <div className="flex flex-row w-full md:justify-between lg:gap-6">
+          <div className="flex flex-col  lg:w-1/3 ">
             <div className="flex flex-col">
               <h1 className="font-semibold text-xl md:text-2xl ">
                 Remain Entwined
@@ -49,7 +52,7 @@ const Footer = () => {
                 <h1 className="font-semibold text-xl md:text-2xl lg:mb-2 ">
                   Lore
                 </h1>
-                <ul className="md:text-base flex flex-col lg:gap-1 ">
+                <ul className="md:text-base flex flex-col lg:gap-1 border-b-black ">
                   <li
                     onClick={() => setShowModal(true)}
                     className="cursor-pointer hover:underline"
@@ -65,7 +68,7 @@ const Footer = () => {
                   {/* <li>Blogs</li> */}
                 </ul>
               </div>
-              <div className="w-1/2">
+              <div className="w-1/2 text-nowrap">
                 <h1 className="font-semibold text-xl md:text-2xl lg:mb-2 ">
                   Edicts
                 </h1>
@@ -101,11 +104,11 @@ const Footer = () => {
               </div>
             </div>
           </div>
-          <div className="hidden lg:flex  relative right-4 ">
+          <div className="hidden lg:flex lg:flex-col  relative right-4 ">
             {subbed ? (
               <>
                 <div className="flex flex-col gap-6 my items-center">
-                  <h1 className="font-semibold text-2xl w-full ">
+                  <h1 className="font-semibold text-2xl w-full text-nowrap ">
                     Bind thyself to the Herald’s Scroll
                   </h1>
                   <div className="flex border border-black overflow-hidden rounded-lg  ">
@@ -143,9 +146,8 @@ const Footer = () => {
                 </div>
               </>
             )}
-
             {quotes ? (
-              <div className="font-light text-base text-black">
+              <div className="font-light text-base my-4 text-center text-black">
                 {quotes.quote}
               </div>
             ) : (
@@ -154,7 +156,8 @@ const Footer = () => {
               </div>
             )}
           </div>
-          <div className="w-1/2  lg:w-1/3  flex justify-end  items-end ">
+
+          <div className="w-1/2 hidden lg:w-1/3  lg:flex justify-end  items-end ">
             <img
               src={shoex}
               alt=""
@@ -171,7 +174,7 @@ const Footer = () => {
             <button className="px-2 py-1 bg-black text-white">Offer</button>
           </div>
           {quotes ? (
-            <div className="font-light text-base text-black">
+            <div className="font-light text-base mx-4 text-center text-black">
               {quotes.quote}
             </div>
           ) : (
@@ -181,7 +184,7 @@ const Footer = () => {
           )}
         </div>
         <div className="w-[90%] lg:w-1/3 flex justify-start md:justify-end items-end md:mr-32 shadow-xl select-none bg-black text white rounded-xl overflow-hidden ">
-          <div className="relative flex h-full w-full lg:max-w-[32rem] items-center justify-center overflow-hidden rounded-lg  bg-background px-48 lg:px-40 pb-40 md:pb-32 ">
+          <div className="relative flex h-full w-full lg:max-w-[32rem] items-center justify-center overflow-hidden rounded-lg  bg-background px-32 lg:px-40 pb-40 md:pb-32 ">
             <div className="whitespace-nowrap relative z-20 font-mentra text-5xl   -bottom-8 text-white">
               Visit us
             </div>

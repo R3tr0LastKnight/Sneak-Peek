@@ -63,15 +63,17 @@ const Carousels = () => {
             .filter((img) => img.photos && img.photos.length > 0)
             .map((img, index) => (
               <SwiperSlide key={index}>
-                <img
-                  src={img.photos[0]}
-                  alt={`${img.brand} ${img.companymodel}`}
-                  className="rounded shadow object-cover object-center w-full h-full cursor-pointer"
-                  onClick={() => {
-                    setSelectedProductId(img._id);
-                    setShowModal(true);
-                  }}
-                />
+                <div className="w-full h-[200px] md:h-screen overflow-hidden">
+                  <img
+                    src={img.photos[0]}
+                    alt={`${img.brand} ${img.companymodel}`}
+                    className="w-full h-full object-cover object-top lg:object-center cursor-pointer"
+                    onClick={() => {
+                      setSelectedProductId(img._id);
+                      setShowModal(true);
+                    }}
+                  />
+                </div>
               </SwiperSlide>
             ))}
         </Swiper>

@@ -10,7 +10,7 @@ import Showcase from "../components/Showcase";
 const IndexPage = () => {
   return (
     <div className="flex items-center flex-col w-screen ">
-      <div className="pt-12 pb-6 relative  ">
+      <div className="pt-4 pb-6 relative  ">
         <div className="w-full">
           {/* <div className="absolute  w-72 top-3 left-[28%] md:left-[44%] z-30">
             <img className="" src={wings} alt="" />

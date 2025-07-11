@@ -154,9 +154,11 @@ const Wishlist = () => {
                   src={item?.productDetails?.photos}
                   alt=""
                 />
-                <div className="flex flex-col p-2">
-                  <h1 className="font-bold cursor-pointer">
-                    {" "}
+                <div
+                  className="flex flex-col p-2"
+                  title={`${item?.productDetails?.companymodel} | ${item?.productDetails?.brand} | ${item?.productDetails?.colorway}`}
+                >
+                  <h1 className="font-bold cursor-pointer hover:underline line-clamp-2">
                     {item?.productDetails?.companymodel} |{" "}
                     {item?.productDetails?.brand} |{" "}
                     {item?.productDetails?.colorway}
