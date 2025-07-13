@@ -6,6 +6,8 @@ import { useAuth } from "../context/AuthContext";
 import { useGoogleLogin } from "@react-oauth/google";
 import bg from "../assets/back.jpg";
 import { BorderBeam } from "../components/magicui/BorderBeam.tsx";
+import { signInWithPopup } from "firebase/auth";
+import { auth, googleProvider } from "../firebase.js";
 
 const LoginPage = () => {
   const [state, setState] = useState(true);
@@ -54,23 +56,42 @@ const LoginPage = () => {
     }
   }, [user, state, logIn, navigate]);
 
-  const handleGoogleRegister = useGoogleLogin({
-    onSuccess: (codeResponse) => {
-      setUser(codeResponse);
-      toast.success("User registered successfully", {
-        autoClose: 1000,
-      });
-    },
-    onError: (error) => console.log("Login Failed:", error),
-  });
+  const handleGoogleAuth = async () => {
+    try {
+      const result = await signInWithPopup(auth, googleProvider);
+      const googleUser = result.user;
 
-  const handleGoogleLogin = useGoogleLogin({
-    onSuccess: (codeResponse) => {
-      setUser(codeResponse);
-      toast.success("User login successfully");
-    },
-    onError: (error) => console.log("Login Failed:", error),
-  });
+      // Send to backend to create/check user and return JWT
+      const res = await axios.post(
+        `${process.env.REACT_APP_BACKEND_URL}/api/v1/auth/google-login`,
+        {
+          name: googleUser.displayName,
+          email: googleUser.email,
+          photoURL: googleUser.photoURL,
+        }
+      );
+
+      if (res.data.success) {
+        const userData = res.data;
+
+        // Save to context
+        logIn(userData, userData.token);
+
+        // Save to localStorage
+        localStorage.setItem("auth", JSON.stringify(userData));
+        console.log("localuser:", JSON.stringify(userData));
+
+        toast.success("Login successful!", { autoClose: 1000 });
+
+        navigate("/"); // optional
+      } else {
+        toast.error("Login failed.");
+      }
+    } catch (error) {
+      console.error("Google Sign-In Error:", error);
+      toast.error("Google Sign-In Failed");
+    }
+  };
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -108,6 +129,7 @@ const LoginPage = () => {
         const token = res.data.token;
         logIn(res.data, token);
         localStorage.setItem("auth", JSON.stringify(res.data));
+        console.log("localuser:", JSON.stringify(res.data));
 
         const endTime = new Date(); // Record end time
         const timeTaken = (endTime - startTime) / 1000; // Calculate time taken in seconds
@@ -219,7 +241,7 @@ const LoginPage = () => {
         {state ? (
           <div className="mt-4 flex items-center justify-center">
             <button
-              onClick={handleGoogleLogin}
+              onClick={handleGoogleAuth}
               class="px-4 py-2 border flex gap-2 border-slate-200 dark:border-slate-700 rounded-lg text-grey-900 hover:border-slate-400 dark:hover:border-slate-500 hover:text-grey-950 font-bold hover:shadow transition duration-150"
             >
               <img
@@ -233,7 +255,7 @@ const LoginPage = () => {
         ) : (
           <div className="mt-2 flex items-center justify-center">
             <button
-              onClick={handleGoogleRegister}
+              onClick={handleGoogleAuth}
               class="px-4 py-2 border flex gap-2 border-slate-200 dark:border-slate-700 rounded-lg text-grey-900 hover:border-slate-400 dark:hover:border-slate-500 hover:text-grey-950 font-bold hover:shadow transition duration-150"
             >
               <img

@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
-import { Navigate, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 
 const AuthContext = createContext();
 
@@ -17,21 +17,30 @@ export const AuthProvider = ({ children }) => {
       setIsLoggedIn(true);
       setProfile(userData.user);
       setIsAuthenticated(true);
-      if (userData.user && userData.user.admin) {
-        setIsAdmin(userData.user.admin === true); // Assuming admin 1 indicates admin
+      if (userData.user?.admin) {
+        setIsAdmin(userData.user.admin === true);
       }
     }
   }, []);
 
   const logIn = (userData, token) => {
+    const userWithPhoto = {
+      ...userData.user,
+      photoURL: userData.user?.photoURL || userData.photoURL || null,
+    };
+
     setIsLoggedIn(true);
-    setProfile(userData.user);
-    localStorage.setItem("auth", JSON.stringify(userData));
-    localStorage.setItem("jwtToken", token);
+    setProfile(userWithPhoto);
     setIsAuthenticated(true);
-    if (userData.user && userData.user.admin) {
-      console.log("admin he kya", userData.user.admin);
-      setIsAdmin(userData.user.admin === true); // Assuming admin 1 indicates admin
+
+    localStorage.setItem(
+      "auth",
+      JSON.stringify({ ...userData, user: userWithPhoto })
+    );
+    localStorage.setItem("jwtToken", token);
+
+    if (userWithPhoto.admin) {
+      setIsAdmin(userWithPhoto.admin === true);
     }
   };
 
@@ -48,11 +57,13 @@ export const AuthProvider = ({ children }) => {
   const updateProfile = (updatedProfile) => {
     setProfile(updatedProfile);
 
-    // Update the profile in localStorage as well
     const storedUserData = localStorage.getItem("auth");
     if (storedUserData) {
       const userData = JSON.parse(storedUserData);
-      userData.user = updatedProfile;
+      userData.user = {
+        ...userData.user,
+        ...updatedProfile,
+      };
       localStorage.setItem("auth", JSON.stringify(userData));
     }
   };
@@ -74,6 +85,4 @@ export const AuthProvider = ({ children }) => {
   );
 };
 
-export const useAuth = () => {
-  return useContext(AuthContext);
-};
+export const useAuth = () => useContext(AuthContext);

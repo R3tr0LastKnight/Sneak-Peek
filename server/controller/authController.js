@@ -130,29 +130,57 @@ const googleregisterController = async (req, res) => {
 };
 
 const googleLoginController = async (req, res) => {
-  const { profile } = req.body;
+  try {
+    const { name, email, photoURL } = req.body;
 
-  if (!profile) {
-    return res.status(400).json({ error: "Profile data is required." });
-  }
+    if (!email || !name) {
+      return res.status(400).json({
+        success: false,
+        message: "Name and email are required.",
+      });
+    }
 
-  userModel
-    .findOne({ email: profile.email })
-    .then((user) => {
-      if (user) {
-        const token = JWT.sign({ _id: user._id }, process.env.JWT_SECRET_KEY, {
-          expiresIn: "7d",
-        });
-        res.json({ success: true, user, token });
-      } else {
-        // User does not exist, send an error response
-        res.status(404).json({ error: "User not found." });
-      }
-    })
-    .catch((err) => {
-      console.log(err);
-      res.status(500).json({ error: "Failed to find user." });
+    let user = await userModel.findOne({ email });
+
+    if (!user) {
+      // New user – store photo
+      user = await userModel.create({
+        name,
+        email,
+        password: "",
+        fromGoogle: true,
+        admin: false,
+        photoURL, // <- Store it in DB
+      });
+    } else if (!user.photoURL && photoURL) {
+      // Existing user – update if missing photo
+      user.photoURL = photoURL;
+      await user.save();
+    }
+
+    const token = JWT.sign({ _id: user._id }, process.env.JWT_SECRET_KEY, {
+      expiresIn: "7d",
     });
+
+    res.status(200).json({
+      success: true,
+      message: "Login successful.",
+      user: {
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        admin: user.admin,
+        photoURL: user.photoURL, // <- Send to frontend
+      },
+      token,
+    });
+  } catch (error) {
+    console.error("Google login failed:", error);
+    res.status(500).json({
+      success: false,
+      message: "Server error during Google login.",
+    });
+  }
 };
 
 module.exports = {

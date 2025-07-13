@@ -3,6 +3,8 @@ import Carousels from "./Carousels";
 import { NavLink } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useAuth } from "../context/AuthContext";
+import { signOut } from "firebase/auth";
+import { auth } from "../firebase";
 
 const Nav = () => {
   const subMenuAnimate = {
@@ -35,7 +37,7 @@ const Nav = () => {
   return (
     <>
       <div
-        className={`flex justify-between py-2 pt-4 fixed top-0 z-50 px-1 sm:px-8 w-full transition-all items-center  ${
+        className={`flex justify-between py-2 pt-4 fixed top-0 z-50 px-4  w-full transition-all items-center  ${
           nav
             ? "text-black bg-white shadow-[0_3px_10px_rgb(0,0,0,0.2)]"
             : "text-white"
@@ -44,12 +46,12 @@ const Nav = () => {
         <NavLink
           to={"/"}
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          className="flex items-center text-3xl font-mentra font-extralight mt-1"
+          className=" text-xl lg:text-3xl font-mentra font-extralight flex w-1/3 lg:w-auto flex  mt-1"
         >
           Sneak Peek
         </NavLink>
         <ul
-          className={`flex gap-1 border  items-center px-2 py-1 rounded-xl relative ${
+          className={`flex gap-1 border items-center lg:px-2 py-1 rounded-xl relative ${
             nav ? "border-black" : "border-white"
           } ${login ? "" : ""}`}
         >
@@ -121,21 +123,31 @@ const Nav = () => {
                 }}
                 className="flex gap-2 mx-2 items-center cursor-pointer"
               >
-                <h1>{profile && profile.name}</h1>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={1.5}
-                  stroke="currentColor"
-                  className="w-5 h-5 "
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z"
-                  />
-                </svg>
+                <h1 className="text-sm">{profile && profile.name}</h1>
+                {profile?.photoURL ? (
+                  <div className="flex overflow-hidden rounded-full ">
+                    <img
+                      className="w-6 h-6"
+                      src={profile.photoURL}
+                      alt="profile pic"
+                    />
+                  </div>
+                ) : (
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="w-5 h-5 "
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z"
+                    />
+                  </svg>
+                )}
               </li>
 
               <motion.div
@@ -207,9 +219,14 @@ const Nav = () => {
                     <h1 className="flex items-center">Settings</h1>
                   </div>
                   <div
-                    onClick={() => {
+                    onClick={async () => {
                       setDrop(!drop);
-                      logOut();
+                      try {
+                        await signOut(auth); // Sign out from Firebase (handles Google too)
+                        logOut(); // Your custom function to clear app state
+                      } catch (error) {
+                        console.error("Error signing out:", error);
+                      }
                     }}
                     className="flex items-center gap-1 cursor-pointer"
                   >

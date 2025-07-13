@@ -104,7 +104,7 @@ const Footer = () => {
               </div>
             </div>
           </div>
-          <div className="hidden lg:flex lg:flex-col  relative right-4 ">
+          <div className="hidden lg:flex lg:flex-col   items-center  relative right-4 ">
             {subbed ? (
               <>
                 <div className="flex flex-col gap-6 my items-center">
@@ -147,7 +147,7 @@ const Footer = () => {
               </>
             )}
             {quotes ? (
-              <div className="font-light text-base my-4 text-center text-black">
+              <div className="font-light text-base my-4 w-[80%] text-center text-black">
                 {quotes.quote}
               </div>
             ) : (

@@ -88,7 +88,7 @@ const Drop = () => {
           productId={selectedProductId}
         />
       )}
-      <div className="w-screen px-8 lg:px-16 pt-6 pb-10 font-poppins">
+      <div className="w-screen px-4 lg:px-16 pt-6 pb-10 font-poppins">
         <div className="rounded-xl shadow-[0_3px_10px_rgb(0,0,0,0.2)] py-8 px-4 lg:px-16 flex flex-col lg:flex-row">
           <div className="lg:w-1/2  flex flex-col justify-center">
             <h1 className=" opacity-25 font-bold text-lg lg:text-3xl">
