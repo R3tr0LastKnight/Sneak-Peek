@@ -9,6 +9,7 @@ const wishListModel = require("../model/wishListModel");
 const { AsyncLocalStorage } = require("async_hooks");
 const quotesModel = require("../model/quotesModel");
 const ContactUsModel = require("../model/ContactUsModel");
+const uploadBase64ToS3 = require("../utils/uploadBase64ToS3");
 dotenv.config();
 // const razorpay = new Razorpay({
 //   key_id: process.env.RAZORPAY_KEY_ID,
@@ -28,20 +29,37 @@ const contactUsController = async (req, res) => {
 
 const createProductController = async (req, res) => {
   try {
-    const { brand, price, companymodel, photos, colorway, about, country } =
-      req.body;
+    const {
+      brand,
+      price,
+      companymodel,
+      colorway,
+      about,
+      country,
+      photos, // array of base64 strings
+    } = req.body;
+
+    let photoUrls = [];
+
+    if (Array.isArray(photos)) {
+      const uploads = photos.map((base64) => uploadBase64ToS3(base64));
+      photoUrls = await Promise.all(uploads);
+    }
+
     const newProduct = new productModel({
       brand,
       price,
       companymodel,
-      photos,
+      photos: photoUrls, // ✅ now storing AWS URLs, not base64
       colorway,
       about,
       country,
     });
+
     await newProduct.save();
     res.status(201).json(newProduct);
   } catch (error) {
+    console.error("Create product error:", error.message);
     res.status(500).json({ error: error.message });
   }
 };

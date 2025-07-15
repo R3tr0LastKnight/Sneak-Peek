@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Carousels from "./Carousels";
 import { NavLink } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -27,7 +27,19 @@ const Nav = () => {
   const [nav, setNav] = useState(false);
   const [drop, setDrop] = useState(false);
   const [login, setLogin] = useState(false);
+  const [showPhoto, setShowPhoto] = useState(false);
   const { isLoggedIn, logIn, logOut, profile, isAdmin } = useAuth();
+
+  useEffect(() => {
+    // Only try to show photo if it exists
+    if (profile?.photoURL) {
+      const timer = setTimeout(() => {
+        setShowPhoto(true);
+      }, 2000); // Delay of 2 seconds
+
+      return () => clearTimeout(timer); // Cleanup
+    }
+  }, [profile]);
 
   const changeNav = () => {
     window.scrollY >= 0 ? setNav(true) : setNav(false);
@@ -124,11 +136,12 @@ const Nav = () => {
                 className="flex gap-2 mx-2 items-center cursor-pointer"
               >
                 <h1 className="text-sm">{profile && profile.name}</h1>
-                {profile?.photoURL ? (
-                  <div className="flex overflow-hidden rounded-full ">
+                {showPhoto && profile?.photoURL ? (
+                  <div className="flex overflow-hidden rounded-full">
                     <img
                       className="w-6 h-6"
                       src={profile.photoURL}
+                      referrerPolicy="no-referrer"
                       alt="profile pic"
                     />
                   </div>
@@ -139,7 +152,7 @@ const Nav = () => {
                     viewBox="0 0 24 24"
                     strokeWidth={1.5}
                     stroke="currentColor"
-                    className="w-5 h-5 "
+                    className="w-6 h-6"
                   >
                     <path
                       strokeLinecap="round"
