@@ -2,7 +2,7 @@ import React from "react";
 
 const Tos = () => {
   return (
-    <div className="flex flex-col w-[40vw] py-4 mx-auto rounded shadow-lg px-4 mt-2">
+    <div className="flex flex-col lg:w-[40vw] py-4 mx-auto rounded shadow-lg px-4 mt-2">
       <h1 className="font-mentra text-3xl">Returns & Exchange</h1>
       <hr className="bg-black border-black" />
       <div className="my-6 flex flex-col">

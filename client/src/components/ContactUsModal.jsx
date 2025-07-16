@@ -125,12 +125,12 @@ const ContactUs = ({ showModal, setShowModal, productId }) => {
                 </div>
 
                 <div className="lg:w-[60%]  text-white transition-all">
-                  <div className="h-[15rem] lg:h-[35rem] overflow-hidden relative items-center justify-center">
+                  <div className="h-[11rem] lg:h-[35rem] overflow-hidden relative items-center justify-center">
                     <img src={s1} className="w-full h-full absolute " alt="" />
                   </div>
                 </div>
                 <div className="lg:w-[40%]  flex flex-col my-8 ">
-                  <div className="w-full flex flex-col  px-16 py-8 ">
+                  <div className="w-full flex flex-col px-4 lg:px-16 py-8 ">
                     <h1 className="font-mentra text-xl  ">Contact Us</h1>
                     <form
                       className="flex flex-col gap-4 my-6"

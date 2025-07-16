@@ -1,17 +1,12 @@
 import React, { useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
-import s1 from "../assets/carousel/s1.jpg";
-import s2 from "../assets/carousel/s2.jpg";
-import s3 from "../assets/carousel/s3.jpg";
 import axios from "axios";
 import { useLockBodyScroll } from "@uidotdev/usehooks";
 import toast, { Toaster } from "react-hot-toast";
-import { Navigate } from "react-router";
 import { NavLink } from "react-router-dom";
 
 const ProductModal = ({ showModal, setShowModal, productId }) => {
-  const [imgg, setImgg] = useState([s1, s2, s3]);
   const [product, setProduct] = useState(null);
   const [size, setSize] = useState(10);
   const auth = JSON.parse(localStorage.getItem("auth"));
@@ -120,7 +115,7 @@ const ProductModal = ({ showModal, setShowModal, productId }) => {
                 </div>
 
                 <div className="lg:w-[60%]  text-white transition-all">
-                  <div className="h-[15rem] lg:h-[35rem] overflow-hidden relative items-center justify-center">
+                  <div className="h-[11rem] lg:h-[35rem] overflow-hidden relative items-center justify-center">
                     <img
                       src={product.photos}
                       className="w-full h-full absolute "
@@ -129,7 +124,7 @@ const ProductModal = ({ showModal, setShowModal, productId }) => {
                   </div>
                 </div>
                 <div className="lg:w-[40%]  flex flex-col justify-center ">
-                  <div className="w-full flex flex-col lg:justify-between px-16 py-8 ">
+                  <div className="w-full flex flex-col lg:justify-between px-4 lg:px-16 py-8 ">
                     <h1
                       title={product.brand}
                       className="font-mentra text-lg opacity-50  "

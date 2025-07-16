@@ -101,17 +101,34 @@ const LoginPage = () => {
         return;
       }
 
+      // 1. Register the user
       const res = await axios.post(
         `${process.env.REACT_APP_BACKEND_URL}/api/v1/auth/signup`,
         { name, email, password }
       );
+
       if (res && res.data.success) {
-        navigate("/");
+        // 2. Automatically log the user in
+        const loginRes = await axios.post(
+          `${process.env.REACT_APP_BACKEND_URL}/api/v1/auth/login`,
+          { email, password }
+        );
+
+        if (loginRes && loginRes.data.success) {
+          const token = loginRes.data.token;
+          logIn(loginRes.data, token);
+          localStorage.setItem("auth", JSON.stringify(loginRes.data));
+          toast.success("Registration & Login successful!");
+          navigate("/");
+        } else {
+          toast.error("Auto-login failed after registration");
+        }
       } else {
-        console.log(res.data.message);
+        toast.error(res.data.message || "Registration failed");
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
+      toast.error("Something went wrong");
     }
   };
 

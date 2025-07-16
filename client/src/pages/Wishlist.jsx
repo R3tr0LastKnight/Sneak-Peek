@@ -142,7 +142,7 @@ const Wishlist = () => {
         <Meteors />
       </div>
       {wishListItems?.length > 0 ? (
-        <div className="relative grid grid-cols-1  justify-center mx-8 py-4 gap-4 ">
+        <div className="relative grid grid-cols-1  justify-center mx-2   lg:mx-8 py-4 gap-4 ">
           <>
             {wishListItems.map((item) => (
               <div
