@@ -8,7 +8,6 @@ import ProductPage from "./pages/ProductPage";
 import BillingPage from "./pages/BillingPage";
 import OrderSuccess from "./pages/OrderSuccess";
 import load from "./assets/wings.png";
-import Loading from "./components/Loading/Loading";
 
 const IndexPage = lazy(() => import("./pages/IndexPage"));
 const LoginPage = lazy(() => import("./pages/LoginPage"));
@@ -18,7 +17,7 @@ const Wishlist = lazy(() => import("./pages/Wishlist"));
 const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
 const Tnc = lazy(() => import("./pages/Tnc"));
 const Tos = lazy(() => import("./pages/Tos"));
-// const Catalogue = lazy(() => import("./pages/Catalogue"));
+const SettingsPage = lazy(() => import("./pages/SettingsPage"));
 
 function App() {
   const { isAdmin } = useAuth();
@@ -37,6 +36,7 @@ function App() {
           <Route path="/" element={<Layout />}>
             <Route index element={<IndexPage />} />
             <Route path="login" element={<LoginPage />} />
+            <Route path="settings" element={<SettingsPage />} />
             <Route path="catalogue" element={<Catalogue />} />
             <Route path="kart" element={<Kart />} />
             <Route path="wishlist" element={<Wishlist />} />

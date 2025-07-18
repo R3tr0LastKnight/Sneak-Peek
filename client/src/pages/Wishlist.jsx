@@ -63,7 +63,7 @@ const Wishlist = () => {
       return readableTime;
     }
   };
-  console.log("wish", wishListItems);
+
   const handleAdd = async (productId) => {
     if (profile) {
       try {

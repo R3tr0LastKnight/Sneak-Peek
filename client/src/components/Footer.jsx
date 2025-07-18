@@ -22,7 +22,6 @@ const Footer = () => {
           `${process.env.REACT_APP_BACKEND_URL}/api/v1/product/getQuotes`
         );
         setQuotes(response.data);
-        console.log("quotenigga:", response.data);
       } catch (error) {
         console.error("Error fetching the random product:", error);
       }
