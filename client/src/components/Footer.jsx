@@ -9,9 +9,13 @@ import "swiper/css/effect-creative";
 import Meteors from "./magicui/meteors.tsx";
 import { NavLink } from "react-router-dom";
 import ContactUs from "./ContactUsModal.jsx";
+import BrandsModal from "./BrandsModal.jsx";
+import ReleasesModal from "./ReleasesModal.jsx";
 
 const Footer = () => {
   const [showModal, setShowModal] = useState(false);
+  const [showModal2, setShowModal2] = useState(false);
+  const [showModal3, setShowModal3] = useState(false);
   const [quotes, setQuotes] = useState(null);
   const [subbed, setSubbed] = useState(!false);
 
@@ -32,6 +36,8 @@ const Footer = () => {
 
   return (
     <>
+      <ReleasesModal showModal3={showModal3} setShowModal3={setShowModal3} />
+      <BrandsModal showModal2={showModal2} setShowModal2={setShowModal2} />
       <ContactUs showModal={showModal} setShowModal={setShowModal} />
       <div className="flex flex-col lg:flex-row gap-4 my-8 pb-2 mx-4 md:mx-16 relative bottom-0 w-screen justify-between ">
         <div className="flex flex-row w-full md:justify-between lg:gap-6">
@@ -58,10 +64,16 @@ const Footer = () => {
                   >
                     Speak Thy Will
                   </li>
-                  <li className="cursor-pointer hover:underline">
+                  <li
+                    onClick={() => setShowModal2(true)}
+                    className="cursor-pointer hover:underline"
+                  >
                     Hallowed Makers
                   </li>
-                  <li className="cursor-pointer hover:underline">
+                  <li
+                    onClick={() => setShowModal3(true)}
+                    className="cursor-pointer hover:underline"
+                  >
                     Fated Revelations
                   </li>
                   {/* <li>Blogs</li> */}

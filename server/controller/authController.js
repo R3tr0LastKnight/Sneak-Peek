@@ -170,7 +170,7 @@ const googleLoginController = async (req, res) => {
         name: user.name,
         email: user.email,
         admin: user.admin,
-        photoURL: user.photoURL, // <- Send to frontend
+        photoURL: user.photoURL,
       },
       token,
     });

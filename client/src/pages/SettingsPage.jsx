@@ -7,6 +7,7 @@ import "swiper/css/navigation";
 import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import ProductModal from "../components/ProductModal";
 import { NavLink } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const SettingsPage = () => {
   const { profile } = useAuth();
@@ -97,6 +98,64 @@ const SettingsPage = () => {
     }, 100);
   }, []);
 
+  const handleProfilePicChange = async (event) => {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+
+    reader.onloadend = async () => {
+      const base64Image = reader.result;
+
+      const auth = JSON.parse(localStorage.getItem("auth"));
+      const userId = auth?.user?._id;
+
+      if (!userId) {
+        toast.error("User not found");
+        return;
+      }
+
+      try {
+        const res = await axios.post(
+          `${process.env.REACT_APP_BACKEND_URL}/api/v1/product/profile-pic`,
+          {
+            userId,
+            base64Image,
+          }
+        );
+
+        if (res.status === 200 && res.data.user) {
+          toast.success("Profile picture updated!");
+
+          // ✅ Update auth in localStorage
+          const updatedUser = res.data.user;
+          localStorage.setItem(
+            "auth",
+            JSON.stringify({ ...auth, user: updatedUser })
+          );
+
+          // Optional: force a re-render if needed
+          window.location.reload(); // or trigger a rerender some other way
+        } else {
+          toast.error("Update failed");
+        }
+      } catch (err) {
+        console.error("Upload failed:", err);
+        toast.error("Upload failed");
+      }
+    };
+
+    reader.readAsDataURL(file); // Convert image to base64
+  };
+
+  const ensureBase64Prefix = (imgStr) => {
+    console.log(profile.photoURL);
+    if (!imgStr.startsWith("https://lh3.googleusercontent")) {
+      return `data:image/jpeg;base64,${imgStr}`;
+    }
+    return imgStr;
+  };
+
   return (
     <div className="flex flex-col items-center lg:py-8 select-none lg:h-[100vh] font-poppins">
       <div className="flex flex-col px-4 py-5 w-full items-center justify-center gap-5 my-8">
@@ -104,9 +163,9 @@ const SettingsPage = () => {
           <div className="flex flex-col justify-center items-center relative lg:w-1/3   ">
             <div className="flex">
               {profile?.photoURL ? (
-                <div className="flex overflow-hidden rounded-full shadow-[0_3px_10px_rgb(0,0,0,0.2)]">
+                <div className="flex overflow-hidden rounded-full lg:h-60 lg:w-60 shadow-[0_3px_10px_rgb(0,0,0,0.2)]">
                   <img
-                    className="w-32 h-32 lg:h-60 lg:w-60"
+                    className="w-32 h-32 lg:h-full lg:w-full shadow-[0_3px_10px_rgb(0,0,0,0.2)]"
                     src={profile.photoURL}
                     referrerPolicy="no-referrer"
                     alt="profile pic"
@@ -119,7 +178,7 @@ const SettingsPage = () => {
                   viewBox="0 0 24 24"
                   strokeWidth={1.5}
                   stroke="currentColor"
-                  className="w-32 h-32 shadow-[0_3px_10px_rgb(0,0,0,0.2)]"
+                  className="w-32 h-32 "
                 >
                   <path
                     strokeLinecap="round"
@@ -128,7 +187,13 @@ const SettingsPage = () => {
                   />
                 </svg>
               )}
-              <div className="flex overflow-hidden rounded-full bg-white p-1 absolute shadow-[0_3px_10px_rgb(0,0,0,0.2)] left-[75%] top-[85%] lg:left-[65%] lg:top-[90%]  ">
+              <label className="flex cursor-pointer overflow-hidden rounded-full bg-white p-1 absolute shadow-[0_3px_10px_rgb(0,0,0,0.2)] left-[75%] top-[85%] lg:left-[65%] lg:top-[90%]  ">
+                <input
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  onChange={handleProfilePicChange}
+                />
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"
@@ -137,7 +202,7 @@ const SettingsPage = () => {
                 >
                   <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-12.15 12.15a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32L19.513 8.2Z" />
                 </svg>
-              </div>
+              </label>
             </div>
           </div>
           <div className="flex flex-col lg:w-2/3">

@@ -10,6 +10,7 @@ const { AsyncLocalStorage } = require("async_hooks");
 const quotesModel = require("../model/quotesModel");
 const ContactUsModel = require("../model/ContactUsModel");
 const uploadBase64ToS3 = require("../utils/uploadBase64ToS3");
+const userModel = require("../model/userModel");
 dotenv.config();
 // const razorpay = new Razorpay({
 //   key_id: process.env.RAZORPAY_KEY_ID,
@@ -374,6 +375,33 @@ const quotesController = async (req, res) => {
   }
 };
 
+const uploadProfilePicController = async (req, res) => {
+  const { userId, base64Image } = req.body;
+
+  if (!userId || !base64Image) {
+    return res.status(400).json({ error: "Missing data" });
+  }
+
+  try {
+    const user = await userModel.findByIdAndUpdate(
+      userId,
+      { photoURL: base64Image },
+      { new: true }
+    );
+
+    if (!user) return res.status(404).json({ error: "User not found" });
+
+    return res.status(200).json({
+      message: "Profile picture updated",
+      photoURL: user.photoURL,
+      user,
+    });
+  } catch (error) {
+    console.error("Profile pic update failed:", error);
+    res.status(500).json({ error: "Server error" });
+  }
+};
+
 module.exports = {
   createProductController,
   displayProductController,
@@ -392,4 +420,5 @@ module.exports = {
   showCaseProductController,
   quotesController,
   contactUsController,
+  uploadProfilePicController,
 };

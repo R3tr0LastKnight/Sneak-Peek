@@ -16,6 +16,7 @@ const {
   showCaseProductController,
   quotesController,
   contactUsController,
+  uploadProfilePicController,
 } = require("../controller/productController");
 
 const router = require("express").Router();
@@ -42,4 +43,5 @@ router.get("/productofTheDay", productofTheDayController);
 router.get("/showCaseProduct", showCaseProductController);
 router.get("/getQuotes", quotesController);
 router.post("/contact", contactUsController);
+router.post("/profile-pic", uploadProfilePicController);
 module.exports = router;
