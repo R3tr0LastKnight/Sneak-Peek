@@ -1,5 +1,10 @@
 import React from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import ui from "../assets/patchnotes/ui.png";
+import aws from "../assets/patchnotes/aws.png";
+import raz from "../assets/patchnotes/raz.png";
+import fire from "../assets/patchnotes/fire.png";
+import ver from "../assets/patchnotes/ver.png";
 
 const ReleasesModal = ({ showModal3, setShowModal3 }) => {
   const backdrop = {
@@ -62,69 +67,135 @@ const ReleasesModal = ({ showModal3, setShowModal3 }) => {
                     />
                   </svg>
                 </div>
-                <div className="text-2xl font-mentra">Fated Revelations</div>
-                <div className="flex flex-col gap-3">
+                <div className="text-2xl font-mentra">Patch Notes </div>
+                <div className="flex flex-col gap-3 mt-3">
                   <p>
-                    Hark, Tarnished! Cast aside the fading echoes of past
-                    relics, for even the very fabric of the Lands Between hums
-                    with new, untold power! Attend, and hear the boast of these
-                    truly nascent artifices, forged from the very essence of
-                    suffering and triumph!
+                    Hark, Tarnished! Behold my passion project: a React-powered
+                    online storefront crafted with care. Our customers can dive
+                    into a well-maintained collection of sneakers, ready to find
+                    their next perfect pair.
                   </p>
 
                   <p>
-                    From the primordial depths, behold the might of{" "}
-                    <b>Dragonkin Scale</b>! These formidable foot-wrappings,
-                    said to be hewn from the very hide of ancient drakes, offer
-                    unparalleled defense against the fiercest blows, granting
-                    the wearer the resilience of a true beast-lord. Forged in
-                    the perilous Crucible of Farum Azula, they are a testament
-                    to enduring power.
+                    As for me, I'm a rising dragon in the world of web
+                    development, constantly seeking out new challenges and
+                    conquering them one by one. Each project is an opportunity
+                    to hone my skills and expand my horizons, and this sneakers
+                    website is no exception. It's a testament to my dedication
+                    and passion for crafting engaging and functional digital
+                    experiences.
                   </p>
 
-                  <p>
-                    Next, from the maddening veil of dreams, we unveil the{" "}
-                    <b>Moonlit Dream</b>! These ethereal boots, born of
-                    forbidden knowledge and cosmic whispers, bestow a chilling
-                    silence upon the wearer's steps, allowing them to glide
-                    unseen through the waking nightmare. Woven in the Ethereal
-                    Loom of the Hunter's Dream itself, they are a boon for those
-                    who hunt the Eldritch.
+                  <p className="flex text-xl font-mentra mt-4">Highlights</p>
+
+                  <p className="text-lg font-bold">Dynamic UI</p>
+
+                  <p className="flex flex-col lg:flex-row relative gap-5">
+                    <div className="w-2/3">
+                      This site features a truly dynamic user interface. You'll
+                      find a captivating product carousel showcasing our latest
+                      drops and bestsellers. Notice our website's name flowing
+                      across the screen, a smoothly animated title that subtly
+                      changes speed as you scroll, guiding you through our
+                      exciting collection. Dive into our unique showcase
+                      component, where three featured products elegantly switch
+                      places with a click – one becoming prominently large while
+                      the other two gracefully position themselves at its sides.
+                      Don't miss our daily 'Drop of the Day,' always something
+                      fresh and exciting! And of course, it's all built with
+                      responsiveness in mind, ensuring a flawless experience on
+                      any device, from desktop to mobile.
+                    </div>
+                    <img className="w-1/3 " src={ui} alt="" />
                   </p>
 
-                  <p>
-                    Tremble before the unwavering will of{" "}
-                    <b>Iron Will of Ashina</b>! These hardened shinobi
-                    footwraps, steeped in the legacy of blade and bone, grant
-                    unwavering footing amidst the most frantic skirmishes and
-                    perilous leaps. Crafted within the very heart of the
-                    Ascetic's Forge of Ashina Heights, they are for those who
-                    walk the path of vengeance.
+                  <p className="text-lg font-bold">RazorPay</p>
+
+                  <p className="flex flex-col lg:flex-row relative gap-5">
+                    <img className="w-1/3  " src={raz} alt="" />
+                    <div className="w-2/3">
+                      For secure and rapid financial transactions, this website
+                      integrates Razorpay, a leading payment gateway. Razorpay
+                      ensures that all customer payment information, from credit
+                      card details to UPI IDs, is processed with the highest
+                      level of security through PCI DSS Level 1 compliance,
+                      robust encryption protocols (TLS/SSL), and advanced fraud
+                      detection systems. This comprehensive security framework
+                      provides our customers with peace of mind. Beyond
+                      security, Razorpay is engineered for speed, offering
+                      lightning-fast API response times and a seamless checkout
+                      experience that minimizes delays, leading to quick payment
+                      confirmations and efficient processing of orders. This
+                      combination of security and speed makes transactions
+                      smooth and reliable for every purchase.
+                    </div>
                   </p>
 
-                  <p>
-                    Witness the solemn resolve of <b>Unkindled Flame</b>! These
-                    enduring soles, born from the very essence of perseverance,
-                    carry the undying will of those who would defy fate itself.
-                    They offer tireless endurance, guiding the steps of those
-                    who seek to rekindle the flickering light, even from the
-                    desolate Kiln of the First Flame.
+                  <p className="text-lg font-bold">AWS Storage</p>
+
+                  <p className="flex flex-col lg:flex-row relative gap-5">
+                    <div className="w-2/3">
+                      Our website's product catalog is entirely hosted on Amazon
+                      Web Services (AWS) S3 buckets. This choice was fundamental
+                      for building a scalable and reliable e-commerce platform.
+                      S3 provides virtually unlimited storage, ensuring we can
+                      expand our sneaker collection without infrastructure
+                      concerns, while its "eleven nines" (99.999999999%)
+                      durability guarantees our data is always protected and
+                      available through redundant storage across multiple data
+                      centers. This cloud-native approach also delivers high
+                      performance for quick image and detail loading, operates
+                      on a cost-effective pay-as-you-go model, and leverages
+                      AWS's robust security features, including automatic
+                      encryption and granular access controls, securing all
+                      product information from unauthorized access and
+                      integrating seamlessly for future enhancements.
+                    </div>
+                    <img className="w-1/3  " src={aws} alt="" />
                   </p>
 
-                  <p>
-                    And finally, for those destined for true dominion, behold
-                    the <b>Great Runes</b>! These colossal greaves, imbued with
-                    mere fragments of a shattered divinity, grant not just
-                    stride, but an undeniable authority with every step. Forged
-                    in the very Crucible of the Erdtree's Roots, they are
-                    destined for the feet of a true Elden Lord, or a mad
-                    demigod.
+                  <p className="text-lg font-bold">Firebase Google Auth</p>
+
+                  <p className="flex flex-col lg:flex-row relative gap-5">
+                    <img className="w-1/3  " src={fire} alt="" />
+                    <div className="w-2/3">
+                      Our commitment to a seamless user experience extends to
+                      authentication, where we've integrated Google Login and
+                      registration powered by Firebase. This allows customers to
+                      quickly and securely access their accounts using their
+                      existing Google credentials, eliminating the need to
+                      create and remember new passwords. For new users, a smooth
+                      registration process is automatically handled through
+                      Firebase when they sign in with Google for the first time.
+                      This not only enhances convenience but also leverages
+                      Firebase's robust and secure authentication system,
+                      providing enterprise-grade security, easy implementation,
+                      and scalable user management without the overhead of
+                      building a custom authentication backend.
+                    </div>
                   </p>
 
-                  <p>
-                    These are but a few of the nascent powers stirring in the
-                    Lands Between and beyond, awaiting those brave enough, or
-                    cursed enough, to claim them!
+                  <p className="text-lg font-bold">Vercel Deployment</p>
+
+                  <p className="flex flex-col lg:flex-row relative gap-5">
+                    <div className="w-2/3">
+                      Finally, to ensure optimal performance and
+                      maintainability, this project is deployed on Vercel,
+                      leveraging a separate backend and frontend architecture.
+                      The frontend, built with React, is deployed independently
+                      on Vercel, benefiting from its global CDN for
+                      lightning-fast delivery to users worldwide, automatic SSL
+                      certificates, and seamless CI/CD pipeline for instant
+                      deployments. The backend, designed as a separate service,
+                      is also hosted independently, allowing for specialized
+                      scaling and robust API management. This distinct
+                      separation between frontend and backend not only enhances
+                      scalability and flexibility for future updates and feature
+                      additions but also significantly improves developer
+                      collaboration and overall application resilience, as
+                      issues in one layer are less likely to impact the other.
+                    </div>{" "}
+                    <img className="w-1/3  " src={ver} alt="" />
                   </p>
                 </div>
               </div>

@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { useAuth } from "../context/AuthContext";
 import { signOut } from "firebase/auth";
 import { auth } from "../firebase";
+import PatchNotes from "./PatchNotes";
 
 const Nav = () => {
   const subMenuAnimate = {
@@ -28,6 +29,7 @@ const Nav = () => {
   const [drop, setDrop] = useState(false);
   const [login, setLogin] = useState(false);
   const [showPhoto, setShowPhoto] = useState(false);
+  const [hidden, setHidden] = useState(false);
   const { isLoggedIn, logIn, logOut, profile, isAdmin } = useAuth();
 
   useEffect(() => {
@@ -48,17 +50,18 @@ const Nav = () => {
   window.addEventListener("scroll", changeNav);
   return (
     <>
+      <PatchNotes hidden={hidden} setHidden={setHidden} nav={nav} />
       <div
-        className={`flex justify-between py-2 pt-4 fixed top-0 z-50 px-4  w-full transition-all items-center  ${
+        className={`flex justify-between py-2 pt-4 fixed  z-50 px-4  w-full transition-all items-center  ${
           nav
             ? "text-black bg-white shadow-[0_3px_10px_rgb(0,0,0,0.2)]"
             : "text-white"
-        }`}
+        } ${hidden ? " top-0" : ""}`}
       >
         <NavLink
           to={"/"}
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          className=" text-xl lg:text-3xl font-mentra font-extralight flex w-1/3 lg:w-auto flex  mt-1"
+          className=" text-xl lg:text-3xl font-mentra font-extralight relative w-1/3 lg:w-auto flex  mt-1"
         >
           Sneak Peek
         </NavLink>

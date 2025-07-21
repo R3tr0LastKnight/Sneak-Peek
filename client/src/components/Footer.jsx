@@ -74,7 +74,7 @@ const Footer = () => {
                     onClick={() => setShowModal3(true)}
                     className="cursor-pointer hover:underline"
                   >
-                    Fated Revelations
+                    Patch Notes
                   </li>
                   {/* <li>Blogs</li> */}
                 </ul>
