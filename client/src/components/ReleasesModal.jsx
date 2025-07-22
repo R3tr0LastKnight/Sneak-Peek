@@ -91,7 +91,7 @@ const ReleasesModal = ({ showModal3, setShowModal3 }) => {
                   <p className="text-lg font-bold">Dynamic UI</p>
 
                   <p className="flex flex-col lg:flex-row relative gap-5">
-                    <div className="w-2/3">
+                    <div className="lg:w-2/3">
                       This site features a truly dynamic user interface. You'll
                       find a captivating product carousel showcasing our latest
                       drops and bestsellers. Notice our website's name flowing
@@ -106,14 +106,14 @@ const ReleasesModal = ({ showModal3, setShowModal3 }) => {
                       responsiveness in mind, ensuring a flawless experience on
                       any device, from desktop to mobile.
                     </div>
-                    <img className="w-1/3 " src={ui} alt="" />
+                    <img className="lg:w-1/3 " src={ui} alt="" />
                   </p>
 
                   <p className="text-lg font-bold">RazorPay</p>
 
                   <p className="flex flex-col lg:flex-row relative gap-5">
-                    <img className="w-1/3  " src={raz} alt="" />
-                    <div className="w-2/3">
+                    <img className="lg:w-1/3  " src={raz} alt="" />
+                    <div className="lg:w-2/3">
                       For secure and rapid financial transactions, this website
                       integrates Razorpay, a leading payment gateway. Razorpay
                       ensures that all customer payment information, from credit
@@ -134,7 +134,7 @@ const ReleasesModal = ({ showModal3, setShowModal3 }) => {
                   <p className="text-lg font-bold">AWS Storage</p>
 
                   <p className="flex flex-col lg:flex-row relative gap-5">
-                    <div className="w-2/3">
+                    <div className="lg:w-2/3">
                       Our website's product catalog is entirely hosted on Amazon
                       Web Services (AWS) S3 buckets. This choice was fundamental
                       for building a scalable and reliable e-commerce platform.
@@ -151,14 +151,14 @@ const ReleasesModal = ({ showModal3, setShowModal3 }) => {
                       product information from unauthorized access and
                       integrating seamlessly for future enhancements.
                     </div>
-                    <img className="w-1/3  " src={aws} alt="" />
+                    <img className="lg:w-1/3  " src={aws} alt="" />
                   </p>
 
                   <p className="text-lg font-bold">Firebase Google Auth</p>
 
                   <p className="flex flex-col lg:flex-row relative gap-5">
-                    <img className="w-1/3  " src={fire} alt="" />
-                    <div className="w-2/3">
+                    <img className="lg:w-1/3  " src={fire} alt="" />
+                    <div className="lg:w-2/3">
                       Our commitment to a seamless user experience extends to
                       authentication, where we've integrated Google Login and
                       registration powered by Firebase. This allows customers to
@@ -178,7 +178,7 @@ const ReleasesModal = ({ showModal3, setShowModal3 }) => {
                   <p className="text-lg font-bold">Vercel Deployment</p>
 
                   <p className="flex flex-col lg:flex-row relative gap-5">
-                    <div className="w-2/3">
+                    <div className="lg:w-2/3">
                       Finally, to ensure optimal performance and
                       maintainability, this project is deployed on Vercel,
                       leveraging a separate backend and frontend architecture.
@@ -195,7 +195,7 @@ const ReleasesModal = ({ showModal3, setShowModal3 }) => {
                       collaboration and overall application resilience, as
                       issues in one layer are less likely to impact the other.
                     </div>{" "}
-                    <img className="w-1/3  " src={ver} alt="" />
+                    <img className="lg:w-1/3  " src={ver} alt="" />
                   </p>
                 </div>
               </div>
